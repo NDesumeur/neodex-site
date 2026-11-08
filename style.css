@@ -16,9 +16,8 @@ img { image-rendering: pixelated; }
 code { font: 15px var(--text); color: var(--lilac); background: var(--line); padding: 1px 6px; box-shadow: 0 2px 0 var(--out); }
 
 /* le décor, en deux couches qui dérivent lentement comme dans l'appli */
-#skyFar, #sky { position: fixed; left: 0; top: 0; z-index: 0; background-repeat: no-repeat; image-rendering: pixelated; will-change: transform; animation: drift 50s ease-in-out infinite alternate; }
+#skyFar, #sky { position: fixed; left: 0; top: 0; z-index: 0; will-change: transform; animation: drift 50s ease-in-out infinite alternate; }
 #skyFar { --dx: 46px; --dy: 26px; } #sky { --dx: 88px; --dy: 52px; }
-#fx { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
 @keyframes drift { from { transform: translate3d(var(--dx), calc(-1 * var(--dy)), 0); } to { transform: translate3d(calc(-1 * var(--dx)), var(--dy), 0); } }
 body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .07) 0 2px, transparent 2px 4px); }
 
@@ -129,3 +128,5 @@ h1 .dyme { color: var(--shell); text-shadow: 3px 3px 0 var(--magenta); }
 .nav .tab { --fill: rgba(var(--d12), .78); --c: var(--line); color: var(--lilac); }
 .nav .tab:hover { --fill: rgba(var(--mgr), .2); --c: var(--magenta); }
 .tile .pix.big { height: 44px; align-items: end; }
+.group { font: 9px var(--title); letter-spacing: 2px; color: var(--pink); text-transform: uppercase; margin: 26px 0 16px; }
+.head + .group { margin-top: 4px; }

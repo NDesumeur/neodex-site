@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="skyFar" aria-hidden="true"></div>
-<div id="sky" aria-hidden="true"><canvas id="fx"></canvas></div>
+<canvas id="skyFar" aria-hidden="true"></canvas>
+<canvas id="sky" aria-hidden="true"></canvas>
 
 <main class="wrap">
 
@@ -33,7 +33,7 @@
 <section class="hero panel px">
   <p class="label">Pour Windows 10 et 11 · gratuit</p>
   <h2 class="big">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
-  <p class="lead">NeoDex réunit un accueil vivant, un vrai navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
+  <p class="lead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
   <div class="row">
     <a class="btn main px" href="https://github.com/NDesumeur/neodex-releases/releases/latest"><i class="pix" data-pix="down"></i>Télécharger NeoDex</a>
     <a class="btn px" href="#store"><i class="pix" data-pix="bag"></i>Voir NeoStore</a>
@@ -42,21 +42,33 @@
 </section>
 
 <section id="fonctions" class="panel px">
-  <div class="head"><span class="label">Ce que fait NeoDex</span><span class="count">13</span></div>
+  <div class="head"><span class="label">Ce que fait NeoDex</span><span class="count">18</span></div>
+  <h3 class="group">Accueil et navigation</h3>
   <div class="feat">
-    <article class="tile px"><i class="pix big" data-pix="home"></i><h3>Un accueil vivant</h3><p>Plus de 40 décors animés, des tuiles pour tes sites et tes applis, des widgets et ton agenda.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="globe"></i><h3>Un vrai navigateur</h3><p>Des onglets, l'écran partagé pour deux pages côte à côte, un mini-lecteur pour garder une vidéo en coin, et les extensions Chrome.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="home"></i><h3>Ta page d'accueil</h3><p>Tes sites en tuiles, des widgets et ton agenda, devant un décor animé tiré au hasard à chaque lancement.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="globe"></i><h3>Navigateur à onglets</h3><p>Des onglets, l'écran partagé pour deux pages côte à côte, les téléchargements et les extensions Chrome.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="mini"></i><h3>Mini-lecteur</h3><p>Une vidéo continue dans un coin de l'écran pendant que tu fais autre chose.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="dock"></i><h3>Barre d'applis</h3><p>Une colonne à gauche, comme dans Opera GX : tes applis et tes sites en un clic, et les chaînes Twitch en direct.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="cmd"></i><h3>Ctrl+K pour tout</h3><p>Une seule boîte pour trouver un onglet, un site, une appli ou un réglage, même depuis une page web.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="trad"></i><h3>Traduction de pages</h3><p>Une page entière traduite dans ta langue en un clic, sans quitter le site.</p></article>
+  </div>
+  <h3 class="group">Sécurité et vie privée</h3>
+  <div class="feat">
     <article class="tile px"><i class="pix big" data-pix="shield"></i><h3>Bloqueur de pub et VPN</h3><p>Les publicités disparaissent, YouTube compris, et le VPN s'allume en un clic.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="key"></i><h3>Coffre de mots de passe</h3><p>Tes mots de passe restent chiffrés sur ton PC et se remplissent tout seuls sur les sites.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="cmd"></i><h3>Tout en un raccourci</h3><p>Ctrl+K ouvre une seule boîte pour trouver un onglet, un site, une appli ou un réglage, même depuis une page web.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="trad"></i><h3>Traduction et fenêtre privée</h3><p>Une page entière traduite dans ta langue en un clic, et une fenêtre privée qui ne garde aucun historique.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="bag"></i><h3>NeoStore</h3><p>Plus de 100 applis et jeux à installer en un clic : musique, jeux, bureautique, outils, compagnon.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="key"></i><h3>Mots de passe</h3><p>Ils restent chiffrés sur ton PC, NeoDex propose de les retenir et les remplit tout seul.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="chest"></i><h3>Coffre-fort de fichiers</h3><p>Tes fichiers chiffrés sur ton PC, avec un mot de passe que NeoDex ne garde jamais.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="eye"></i><h3>Fenêtre privée</h3><p>Une fenêtre à part qui ne garde ni historique ni connexion une fois fermée.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="lock"></i><h3>Page Sécurité</h3><p>Ce qui protège ton PC, ce que chaque site et chaque appli a le droit de faire, et les fichiers mis en quarantaine.</p></article>
     <article class="tile px"><i class="pix big" data-pix="seal"></i><h3>Applis signées</h3><p>Chaque appli de NeoStore est vérifiée et signée avant d'arriver chez toi. Une archive modifiée est refusée.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="lock"></i><h3>Autorisations et sécurité</h3><p>Chaque appli dit en une phrase ce qu'elle peut faire. La page Sécurité montre ce qui protège ton PC et ce que tu as accordé.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="sync"></i><h3>Synchro et sauvegardes</h3><p>Tuiles, réglages et données suivent sur tous tes PC par OneDrive, Google Drive ou Dropbox, avec des sauvegardes faites pour toi.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="bell"></i><h3>Notifications</h3><p>Ce que NeoDex et tes applis ont à te dire arrive au même endroit, dans le centre de notifications.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="reload"></i><h3>Toujours à jour</h3><p>NeoDex et ses applis se mettent à jour d'eux-mêmes, en un clic.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="phone"></i><h3>Sur ton téléphone</h3><p>L'appli Android retrouve tes raccourcis et ta musique synchronisés.</p></article>
+  </div>
+  <h3 class="group">Outils et applis</h3>
+  <div class="feat">
+    <article class="tile px"><i class="pix big" data-pix="bag"></i><h3>NeoStore</h3><p>Plus de 100 applis et jeux à installer en un clic : musique, jeux, bureautique, outils, compagnon.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="folder"></i><h3>Outils du PC</h3><p>Un explorateur de fichiers, le volume de chaque programme, des notes et le partage d'écran pour Discord ou Meet.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="stats"></i><h3>Statistiques</h3><p>Ton temps passé sur chaque site et chaque appli, jour par jour, avec tes records dans les jeux.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="theme"></i><h3>Thèmes</h3><p>Change toutes les couleurs, les polices et le curseur en pixels, et partage tes thèmes.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="sync"></i><h3>Synchro et sauvegardes</h3><p>Tuiles, réglages et données suivent sur tous tes PC par OneDrive, Google Drive ou Dropbox.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="phone"></i><h3>Sur ton téléphone</h3><p>L'appli Android retrouve tes raccourcis et ta musique, et NeoDex se met à jour tout seul sur ton PC.</p></article>
   </div>
 </section>
 

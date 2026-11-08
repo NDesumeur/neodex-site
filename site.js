@@ -1,4 +1,4 @@
-// le site de NeoDex : les vrais décors de l'appli (exportés en images) avec leurs étoiles qui scintillent, l'horloge, les icônes et la boutique
+// le site de NeoDex : les vrais décors de l'appli (exportés en images) avec leurs étoiles qui scintillent, les icônes et la boutique
 (async () => {
   const $ = id => document.getElementById(id), still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -17,6 +17,13 @@
     cmd: ['.####....', '#....#...', '#....#...', '#....#...', '#....#...', '.####....', '.....##..', '......##.', '.......##'],
     trad: ['#####....', '..#......', '..#......', '..#..###.', '.....#.#.', '....#####', '....#...#', '....#...#', '.........'],
     bell: ['...#...', '..###..', '.#####.', '.#####.', '.#####.', '#######', '#######', '.......', '...#...'],
+    mini: ['#########', '#.......#', '#.......#', '#...#####', '#...#...#', '#...#...#', '#########'],
+    dock: ['###......', '#.#.####.', '###......', '.........', '###......', '#.#.###..', '###......', '.........', '###......', '#.#.#####', '###......'],
+    chest: ['.#######.', '#.......#', '#########', '#...#...#', '#..###..#', '#...#...#', '#########'],
+    eye: ['.........', '..#####..', '.#.....#.', '#...#...#', '#..###..#', '#...#...#', '.#.....#.', '..#####..', '.........'],
+    folder: ['####.....', '#...#####', '#.......#', '#########', '#.......#', '#.......#', '#.......#', '#########'],
+    stats: ['.......##', '.......##', '....##.##', '....##.##', '.##.##.##', '.##.##.##', '.##.##.##', '#########'],
+    theme: ['..#####..', '.#.....#.', '#..#..#.#', '#.......#', '#.##....#', '#.##...#.', '#.....#..', '.#...#...', '..###....'],
     lock: ['..###..', '.#...#.', '.#...#.', '#######', '#######', '###.###', '###.###', '#######'],
   };
   const pixSvg = (rows, s) => { let d = ''; rows.forEach((r, y) => [...r].forEach((c, x) => { if (c === '#') d += `M${x} ${y}h1v1H${x}z`; }));
@@ -25,18 +32,29 @@
 
 
   // ---------- le décor ----------
+  // Comme dans NeoDex : les couches sont dessinées à la taille de l'écran (pixels du décor agrandis sans flou), pour que la dérive
+  // glisse au pixel près. Une petite image agrandie par le CSS sauterait d'un gros pixel à l'autre et saccaderait.
   const meta = await fetch('img/decors/decors.json').then(r => r.json()), keys = Object.keys(meta);
-  const far = $('skyFar'), nearEl = $('sky'), fx = $('fx'), g = fx.getContext('2d');
-  let cur = null, tw = [], shooters = [];
+  const far = $('skyFar'), sky = $('sky'), sx = sky.getContext('2d'), fxc = document.createElement('canvas'), g = fxc.getContext('2d');
+  let cur = null, farImg = null, nearImg = null, tw = [], shooters = [], token = 0;
+  const load = src => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = src; });
   function place() {
     if (!cur) return;
     const { w, h, p } = cur, S = Math.max(3, Math.ceil(innerWidth / (w - 2 * p)), Math.ceil(innerHeight / (h - 2 * p)));
-    for (const el of [far, nearEl]) Object.assign(el.style, { width: w * S + 'px', height: h * S + 'px', left: (innerWidth - w * S) / 2 + 'px', top: (innerHeight - h * S) / 2 + 'px', backgroundSize: '100% 100%' });
+    const D = Math.max(1, Math.min(Math.round(S * devicePixelRatio), Math.floor(Math.sqrt(9e6 / (w * h)))));  // plafond : une couche de 9 millions de pixels au plus (téléphones)
+    for (const c of [far, sky]) {
+      c.width = w * D; c.height = h * D;
+      Object.assign(c.style, { width: w * S + 'px', height: h * S + 'px', left: Math.round((innerWidth - w * S) / 2) + 'px', top: Math.round((innerHeight - h * S) / 2) + 'px' });
+    }
+    const fg = far.getContext('2d'); fg.imageSmoothingEnabled = false; fg.drawImage(farImg, 0, 0, far.width, far.height);
+    sx.imageSmoothingEnabled = false; paint(performance.now());
   }
-  function setDecor(k) {
-    cur = meta[k]; try { localStorage.neoSiteDecor = k; } catch {}
-    far.style.backgroundImage = `url(img/decors/${k}-far.png)`; nearEl.style.backgroundImage = `url(img/decors/${k}-near.png)`;
-    fx.width = cur.w; fx.height = cur.h; tw = cur.tw.map(([x, y, ph, sp, big, gl]) => ({ x, y, ph, sp, big, g: gl.map(c => `rgb(${c})`) })); shooters = [];
+  async function setDecor(k) {
+    const t = ++token, [fi, ni] = await Promise.all([load(`img/decors/${k}-far.png`), load(`img/decors/${k}-near.png`)]);
+    if (t !== token || !fi || !ni) return;  // un autre décor a été choisi entre-temps
+    cur = meta[k]; farImg = fi; nearImg = ni; fxc.width = cur.w; fxc.height = cur.h; shooters = [];
+    tw = cur.tw.map(([x, y, ph, sp, big, gl]) => ({ x, y, ph, sp, big, g: gl.map(c => `rgb(${c})`) }));
+    try { localStorage.neoSiteDecor = k; } catch {}
     place(); document.querySelectorAll('#decTabs .tab').forEach(b => b.classList.toggle('on', b.dataset.k === k));
   }
   const fill = (x, y, c, a) => { g.globalAlpha = a; g.fillStyle = c; g.fillRect(x | 0, y | 0, 1, 1); };
@@ -46,26 +64,25 @@
     for (let k = 2; k <= spikes; k++) { const a = b * (1 - k / (spikes + 1)); fill(x + k, y, c[1], a); fill(x - k, y, c[1], a); fill(x, y + k, c[1], a); fill(x, y - k, c[1], a); }
     fill(x, y, '#fff', Math.min(1, b * 1.3));
   }
-  let last = 0;
-  function frame(t) {
-    requestAnimationFrame(frame);
-    if (document.hidden || t - last < 33 || !cur) return; last = t;
-    g.globalAlpha = 1; g.clearRect(0, 0, fx.width, fx.height);
+  function paint(t) {
+    g.globalAlpha = 1; g.clearRect(0, 0, fxc.width, fxc.height); g.drawImage(nearImg, 0, 0);
     for (const s of tw) { const b = ((Math.sin(t / 1000 * s.sp + s.ph) + 1) / 2) ** 2; if (b > .05) glowStar(s.x, s.y, s.g, b, s.big ? Math.round(b * 4) : 0); }
-    if (cur.shooters && Math.random() < .005) { const dir = Math.random() < .5 ? 1 : -1, sp = 1 + Math.random() * 1.4; shooters.push({ x: (.1 + Math.random() * .8) * cur.w, y: Math.random() * .4 * cur.h, vx: dir * sp, vy: sp * (.35 + Math.random() * .25), life: 0, rare: Math.random() < .15 }); }
+    if (!still && cur.shooters && Math.random() < .005) { const dir = Math.random() < .5 ? 1 : -1, sp = 1 + Math.random() * 1.4; shooters.push({ x: (.1 + Math.random() * .8) * cur.w, y: Math.random() * .4 * cur.h, vx: dir * sp, vy: sp * (.35 + Math.random() * .25), life: 0, rare: Math.random() < .15 }); }
     shooters = shooters.filter(s => s.life++ < 42);
     for (const s of shooters) {  // les étoiles filantes, avec leur traînée qui s'efface
       s.x += s.vx; s.y += s.vy; const len = 32, n = Math.hypot(s.vx, s.vy), ux = s.vx / n, uy = s.vy / n, fade = Math.min(1, (42 - s.life) / 10);
       for (let j = len; j >= 0; j--) { const q = j / len; fill(s.x - ux * j, s.y - uy * j, q < .12 ? '#fff' : s.rare ? '#7fe0ee' : '#ff8ae2', (1 - q) * fade); }
     }
+    g.globalAlpha = 1; sx.clearRect(0, 0, sky.width, sky.height); sx.drawImage(fxc, 0, 0, sky.width, sky.height);
   }
-  $('decTabs').append(...keys.map(k => Object.assign(document.createElement('button'), { className: 'tab px', textContent: meta[k].name, onclick: () => setDecor(k) })));
-  document.querySelectorAll('#decTabs .tab').forEach((b, i) => b.dataset.k = keys[i]);
+  let last = 0;
+  function frame(t) { requestAnimationFrame(frame); if (document.hidden || t - last < 33 || !cur) return; last = t; paint(t); }  // les étoiles à 30 images par seconde ; la dérive, elle, est une animation CSS
+  $('decTabs').append(...keys.map(k => { const b = Object.assign(document.createElement('button'), { className: 'tab px', textContent: meta[k].name, onclick: () => setDecor(k) }); b.dataset.k = k; return b; }));
   $('decCount').textContent = keys.length;
   let first; try { first = localStorage.neoSiteDecor; } catch {}
   setDecor(meta[first] ? keys[(keys.indexOf(first) + 1) % keys.length] : keys[Math.random() * keys.length | 0]);  // un autre décor à chaque visite, comme au lancement de NeoDex
-  addEventListener('resize', place);
-  if (!still) requestAnimationFrame(frame); else frame(1e9);
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(place, 200); });
+  if (!still) requestAnimationFrame(frame);
 
   // ---------- NeoStore ----------
   const [apps, icons] = await Promise.all([fetch('apps.json').then(r => r.json()), fetch('img/store/icons.json').then(r => r.json())]);
