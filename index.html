@@ -24,16 +24,20 @@
   <h1><span class="neo">Neo</span><span class="dyme">Dex</span></h1>
   <nav class="nav">
     <a class="tab px" href="#fonctions">Fonctions</a>
-    <a class="tab px" href="#decors">Décors</a>
     <a class="tab px" href="#store">NeoStore</a>
-    <a class="tab px" href="#installer">Installer</a>
+    <a class="tab px" href="#decors">Décors</a>
   </nav>
 </header>
 
-<section class="hero panel px">
+<section id="installer" class="hero panel px">
   <p class="label">Pour Windows 10 et 11 · gratuit</p>
   <h2 class="big">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
   <p class="lead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
+  <ol class="steps">
+    <li><b>1</b><p>Télécharge <code>NeoDex-Setup.exe</code> avec le bouton ci-dessous.</p></li>
+    <li><b>2</b><p>Lance-le. Si Windows affiche un avertissement, clique sur « Informations complémentaires », puis « Exécuter quand même ».</p></li>
+    <li><b>3</b><p>Choisis un décor, ajoute tes sites, et va faire un tour dans NeoStore.</p></li>
+  </ol>
   <div class="row">
     <a class="btn main px" href="https://github.com/NDesumeur/neodex-releases/releases/latest"><i class="pix" data-pix="down"></i>Télécharger NeoDex</a>
     <a class="btn px" href="#store"><i class="pix" data-pix="bag"></i>Voir NeoStore</a>
@@ -72,12 +76,6 @@
   </div>
 </section>
 
-<section id="decors" class="panel px">
-  <div class="head"><span class="label">Les décors</span><span class="count" id="decCount">12</span></div>
-  <p class="lead">Chaque lancement tire un nouveau décor, dessiné en pixels avec ses étoiles qui scintillent et ses étoiles filantes. En voici quelques-uns : clique pour les essayer ici.</p>
-  <div id="decTabs" class="tabs"></div>
-</section>
-
 <section id="store" class="store">
   <img class="banner" src="img/store/banner.png" alt="La devanture du NeoStore" width="960" height="192">
   <div class="shop">
@@ -92,14 +90,10 @@
   </div>
 </section>
 
-<section id="installer" class="panel px">
-  <div class="head"><span class="label">Installer NeoDex</span></div>
-  <ol class="steps">
-    <li><b>1</b><p>Télécharge <code>NeoDex-Setup.exe</code> depuis la dernière version.</p></li>
-    <li><b>2</b><p>Lance-le. Si Windows affiche un avertissement, clique sur « Informations complémentaires », puis « Exécuter quand même ».</p></li>
-    <li><b>3</b><p>Choisis un décor, ajoute tes sites, et va faire un tour dans NeoStore.</p></li>
-  </ol>
-  <p class="center"><a class="btn main px" href="https://github.com/NDesumeur/neodex-releases/releases/latest"><i class="pix" data-pix="down"></i>Télécharger NeoDex</a></p>
+<section id="decors" class="panel px">
+  <div class="head"><span class="label">Les décors</span><span class="count" id="decCount">12</span></div>
+  <p class="lead">Chaque lancement tire un nouveau décor, dessiné en pixels avec ses étoiles qui scintillent et ses étoiles filantes. En voici quelques-uns : clique pour les essayer ici.</p>
+  <div id="decTabs" class="tabs"></div>
 </section>
 
 <footer class="foot label">
