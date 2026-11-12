@@ -101,7 +101,7 @@
     document.querySelectorAll('[data-count]').forEach(e => e.textContent = apps.length);
     document.querySelectorAll('#decTabs .tab').forEach(b => b.textContent = lang === 'en' ? DEC_EN[meta[b.dataset.k].name] || meta[b.dataset.k].name : meta[b.dataset.k].name);
     $('q').placeholder = UI[lang].qPh;
-    dlInfo(); news(); chips(); draw(); route();
+    dlInfo(); news(); chips(); sysChips(); draw(); route();
   }
   $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };
 
@@ -150,10 +150,14 @@
     $('chips').innerHTML = cats.map(c => `<button class="chip${c === cat ? ' on' : ''}" data-c="${esc(c)}">${c === 'Tout' ? '' : `<img src="${ico(c)}" alt="">`}${esc(famLabel(c))}</button>`).join('');
   }
   $('chips').onclick = e => { const b = e.target.closest('.chip'); if (b) { cat = b.dataset.c; chips(); draw(); } };
+  // le filtre par système : Windows, Android, Linux (lu dans le plugin.json de chaque appli)
+  const PF = { windows: 'Windows', android: 'Android', linux: 'Linux' }; let sys = '';
+  function sysChips() { $('sys').innerHTML = [['', UI[lang].sys], ...Object.entries(PF)].map(([k, l]) => `<button class="chip${k === sys ? ' on' : ''}" data-k="${k}" aria-pressed="${k === sys}">${esc(l)}</button>`).join(''); }
+  $('sys').onclick = e => { const b = e.target.closest('.chip'); if (b) { sys = b.dataset.k; sysChips(); draw(); } };
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   function draw() {
     const q = norm($('q').value.trim());
-    const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
+    const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!sys || (a.pf || []).includes(sys)) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
     $('apps').innerHTML = list.map(a => { const t = L(a); return `<button class="app" data-s="${a.s}"><img src="img/apps/${a.s}.png" alt="" loading="lazy" width="48" height="48"><b>${esc(t.n)}</b><small>${esc(t.c)}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
       || `<p class="label">${UI[lang].none}</p>`;
     $('shown').textContent = UI[lang].apps(list.length);
@@ -167,7 +171,7 @@
       + (a.shot ? `<img class="shShot" src="img/shots/${a.s}.${a.shot}" alt="">` : '')
       + `<p class="shDesc">${esc(t.d)}</p><p class="label">${u.perms}</p><ul class="shPerms">`
       + a.pm.map(p => `<li><span class="risk ${p.r}">${esc(u.risk[p.r] || p.r)}</span><b>${esc(lang === 'en' ? p.le : p.l)}</b><p>${esc(lang === 'en' ? p.se : p.s)}</p></li>`).join('')
-      + `</ul><div class="shMeta"><span class="count">${u.version} ${esc(a.v)}</span><span class="label">${u.getIt}</span></div>`;
+      + `</ul><div class="shMeta"><span class="count">${u.version} ${esc(a.v)}</span><span class="label">${u.runs} ${(a.pf || []).map(k => PF[k]).join(' · ')}</span><span class="label">${u.getIt}</span></div>`;
     $('sheet').showModal(); $('sheet').scrollTop = 0;
   }
   $('apps').onclick = e => { const b = e.target.closest('.app'); if (b) sheet(apps.find(a => a.s === b.dataset.s)); };

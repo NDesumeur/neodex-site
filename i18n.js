@@ -3,7 +3,7 @@ const EN = {
   nAccueil: 'Home', nDecors: 'Scenes', nNews: "What's new", nFaq: 'Questions', nDev: 'Creators', nDl: 'Download',
   hLabel: 'For Windows 10 and 11 · free',
   hTitle: 'Your home page, your browser<br>and your apps, in one window.',
-  hLead: 'NeoDex brings together your home page, a protected browser and a store of more than <b class="pink" data-count>100</b> apps and games.',
+  hLead: 'NeoDex brings together your home page, a protected browser and a store of <b class="pink" data-count>150</b> apps and games.',
   s1: 'Download <code>NeoDex-Setup.exe</code> with the button below.',
   s2: 'Run it. If Windows shows a warning, click “More info”, then “Run anyway”.',
   s3: 'Pick a scene, add your sites, and take a look around NeoStore.',
@@ -35,7 +35,7 @@ const EN = {
   q1: 'Is it free?', a1: 'Yes. NeoDex and every NeoStore app are free, with no ads.',
   q2: 'Where does my data go?', a2: 'On your PC, in the <code>%APPDATA%\\NeoDex</code> folder. It only leaves it if you turn on sync: it then goes through your own OneDrive, Google Drive or Dropbox, encrypted with your password. Each app only sees what its permissions allow.',
   q3: 'How do I uninstall NeoDex?', a3: 'In Windows: Settings › Apps › Installed apps › NeoDex › Uninstall. Your data stays in <code>%APPDATA%\\NeoDex</code> in case you come back; delete that folder to erase everything.',
-  q4: 'Does it work on Mac or Linux?', a4: 'Not for now: NeoDex is made for Windows 10 and 11. An Android app comes with NeoDex to find your shortcuts and music on your phone.',
+  q4: 'Does it work on Mac or Linux?', a4: 'NeoDex is made for Windows 10 and 11. A Linux version is on its way: it is built and tested with every release, but not offered for download yet. No Mac version. An Android app comes with NeoDex to find your shortcuts and music. In NeoStore, every app shows the systems it runs on.',
   q5: 'Why does Windows show a warning?', a5: 'The installer has no paid Microsoft certificate, so Windows warns you as a precaution. Click “More info”, then “Run anyway”. Updates, on the other hand, are signed and checked by NeoDex before they are installed.',
   q6: 'Are NeoStore apps safe?', a6: 'Apps in the official catalog are reviewed and then signed: NeoDex refuses a modified archive. An unverified app can still be installed, but NeoStore warns you first. Each app says what it can do, and you can remove a permission at any time.',
   q7: 'How do updates work?', a7: 'By themselves: NeoDex checks for a new version and offers to install it in one click. NeoStore apps update the same way.',
@@ -44,17 +44,17 @@ const EN = {
   c1: 'With code', c1d: 'A plugin is a <code>plugin.json</code>, an <code>index.js</code> and an icon. NeoDex gives it a <code>ctx</code> context: its view, its saved and synced data, and only the permissions it asks for.',
   cSteps: 'In 4 steps',
   cs1: 'Create a public GitHub repository and add the <code>neodex-plugin</code> topic to it: that is how NeoStore finds it.',
-  cs2: 'Put <code>plugin.json</code> (identity, version, permissions), <code>index.js</code> and <code>icon.png</code> at the root, in pixel art if you can.',
+  cs2: 'Put <code>plugin.json</code> (identity, version, permissions and <code>compatibility</code>: the systems it runs on), <code>index.js</code>, <code>icon.png</code> in pixel art if you can, <code>locales/en.json</code> for the English version, and a README in French and in English at the root.',
   cs3: 'Publish a GitHub Release with the <code>&lt;id&gt;-&lt;version&gt;.zip</code> archive: that is the file NeoStore downloads.',
   cs4: 'To enter the official catalog, get your plugin approved: it receives a signed attestation. Without it, it can still be installed but is marked “unverified”.',
   cSdk: 'The SDK and its docs', cGuide: 'Step-by-step guide', by: 'NeoDex, made by',
 };
 // les textes écrits par le script (boutique, fiche, nouveautés), dans les deux langues
 const UI = {
-  fr: { qPh: 'Cherche une appli…', all: 'Tout', games: 'Jeux', apps: n => n + (n > 1 ? ' applis' : ' appli'), none: 'Aucune appli ne correspond.', version: 'Version', perms: 'Ce qu’elle peut faire',
+  fr: { sys: 'Tous les systèmes', runs: 'Marche sur', qPh: 'Cherche une appli…', all: 'Tout', games: 'Jeux', apps: n => n + (n > 1 ? ' applis' : ' appli'), none: 'Aucune appli ne correspond.', version: 'Version', perms: 'Ce qu’elle peut faire',
     risk: { faible: 'faible', moyen: 'moyen', 'élevé': 'élevé' }, noShot: 'Pas encore de capture.', getIt: 'L’installer depuis NeoStore, dans NeoDex', newsErr: 'Impossible de lire les versions pour l’instant.', size: 'Mo', ver: 'version',
     where: { accueil: '', store: 'NeoStore', decors: 'Décors', nouveautes: 'Nouveautés', questions: 'Questions', createurs: 'Créateurs' }, date: 'fr-FR' },
-  en: { qPh: 'Search for an app…', all: 'All', games: 'Games', apps: n => n + (n > 1 ? ' apps' : ' app'), none: 'No app matches.', version: 'Version', perms: 'What it can do',
+  en: { sys: 'All systems', runs: 'Runs on', qPh: 'Search for an app…', all: 'All', games: 'Games', apps: n => n + (n > 1 ? ' apps' : ' app'), none: 'No app matches.', version: 'Version', perms: 'What it can do',
     risk: { faible: 'low', moyen: 'medium', 'élevé': 'high' }, noShot: 'No screenshot yet.', getIt: 'Install it from NeoStore, inside NeoDex', newsErr: 'Cannot read the versions right now.', size: 'MB', ver: 'version',
     where: { accueil: '', store: 'NeoStore', decors: 'Scenes', nouveautes: "What's new", questions: 'Questions', createurs: 'Creators' }, date: 'en-GB' },
 };

@@ -44,7 +44,7 @@
 <section class="hero panel px">
   <p class="label" data-t="hLabel">Pour Windows 10 et 11 · gratuit</p>
   <h2 class="big" data-t="hTitle">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
-  <p class="lead" data-t="hLead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
+  <p class="lead" data-t="hLead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de <b class="pink" data-count>150</b> applis et jeux.</p>
   <ol class="steps">
     <li><b>1</b><p data-t="s1">Télécharge <code>NeoDex-Setup.exe</code> avec le bouton ci-dessous.</p></li>
     <li><b>2</b><p data-t="s2">Lance-le. Si Windows affiche un avertissement, clique sur « Informations complémentaires », puis « Exécuter quand même ».</p></li>
@@ -98,6 +98,7 @@
       <label class="search"><input id="q" type="search" placeholder="Cherche une appli…" data-tp="qPh" aria-label="Chercher une appli"></label>
       <span class="sign" id="shown"></span>
     </div>
+    <div id="sys" class="chips" role="group" aria-label="Système"></div>
     <div id="chips" class="chips"></div>
     <div id="apps" class="apps"></div>
     <img class="counter" src="img/store/counter.png" alt="" width="320" height="104">
@@ -132,7 +133,7 @@
     <details class="px"><summary data-t="q1">Est-ce gratuit ?</summary><p data-t="a1">Oui. NeoDex et toutes les applis de NeoStore sont gratuits, sans publicité.</p></details>
     <details class="px"><summary data-t="q2">Mes données vont où ?</summary><p data-t="a2">Sur ton PC, dans le dossier <code>%APPDATA%\NeoDex</code>. Elles n'en sortent que si tu actives la synchro : elles passent alors par ton propre OneDrive, Google Drive ou Dropbox, chiffrées avec ton mot de passe. Chaque appli ne voit que ce que ses autorisations lui permettent.</p></details>
     <details class="px"><summary data-t="q3">Comment désinstaller NeoDex ?</summary><p data-t="a3">Dans Windows : Paramètres › Applications › Applications installées › NeoDex › Désinstaller. Tes données restent dans <code>%APPDATA%\NeoDex</code> au cas où tu reviendrais ; supprime ce dossier pour tout effacer.</p></details>
-    <details class="px"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">Pas pour l'instant : NeoDex est fait pour Windows 10 et 11. Une appli Android accompagne NeoDex pour retrouver tes raccourcis et ta musique sur ton téléphone.</p></details>
+    <details class="px"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">NeoDex est fait pour Windows 10 et 11. Une version Linux est en préparation : elle se construit et passe ses tests à chaque version, mais n'est pas encore proposée au téléchargement. Pas de version Mac. Une appli Android accompagne NeoDex pour retrouver tes raccourcis et ta musique. Dans NeoStore, chaque appli indique les systèmes où elle marche.</p></details>
     <details class="px"><summary data-t="q5">Pourquoi Windows affiche un avertissement ?</summary><p data-t="a5">L'installateur n'a pas de certificat payant de Microsoft, alors Windows prévient par précaution. Clique sur « Informations complémentaires », puis « Exécuter quand même ». Les mises à jour, elles, sont signées et vérifiées par NeoDex avant d'être installées.</p></details>
     <details class="px"><summary data-t="q6">Les applis de NeoStore sont-elles sûres ?</summary><p data-t="a6">Les applis du catalogue officiel sont examinées puis signées : NeoDex refuse une archive modifiée. Une appli non vérifiée reste installable, mais NeoStore te prévient avant. Chaque appli dit ce qu'elle peut faire, et tu peux retirer une autorisation à tout moment.</p></details>
     <details class="px"><summary data-t="q7">Comment se font les mises à jour ?</summary><p data-t="a7">Toutes seules : NeoDex vérifie s'il existe une nouvelle version et te propose de l'installer en un clic. Les applis de NeoStore se mettent à jour de la même façon.</p></details>
@@ -152,7 +153,7 @@
   <h3 class="group" data-t="cSteps">En 4 étapes</h3>
   <ol class="steps">
     <li><b>1</b><p data-t="cs1">Crée un dépôt GitHub public et ajoute-lui le sujet <code>neodex-plugin</code> : c'est ainsi que NeoStore le trouve.</p></li>
-    <li><b>2</b><p data-t="cs2">Mets à la racine <code>plugin.json</code> (identité, version, autorisations), <code>index.js</code> et <code>icon.png</code>, en pixel art de préférence.</p></li>
+    <li><b>2</b><p data-t="cs2">Mets à la racine <code>plugin.json</code> (identité, version, autorisations et <code>compatibility</code> : les systèmes où il marche), <code>index.js</code>, <code>icon.png</code> en pixel art de préférence, <code>locales/en.json</code> pour la version anglaise, et un README en français et en anglais.</p></li>
     <li><b>3</b><p data-t="cs3">Publie une Release GitHub avec l'archive <code>&lt;id&gt;-&lt;version&gt;.zip</code> : c'est le fichier que NeoStore télécharge.</p></li>
     <li><b>4</b><p data-t="cs4">Pour entrer au catalogue officiel, fais approuver ton plugin : il reçoit une attestation signée. Sans elle, il reste installable mais marqué « non vérifié ».</p></li>
   </ol>
