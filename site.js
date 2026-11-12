@@ -125,11 +125,13 @@
   }
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>');
-  function news() {  // les notes de version, écrites en français dans les Releases
+  // les notes de version : le français, puis l'anglais sous le repère <!-- en --> (les anciennes n'ont que le français)
+  const part = body => (b => lang === 'en' && b[1] ? b[1] : b[0])(String(body || '').split('<!-- en -->'));
+  function news() {
     if (rels === null) return;
     if (!rels.length) { $('news').innerHTML = `<p class="label">${UI[lang].newsErr}</p>`; return; }
     $('news').innerHTML = rels.slice(0, 5).map((r, i) => {
-      const lines = (r.body || '').split(/\r?\n/).map(l => l.trim()).filter(l => /^[-*] /.test(l)).map(l => `<li>${md(l.slice(2))}</li>`).join('');
+      const lines = part(r.body).split(/\r?\n/).map(l => l.trim()).filter(l => /^[-*] /.test(l)).map(l => `<li>${md(l.slice(2))}</li>`).join('');
       const d = new Date(r.published_at).toLocaleDateString(UI[lang].date, { day: 'numeric', month: 'long', year: 'numeric' });
       return `<article class="rel px${i ? '' : ' latest'}"><h3>NeoDex ${esc(r.tag_name.replace(/^v/, ''))} <span class="label">${d}</span></h3>${lines ? `<ul>${lines}</ul>` : ''}</article>`;
     }).join('');
