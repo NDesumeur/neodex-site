@@ -7,7 +7,7 @@ const EN = {
   lgApp: 'The NeoDex app',
   lgA1: 'No account, no NeoDex server, no statistics or telemetry. Your data stays on your PC, in <code>%APPDATA%&#92;NeoDex</code>.',
   lgA2: 'Sync only turns on if you choose it, to your own cloud folder (OneDrive, Google Drive…). With a password, it is encrypted before it leaves.',
-  lgA3: 'NeoDex only contacts: GitHub (updates, NeoStore, removed apps), Ghostery (ad blocker lists), Open-Meteo (weather for the city you pick), Have I Been Pwned (to check a password: only 5 characters of its hash leave, never the password), Google Translate (only when you translate a page), Twitch (your live channels), Cloudflare WARP or Tor (only with the VPN on), and of course the sites you open.',
+  lgA3: 'NeoDex only contacts: GitHub (updates, NeoStore, removed apps), Google Fonts (the fonts, at startup), Ghostery (ad blocker lists), Open-Meteo (weather for the city you pick), Have I Been Pwned (to check a password: only 5 characters of its hash leave, never the password), Google Translate (only when you translate a page), Twitch (your live channels), Cloudflare WARP or Tor (only with the VPN on), and of course the sites you open.',
   lgA4: 'If it crashes, nothing is sent on its own: NeoDex offers to let you open a report on GitHub yourself. Every NeoStore app declares what it can access, and the Permissions screen shows the sites it contacts.',
   lgA5: 'To erase everything, delete the <code>%APPDATA%&#92;NeoDex</code> folder or uninstall NeoDex. A question? <a href="https://github.com/NDesumeur/neodex-releases/issues">Write on GitHub</a>.',
   lgLegal: 'Legal notice',
