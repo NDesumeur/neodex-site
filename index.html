@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NeoDex</title>
-<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows, tout en pixel art. Plus de 100 applis et jeux à installer depuis NeoStore.">
+<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows, tout en pixel art. Plus de 150 applis et jeux à installer depuis NeoStore.">
 <meta property="og:title" content="NeoDex">
 <meta property="og:description" content="Page d'accueil, navigateur et bureau d'applis pour Windows, tout en pixel art.">
 <meta property="og:image" content="img/logo.png">
@@ -18,89 +18,164 @@
 <canvas id="skyFar" aria-hidden="true"></canvas>
 <canvas id="sky" aria-hidden="true"></canvas>
 
+<!-- la barre d'applis, comme celle de NeoDex : une page par bouton -->
+<nav id="dock" aria-label="Pages du site">
+  <a class="dkLogo" href="#accueil" aria-label="NeoDex"><img src="img/favicon.png" alt="" width="36" height="36"></a>
+  <a class="dkI" href="#accueil" data-v="accueil"><i class="pix" data-pix="home"></i><span data-t="nAccueil">Accueil</span></a>
+  <a class="dkI" href="#store" data-v="store"><i class="pix" data-pix="bag"></i><span>NeoStore</span></a>
+  <a class="dkI" href="#decors" data-v="decors"><i class="pix" data-pix="pic"></i><span data-t="nDecors">Décors</span></a>
+  <a class="dkI" href="#nouveautes" data-v="nouveautes"><i class="pix" data-pix="spark"></i><span data-t="nNews">Nouveautés</span></a>
+  <a class="dkI" href="#questions" data-v="questions"><i class="pix" data-pix="ask"></i><span data-t="nFaq">Questions</span></a>
+  <a class="dkI" href="#createurs" data-v="createurs"><i class="pix" data-pix="code"></i><span data-t="nDev">Créateurs</span></a>
+  <span class="dkSep"></span>
+  <button class="dkI dkLang" id="lang" type="button" aria-label="Changer de langue / Change language"><b>EN</b></button>
+  <a class="dkI dkDl" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl><i class="pix" data-pix="down"></i><span data-t="nDl">Télécharger</span></a>
+</nav>
+
 <main class="wrap">
 
 <header class="top">
   <h1><span class="neo">Neo</span><span class="dyme">Dex</span></h1>
-  <nav class="nav">
-    <a class="tab px" href="#fonctions">Fonctions</a>
-    <a class="tab px" href="#store">NeoStore</a>
-    <a class="tab px" href="#decors">Décors</a>
-  </nav>
+  <span class="label" id="where"></span>
 </header>
 
-<section id="installer" class="hero panel px">
-  <p class="label">Pour Windows 10 et 11 · gratuit</p>
-  <h2 class="big">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
-  <p class="lead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
+<!-- Accueil -->
+<div class="view" id="v-accueil">
+<section class="hero panel px">
+  <p class="label" data-t="hLabel">Pour Windows 10 et 11 · gratuit</p>
+  <h2 class="big" data-t="hTitle">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
+  <p class="lead" data-t="hLead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de plus de <b class="pink" data-count>100</b> applis et jeux.</p>
   <ol class="steps">
-    <li><b>1</b><p>Télécharge <code>NeoDex-Setup.exe</code> avec le bouton ci-dessous.</p></li>
-    <li><b>2</b><p>Lance-le. Si Windows affiche un avertissement, clique sur « Informations complémentaires », puis « Exécuter quand même ».</p></li>
-    <li><b>3</b><p>Choisis un décor, ajoute tes sites, et va faire un tour dans NeoStore.</p></li>
+    <li><b>1</b><p data-t="s1">Télécharge <code>NeoDex-Setup.exe</code> avec le bouton ci-dessous.</p></li>
+    <li><b>2</b><p data-t="s2">Lance-le. Si Windows affiche un avertissement, clique sur « Informations complémentaires », puis « Exécuter quand même ».</p></li>
+    <li><b>3</b><p data-t="s3">Choisis un décor, ajoute tes sites, et va faire un tour dans NeoStore.</p></li>
   </ol>
   <div class="row">
-    <a class="btn main px" href="https://github.com/NDesumeur/neodex-releases/releases/latest"><i class="pix" data-pix="down"></i>Télécharger NeoDex</a>
-    <a class="btn px" href="#store"><i class="pix" data-pix="bag"></i>Voir NeoStore</a>
+    <a class="btn main px" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl><i class="pix" data-pix="down"></i><span data-t="dl">Télécharger NeoDex</span><small class="dlInfo"></small></a>
+    <a class="btn px" href="#store"><i class="pix" data-pix="bag"></i><span data-t="seeStore">Voir NeoStore</span></a>
   </div>
-  <p class="hint">Le décor derrière cette page est un vrai décor de NeoDex. <a href="#decors">Change-le</a>.</p>
+  <p class="hint" data-t="hHint">Le décor derrière cette page est un vrai décor de NeoDex. <a href="#decors">Change-le</a>.</p>
 </section>
 
-<section id="fonctions" class="panel px">
-  <div class="head"><span class="label">Ce que fait NeoDex</span><span class="count">18</span></div>
-  <h3 class="group">Accueil et navigation</h3>
+<section class="panel px">
+  <div class="head"><span class="label" data-t="fTitle">Ce que fait NeoDex</span><span class="count">18</span></div>
+  <h3 class="group" data-t="g1">Accueil et navigation</h3>
   <div class="feat">
-    <article class="tile px"><i class="pix big" data-pix="home"></i><h3>Ta page d'accueil</h3><p>Tes sites en tuiles, des widgets et ton agenda, devant un décor animé tiré au hasard à chaque lancement.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="globe"></i><h3>Navigateur à onglets</h3><p>Des onglets, l'écran partagé pour deux pages côte à côte, les téléchargements et les extensions Chrome.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="mini"></i><h3>Mini-lecteur</h3><p>Une vidéo continue dans un coin de l'écran pendant que tu fais autre chose.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="dock"></i><h3>Barre d'applis</h3><p>Une colonne à gauche, comme dans Opera GX : tes applis et tes sites en un clic, et les chaînes Twitch en direct.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="cmd"></i><h3>Ctrl+K pour tout</h3><p>Une seule boîte pour trouver un onglet, un site, une appli ou un réglage, même depuis une page web.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="trad"></i><h3>Traduction de pages</h3><p>Une page entière traduite dans ta langue en un clic, sans quitter le site.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="home"></i><h3 data-t="f1">Ta page d'accueil</h3><p data-t="f1d">Tes sites en tuiles, des widgets et ton agenda, devant un décor animé tiré au hasard à chaque lancement.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="globe"></i><h3 data-t="f2">Navigateur à onglets</h3><p data-t="f2d">Des onglets, l'écran partagé pour deux pages côte à côte, les téléchargements et les extensions Chrome.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="mini"></i><h3 data-t="f3">Mini-lecteur</h3><p data-t="f3d">Une vidéo continue dans un coin de l'écran pendant que tu fais autre chose.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="dock"></i><h3 data-t="f4">Barre d'applis</h3><p data-t="f4d">Une colonne à gauche, comme dans Opera GX : tes applis et tes sites en un clic, et les chaînes Twitch en direct.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="cmd"></i><h3 data-t="f5">Ctrl+K pour tout</h3><p data-t="f5d">Une seule boîte pour trouver un onglet, un site, une appli ou un réglage, même depuis une page web.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="trad"></i><h3 data-t="f6">Traduction de pages</h3><p data-t="f6d">Une page entière traduite dans ta langue en un clic, sans quitter le site.</p></article>
   </div>
-  <h3 class="group">Sécurité et vie privée</h3>
+  <h3 class="group" data-t="g2">Sécurité et vie privée</h3>
   <div class="feat">
-    <article class="tile px"><i class="pix big" data-pix="shield"></i><h3>Bloqueur de pub et VPN</h3><p>Les publicités disparaissent, YouTube compris, et le VPN s'allume en un clic.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="key"></i><h3>Mots de passe</h3><p>Ils restent chiffrés sur ton PC, NeoDex propose de les retenir et les remplit tout seul.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="chest"></i><h3>Coffre-fort de fichiers</h3><p>Tes fichiers chiffrés sur ton PC, avec un mot de passe que NeoDex ne garde jamais.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="eye"></i><h3>Fenêtre privée</h3><p>Une fenêtre à part qui ne garde ni historique ni connexion une fois fermée.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="lock"></i><h3>Page Sécurité</h3><p>Ce qui protège ton PC, ce que chaque site et chaque appli a le droit de faire, et les fichiers mis en quarantaine.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="seal"></i><h3>Applis signées</h3><p>Chaque appli de NeoStore est vérifiée et signée avant d'arriver chez toi. Une archive modifiée est refusée.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="shield"></i><h3 data-t="f7">Bloqueur de pub et VPN</h3><p data-t="f7d">Les publicités disparaissent, YouTube compris, et le VPN s'allume en un clic.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="key"></i><h3 data-t="f8">Mots de passe</h3><p data-t="f8d">Ils restent chiffrés sur ton PC, NeoDex propose de les retenir et les remplit tout seul.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="chest"></i><h3 data-t="f9">Coffre-fort de fichiers</h3><p data-t="f9d">Tes fichiers chiffrés sur ton PC, avec un mot de passe que NeoDex ne garde jamais.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="eye"></i><h3 data-t="f10">Fenêtre privée</h3><p data-t="f10d">Une fenêtre à part qui ne garde ni historique ni connexion une fois fermée.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="lock"></i><h3 data-t="f11">Page Sécurité</h3><p data-t="f11d">Ce qui protège ton PC, ce que chaque site et chaque appli a le droit de faire, et les fichiers mis en quarantaine.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="seal"></i><h3 data-t="f12">Applis signées</h3><p data-t="f12d">Chaque appli de NeoStore est vérifiée et signée avant d'arriver chez toi. Une archive modifiée est refusée.</p></article>
   </div>
-  <h3 class="group">Outils et applis</h3>
+  <h3 class="group" data-t="g3">Outils et applis</h3>
   <div class="feat">
-    <article class="tile px"><i class="pix big" data-pix="bag"></i><h3>NeoStore</h3><p>Plus de 100 applis et jeux à installer en un clic : musique, jeux, bureautique, outils, compagnon.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="folder"></i><h3>Outils du PC</h3><p>Un explorateur de fichiers, le volume de chaque programme, des notes et le partage d'écran pour Discord ou Meet.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="stats"></i><h3>Statistiques</h3><p>Ton temps passé sur chaque site et chaque appli, jour par jour, avec tes records dans les jeux.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="theme"></i><h3>Thèmes</h3><p>Change toutes les couleurs, les polices et le curseur en pixels, et partage tes thèmes.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="sync"></i><h3>Synchro et sauvegardes</h3><p>Tuiles, réglages et données suivent sur tous tes PC par OneDrive, Google Drive ou Dropbox.</p></article>
-    <article class="tile px"><i class="pix big" data-pix="phone"></i><h3>Sur ton téléphone</h3><p>L'appli Android retrouve tes raccourcis et ta musique, et NeoDex se met à jour tout seul sur ton PC.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="bag"></i><h3>NeoStore</h3><p data-t="f13d">Plus de 150 applis et jeux à installer en un clic : musique, jeux, bureautique, outils, compagnon.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="folder"></i><h3 data-t="f14">Outils du PC</h3><p data-t="f14d">Un explorateur de fichiers, le volume de chaque programme, des notes et le partage d'écran pour Discord ou Meet.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="stats"></i><h3 data-t="f15">Statistiques</h3><p data-t="f15d">Ton temps passé sur chaque site et chaque appli, jour par jour, avec tes records dans les jeux.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="theme"></i><h3 data-t="f16">Thèmes</h3><p data-t="f16d">Change toutes les couleurs, les polices et le curseur en pixels, et partage tes thèmes.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="sync"></i><h3 data-t="f17">Synchro et sauvegardes</h3><p data-t="f17d">Tuiles, réglages et données suivent sur tous tes PC par OneDrive, Google Drive ou Dropbox.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="phone"></i><h3 data-t="f18">Sur ton téléphone</h3><p data-t="f18d">L'appli Android retrouve tes raccourcis et ta musique, et NeoDex se met à jour tout seul sur ton PC.</p></article>
   </div>
 </section>
+</div>
 
-<section id="store" class="store">
-  <img class="banner" src="img/store/banner.png" alt="La devanture du NeoStore" width="960" height="192">
+<!-- NeoStore -->
+<div class="view" id="v-store">
+<section class="store">
+  <img class="banner" src="img/store/banner.png" alt="NeoStore" width="960" height="192">
   <div class="shop">
     <div class="shopBar">
-      <label class="search"><input id="q" type="search" placeholder="Cherche une appli…" aria-label="Chercher une appli"></label>
+      <label class="search"><input id="q" type="search" placeholder="Cherche une appli…" data-tp="qPh" aria-label="Chercher une appli"></label>
       <span class="sign" id="shown"></span>
     </div>
     <div id="chips" class="chips"></div>
     <div id="apps" class="apps"></div>
-    <p class="center"><button id="more" class="wbtn">Voir toutes les applis</button></p>
-    <img class="counter" src="img/store/counter.png" alt="Le comptoir de la boutique et son chat endormi" width="320" height="104">
+    <img class="counter" src="img/store/counter.png" alt="" width="320" height="104">
   </div>
 </section>
+</div>
 
-<section id="decors" class="panel px">
-  <div class="head"><span class="label">Les décors</span><span class="count" id="decCount">12</span></div>
-  <p class="lead">Chaque lancement tire un nouveau décor, dessiné en pixels avec ses étoiles qui scintillent et ses étoiles filantes. En voici quelques-uns : clique pour les essayer ici.</p>
+<!-- Décors -->
+<div class="view" id="v-decors">
+<section class="panel px">
+  <div class="head"><span class="label" data-t="dTitle">Les décors</span><span class="count" id="decCount">11</span></div>
+  <p class="lead" data-t="dLead">Chaque lancement de NeoDex tire un nouveau décor, dessiné en pixels avec ses étoiles qui scintillent et ses étoiles filantes. En voici quelques-uns : clique pour les essayer derrière cette page.</p>
   <div id="decTabs" class="tabs"></div>
 </section>
+</div>
+
+<!-- Nouveautés -->
+<div class="view" id="v-nouveautes">
+<section class="panel px">
+  <div class="head"><span class="label" data-t="nwTitle">Quoi de neuf</span></div>
+  <p class="lead" data-t="nwLead">Les dernières versions de NeoDex. Il se met à jour tout seul : un bandeau te le propose dès qu'une version sort.</p>
+  <div id="news" class="news"><p class="label" data-t="loading">Chargement…</p></div>
+  <p class="center"><a class="btn px" href="https://github.com/NDesumeur/neodex-releases/releases"><span data-t="allVersions">Toutes les versions</span></a></p>
+</section>
+</div>
+
+<!-- Questions -->
+<div class="view" id="v-questions">
+<section class="panel px">
+  <div class="head"><span class="label" data-t="qTitle">Questions fréquentes</span></div>
+  <div class="faq">
+    <details class="px"><summary data-t="q1">Est-ce gratuit ?</summary><p data-t="a1">Oui. NeoDex et toutes les applis de NeoStore sont gratuits, sans publicité.</p></details>
+    <details class="px"><summary data-t="q2">Mes données vont où ?</summary><p data-t="a2">Sur ton PC, dans le dossier <code>%APPDATA%\NeoDex</code>. Elles n'en sortent que si tu actives la synchro : elles passent alors par ton propre OneDrive, Google Drive ou Dropbox, chiffrées avec ton mot de passe. Chaque appli ne voit que ce que ses autorisations lui permettent.</p></details>
+    <details class="px"><summary data-t="q3">Comment désinstaller NeoDex ?</summary><p data-t="a3">Dans Windows : Paramètres › Applications › Applications installées › NeoDex › Désinstaller. Tes données restent dans <code>%APPDATA%\NeoDex</code> au cas où tu reviendrais ; supprime ce dossier pour tout effacer.</p></details>
+    <details class="px"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">Pas pour l'instant : NeoDex est fait pour Windows 10 et 11. Une appli Android accompagne NeoDex pour retrouver tes raccourcis et ta musique sur ton téléphone.</p></details>
+    <details class="px"><summary data-t="q5">Pourquoi Windows affiche un avertissement ?</summary><p data-t="a5">L'installateur n'a pas de certificat payant de Microsoft, alors Windows prévient par précaution. Clique sur « Informations complémentaires », puis « Exécuter quand même ». Les mises à jour, elles, sont signées et vérifiées par NeoDex avant d'être installées.</p></details>
+    <details class="px"><summary data-t="q6">Les applis de NeoStore sont-elles sûres ?</summary><p data-t="a6">Les applis du catalogue officiel sont examinées puis signées : NeoDex refuse une archive modifiée. Une appli non vérifiée reste installable, mais NeoStore te prévient avant. Chaque appli dit ce qu'elle peut faire, et tu peux retirer une autorisation à tout moment.</p></details>
+    <details class="px"><summary data-t="q7">Comment se font les mises à jour ?</summary><p data-t="a7">Toutes seules : NeoDex vérifie s'il existe une nouvelle version et te propose de l'installer en un clic. Les applis de NeoStore se mettent à jour de la même façon.</p></details>
+  </div>
+</section>
+</div>
+
+<!-- Créateurs -->
+<div class="view" id="v-createurs">
+<section class="panel px">
+  <div class="head"><span class="label" data-t="cTitle">Créer ta propre appli</span></div>
+  <p class="lead" data-t="cLead">Tout ce que NeoStore propose est un plugin : un dépôt GitHub que NeoDex sait trouver, télécharger et installer. Tu peux faire le tien.</p>
+  <div class="feat">
+    <article class="tile px"><i class="pix big" data-pix="theme"></i><h3 data-t="c0">Sans code</h3><p data-t="c0d">Le Studio de plugins, dans NeoStore, crée de petites applis à partir de onze modèles : fiches de révision, routine du jour, quiz, compteurs, habitudes… Tu peux les partager par un code.</p></article>
+    <article class="tile px"><i class="pix big" data-pix="code"></i><h3 data-t="c1">Avec du code</h3><p data-t="c1d">Un plugin, c'est un <code>plugin.json</code>, un <code>index.js</code> et une icône. NeoDex lui donne un contexte <code>ctx</code> : sa vue, ses données sauvegardées et synchronisées, et seulement les autorisations qu'il demande.</p></article>
+  </div>
+  <h3 class="group" data-t="cSteps">En 4 étapes</h3>
+  <ol class="steps">
+    <li><b>1</b><p data-t="cs1">Crée un dépôt GitHub public et ajoute-lui le sujet <code>neodex-plugin</code> : c'est ainsi que NeoStore le trouve.</p></li>
+    <li><b>2</b><p data-t="cs2">Mets à la racine <code>plugin.json</code> (identité, version, autorisations), <code>index.js</code> et <code>icon.png</code>, en pixel art de préférence.</p></li>
+    <li><b>3</b><p data-t="cs3">Publie une Release GitHub avec l'archive <code>&lt;id&gt;-&lt;version&gt;.zip</code> : c'est le fichier que NeoStore télécharge.</p></li>
+    <li><b>4</b><p data-t="cs4">Pour entrer au catalogue officiel, fais approuver ton plugin : il reçoit une attestation signée. Sans elle, il reste installable mais marqué « non vérifié ».</p></li>
+  </ol>
+<pre class="code px"><code>export default async function (ctx) {
+  ctx.view.textContent = 'Bonjour !';
+  const notes = (await ctx.folder.read('notes')) || {};
+}</code></pre>
+  <p class="center"><a class="btn main px" href="https://github.com/NDesumeur/neodex-sdk"><i class="pix" data-pix="code"></i><span data-t="cSdk">Le SDK et sa documentation</span></a> <a class="btn px" href="https://github.com/NDesumeur/neodex-sdk/blob/main/docs/PUBLIER.md"><span data-t="cGuide">Guide pas à pas</span></a></p>
+</section>
+</div>
 
 <footer class="foot label">
-  NeoDex, fait par <a href="https://github.com/NDesumeur">NDesumeur</a> · <a href="https://github.com/NDesumeur/neodex-releases/releases">Toutes les versions</a> · <a href="https://github.com/NDesumeur/neodex-sdk">Créer un plugin</a>
+  <span data-t="by">NeoDex, fait par</span> <a href="https://github.com/NDesumeur">NDesumeur</a>
 </footer>
-
 </main>
+
+<!-- la fiche d'une appli, comme dans NeoStore -->
+<dialog id="sheet" class="sheet">
+  <form method="dialog"><button class="wbtn sheetX" aria-label="Fermer">X</button></form>
+  <div id="sheetBody"></div>
+</dialog>
+
+<script src="i18n.js"></script>
 <script src="site.js"></script>
 </body>
 </html>

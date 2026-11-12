@@ -24,6 +24,10 @@
     folder: ['####.....', '#...#####', '#.......#', '#########', '#.......#', '#.......#', '#.......#', '#########'],
     stats: ['.......##', '.......##', '....##.##', '....##.##', '.##.##.##', '.##.##.##', '.##.##.##', '#########'],
     theme: ['..#####..', '.#.....#.', '#..#..#.#', '#.......#', '#.##....#', '#.##...#.', '#.....#..', '.#...#...', '..###....'],
+    pic: ['#########', '#.......#', '#.##....#', '#.##....#', '#.....#.#', '#....###.', '#...#####', '#########'],
+    spark: ['....#....', '....#....', '...###...', '.#######.', '#########', '.#######.', '...###...', '....#....', '....#....'],
+    ask: ['..#####..', '.##...##.', '.##...##.', '.....##..', '....##...', '....##...', '.........', '....##...', '....##...'],
+    code: ['..#...#..', '.#.....#.', '#.......#', '.#.....#.', '..#...#..'],
     lock: ['..###..', '.#...#.', '.#...#.', '#######', '#######', '###.###', '###.###', '#######'],
   };
   const pixSvg = (rows, s) => { let d = ''; rows.forEach((r, y) => [...r].forEach((c, x) => { if (c === '#') d += `M${x} ${y}h1v1H${x}z`; }));
@@ -84,27 +88,90 @@
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(place, 200); });
   if (!still) requestAnimationFrame(frame);
 
-  // ---------- NeoStore ----------
+  // ---------- NeoStore : les données ----------
   const [apps, icons] = await Promise.all([fetch('apps.json').then(r => r.json()), fetch('img/store/icons.json').then(r => r.json())]);
-  document.querySelectorAll('[data-count]').forEach(e => e.textContent = apps.length);
+
+  // ---------- la langue ----------
+  let lang = 'fr'; try { lang = localStorage.neoSiteLang || ((navigator.language || 'fr').startsWith('fr') ? 'fr' : 'en'); } catch {}
+  const DEC_EN = { Espace: 'Space', 'Ville néon': 'Neon city', 'Forêt': 'Forest', 'Crépuscule': 'Dusk', 'Mont Fuji': 'Mount Fuji', Synthwave: 'Synthwave', Automne: 'Autumn', 'Aurore boréale': 'Northern lights', Cerisiers: 'Cherry blossoms', 'Château': 'Castle', Lanternes: 'Lanterns' };
+  const FR = new Map();  // le français d'origine de chaque élément, pour y revenir
+  function applyLang() {
+    document.documentElement.lang = lang; $('lang').querySelector('b').textContent = lang === 'fr' ? 'EN' : 'FR';
+    document.querySelectorAll('[data-t]').forEach(e => { if (!FR.has(e)) FR.set(e, e.innerHTML); e.innerHTML = (lang === 'en' && EN[e.dataset.t]) || FR.get(e); });
+    document.querySelectorAll('[data-count]').forEach(e => e.textContent = apps.length);
+    document.querySelectorAll('#decTabs .tab').forEach(b => b.textContent = lang === 'en' ? DEC_EN[meta[b.dataset.k].name] || meta[b.dataset.k].name : meta[b.dataset.k].name);
+    $('q').placeholder = UI[lang].qPh;
+    dlInfo(); news(); chips(); draw(); route();
+  }
+  $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };
+
+  // ---------- les pages : une à la fois, choisie dans la barre d'applis (l'adresse garde la page : #store…) ----------
+  const VIEWS = ['accueil', 'store', 'decors', 'nouveautes', 'questions', 'createurs'];
+  function route() {
+    const h = location.hash.slice(1), v = VIEWS.includes(h) ? h : 'accueil';
+    document.querySelectorAll('.view').forEach(e => e.classList.toggle('on', e.id === 'v-' + v));
+    document.querySelectorAll('.dkI[data-v]').forEach(e => e.classList.toggle('on', e.dataset.v === v));
+    $('where').textContent = UI[lang].where[v];
+  }
+  addEventListener('hashchange', () => { route(); scrollTo({ top: 0, behavior: 'instant' }); });
+
+  // ---------- la dernière version et les notes de version, lues sur GitHub à chaque visite ----------
+  let rels = null;
+  function dlInfo() {
+    if (!rels || !rels.length) return;
+    const r = rels[0], exe = (r.assets || []).find(a => /\.exe$/i.test(a.name)), v = r.tag_name.replace(/^v/, '');
+    document.querySelectorAll('.dlInfo').forEach(e => e.textContent = v + (exe ? ' · ' + Math.round(exe.size / 1048576) + ' ' + UI[lang].size : ''));
+    if (exe) document.querySelectorAll('[data-dl]').forEach(a => a.href = exe.browser_download_url);  // le bouton télécharge directement l'installateur
+  }
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>');
+  function news() {  // les notes de version, écrites en français dans les Releases
+    if (rels === null) return;
+    if (!rels.length) { $('news').innerHTML = `<p class="label">${UI[lang].newsErr}</p>`; return; }
+    $('news').innerHTML = rels.slice(0, 5).map((r, i) => {
+      const lines = (r.body || '').split(/\r?\n/).map(l => l.trim()).filter(l => /^[-*] /.test(l)).map(l => `<li>${md(l.slice(2))}</li>`).join('');
+      const d = new Date(r.published_at).toLocaleDateString(UI[lang].date, { day: 'numeric', month: 'long', year: 'numeric' });
+      return `<article class="rel px${i ? '' : ' latest'}"><h3>NeoDex ${esc(r.tag_name.replace(/^v/, ''))} <span class="label">${d}</span></h3>${lines ? `<ul>${lines}</ul>` : ''}</article>`;
+    }).join('');
+  }
+  fetch('https://api.github.com/repos/NDesumeur/neodex-releases/releases?per_page=8', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status)).then(l => l.filter(r => !r.draft && !r.prerelease)).catch(() => [])
+    .then(l => { rels = l; dlInfo(); news(); });
+
+  // ---------- NeoStore ----------
   const fam = c => c.startsWith('Jeux') ? 'Jeux' : c;  // les genres de jeux sont réunis sous « Jeux » dans les étiquettes
+  const famLabel = c => c === 'Tout' ? UI[lang].all : c === 'Jeux' ? UI[lang].games : lang === 'en' ? (apps.find(a => a.c === c) || {}).ce || c : c;
   const cats = ['Tout', ...[...new Set(apps.map(a => fam(a.c)))].sort((a, b) => apps.filter(x => fam(x.c) === b).length - apps.filter(x => fam(x.c) === a).length)];
   const ico = c => 'img/store/' + (icons[c] || icons[fam(c)] || icons.Autre);
-  let cat = 'Tout', all = false;
-  $('chips').append(...cats.map(c => { const b = document.createElement('button'); b.className = 'chip' + (c === cat ? ' on' : ''); b.dataset.c = c;
-    b.innerHTML = (c === 'Tout' ? '' : `<img src="${ico(c)}" alt="">`) + c; b.onclick = () => { cat = c; draw(); }; return b; }));
-  const esc = s => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const L = a => lang === 'en' ? { n: a.ne, c: a.ce, d: a.de || a.d } : { n: a.n, c: a.c, d: a.d };
+  const short = d => { let t = d.split(/(?<=[.!?])\s/)[0]; if (t.length > 110) t = t.slice(0, t.lastIndexOf(' ', 107)) + '…'; return t; };
+  let cat = 'Tout';
+  function chips() {
+    $('chips').innerHTML = cats.map(c => `<button class="chip${c === cat ? ' on' : ''}" data-c="${esc(c)}">${c === 'Tout' ? '' : `<img src="${ico(c)}" alt="">`}${esc(famLabel(c))}</button>`).join('');
+  }
+  $('chips').onclick = e => { const b = e.target.closest('.chip'); if (b) { cat = b.dataset.c; chips(); draw(); } };
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   function draw() {
     const q = norm($('q').value.trim());
-    const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!q || norm(a.n + ' ' + a.c + ' ' + a.d).includes(q)));
-    const show = all || q || cat !== 'Tout' ? list : list.slice(0, 12);
-    $('apps').innerHTML = show.map(a => `<article class="app"><img src="img/apps/${a.s}.png" alt="" loading="lazy" width="48" height="48"><b>${esc(a.n)}</b><small>${esc(a.c)}</small><p>${esc(a.d)}</p></article>`).join('')
-      || '<p class="label">Aucune appli ne correspond.</p>';
-    $('shown').textContent = list.length + (list.length > 1 ? ' applis' : ' appli');
-    $('more').hidden = show.length === list.length;
-    document.querySelectorAll('.chip').forEach(b => b.classList.toggle('on', b.dataset.c === cat));
+    const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
+    $('apps').innerHTML = list.map(a => { const t = L(a); return `<button class="app" data-s="${a.s}"><img src="img/apps/${a.s}.png" alt="" loading="lazy" width="48" height="48"><b>${esc(t.n)}</b><small>${esc(t.c)}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
+      || `<p class="label">${UI[lang].none}</p>`;
+    $('shown').textContent = UI[lang].apps(list.length);
   }
-  $('q').addEventListener('input', draw); $('more').onclick = () => { all = true; draw(); };
-  draw();
+  $('q').addEventListener('input', draw);
+
+  // la fiche d'une appli, comme dans NeoStore : description complète, capture, autorisations et version
+  function sheet(a) {
+    const t = L(a), u = UI[lang];
+    $('sheetBody').innerHTML = `<div class="shHead"><img src="img/apps/${a.s}.png" alt=""><div><h2>${esc(t.n)}</h2><small>${esc(t.c)}</small></div></div>`
+      + (a.shot ? `<img class="shShot" src="img/shots/${a.s}.${a.shot}" alt="">` : '')
+      + `<p class="shDesc">${esc(t.d)}</p><p class="label">${u.perms}</p><ul class="shPerms">`
+      + a.pm.map(p => `<li><span class="risk ${p.r}">${esc(u.risk[p.r] || p.r)}</span><b>${esc(lang === 'en' ? p.le : p.l)}</b><p>${esc(lang === 'en' ? p.se : p.s)}</p></li>`).join('')
+      + `</ul><div class="shMeta"><span class="count">${u.version} ${esc(a.v)}</span><span class="label">${u.getIt}</span></div>`;
+    $('sheet').showModal(); $('sheet').scrollTop = 0;
+  }
+  $('apps').onclick = e => { const b = e.target.closest('.app'); if (b) sheet(apps.find(a => a.s === b.dataset.s)); };
+  $('sheet').addEventListener('click', e => { if (e.target === $('sheet')) $('sheet').close(); });  // un clic à côté ferme la fiche
+
+  applyLang();
 })();
