@@ -11,7 +11,7 @@ const EN = {
   lgA4: 'If it crashes, nothing is sent on its own: NeoDex offers to let you open a report on GitHub yourself. Every NeoStore app declares what it can access, and the Permissions screen shows the sites it contacts.',
   lgA5: 'To erase everything, delete the <code>%APPDATA%&#92;NeoDex</code> folder or uninstall NeoDex. A question? <a href="https://github.com/NDesumeur/neodex-releases/issues">Write on GitHub</a>.',
   lgLegal: 'Legal notice',
-  lgL1: 'Publisher: NDesumeur, independent developer, non-professional. Contact: <a href="https://github.com/NDesumeur/neodex-releases/issues">GitHub</a>.',
+  lgL1: 'Publisher: Nolan Desumeur (NDesumeur), independent developer, non-professional. Contact: <a href="https://github.com/NDesumeur/neodex-releases/issues">GitHub</a>.',
   lgL2: 'Host: GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA — <a href="https://github.com">github.com</a>.',
   lgL3: 'NeoDex is not affiliated with YouTube, Discord, Riot Games or Twitch. Names and brands belong to their owners.',
   nLegal: 'Privacy and legal notice',
