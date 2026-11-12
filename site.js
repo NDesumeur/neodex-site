@@ -106,7 +106,7 @@
   $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };
 
   // ---------- les pages : une à la fois, choisie dans la barre d'applis (l'adresse garde la page : #store…) ----------
-  const VIEWS = ['accueil', 'store', 'decors', 'nouveautes', 'questions', 'createurs'];
+  const VIEWS = ['accueil', 'store', 'decors', 'nouveautes', 'questions', 'createurs', 'legal'];
   function route() {
     const h = location.hash.slice(1), v = VIEWS.includes(h) ? h : 'accueil';
     document.querySelectorAll('.view').forEach(e => e.classList.toggle('on', e.id === 'v-' + v));
