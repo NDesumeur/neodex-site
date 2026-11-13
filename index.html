@@ -9,7 +9,7 @@
 <meta property="og:description" content="Page d'accueil, navigateur et bureau d'applis pour Windows, tout en pixel art.">
 <meta property="og:image" content="img/logo.png">
 <link rel="icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3.1.14">
 </head>
 <body>
 <canvas id="skyFar" aria-hidden="true"></canvas>
@@ -17,7 +17,7 @@
 
 <!-- la barre d'applis, comme celle de NeoDex : une page par bouton -->
 <nav id="dock" aria-label="Pages du site">
-  <a class="dkLogo" href="#accueil" aria-label="NeoDex"><img src="img/favicon.png" alt="" width="36" height="36"></a>
+  <span class="dkHead">Menu</span>
   <a class="dkI" href="#accueil" data-v="accueil"><i class="pix" data-pix="home"></i><span data-t="nAccueil">Accueil</span></a>
   <a class="dkI" href="#store" data-v="store"><i class="pix" data-pix="bag"></i><span>NeoStore</span></a>
   <a class="dkI" href="#decors" data-v="decors"><i class="pix" data-pix="pic"></i><span data-t="nDecors">Décors</span></a>
@@ -25,7 +25,7 @@
   <a class="dkI" href="#questions" data-v="questions"><i class="pix" data-pix="ask"></i><span data-t="nFaq">Questions</span></a>
   <a class="dkI" href="#createurs" data-v="createurs"><i class="pix" data-pix="code"></i><span data-t="nDev">Créateurs</span></a>
   <span class="dkSep"></span>
-  <button class="dkI dkLang" id="lang" type="button" aria-label="Changer de langue / Change language"><b>EN</b></button>
+  <button class="dkI dkLang" id="lang" type="button" aria-label="Changer de langue / Change language"><i class="pix" data-pix="globe"></i><span data-t="nLang">Langue</span><b>EN</b></button>
   <a class="dkI dkDl" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl><i class="pix" data-pix="down"></i><span data-t="nDl">Télécharger</span></a>
 </nav>
 
@@ -39,8 +39,9 @@
 <!-- Accueil -->
 <div class="view" id="v-accueil">
 <section class="hero panel px">
+  <div class="heroTxt">
   <p class="label" data-t="hLabel">Pour Windows 10 et 11 · gratuit</p>
-  <h2 class="big" data-t="hTitle">Ta page d'accueil, ton navigateur<br>et tes applis, dans une seule fenêtre.</h2>
+  <h2 class="big" data-t="hTitle">Ta page d'accueil, ton navigateur <br>et tes applis, dans une seule fenêtre.</h2>
   <p class="lead" data-t="hLead">NeoDex réunit ta page d'accueil, un navigateur protégé et une boutique de <b class="pink" data-count>150</b> applis et jeux.</p>
   <ol class="steps">
     <li><b>1</b><p data-t="s1">Télécharge <code>NeoDex-Setup.exe</code> avec le bouton ci-dessous.</p></li>
@@ -52,6 +53,13 @@
     <a class="btn px" href="#store"><i class="pix" data-pix="bag"></i><span data-t="seeStore">Voir NeoStore</span></a>
   </div>
   <p class="hint" data-t="hHint">Le décor derrière cette page est un vrai décor de NeoDex. <a href="#decors">Change-le</a>.</p>
+  </div>
+  <figure class="heroShot"><img src="img/neodex-accueil.jpg" alt="L'accueil de NeoDex" width="1280" height="720" loading="eager"></figure>
+</section>
+
+<section class="panel px">
+  <div class="head"><span class="label" data-t="vTitle">NeoDex en vidéo</span><span class="count">1:33</span></div>
+  <video class="pubVid" src="img/neodex-pub.mp4" poster="img/neodex-pub.jpg" controls preload="none" playsinline width="1280" height="720"></video>
 </section>
 
 <section class="panel px">
@@ -172,7 +180,7 @@
   <h3 class="group" data-t="lgApp">L'appli NeoDex</h3>
   <p data-t="lgA1">Pas de compte, pas de serveur NeoDex, pas de statistiques ni de télémétrie. Tes données restent sur ton PC, dans <code>%APPDATA%&#92;NeoDex</code>.</p>
   <p data-t="lgA2">La synchro ne s'allume que si tu la choisis, vers ton propre dossier cloud (OneDrive, Google Drive…). Avec un mot de passe, elle est chiffrée avant de partir.</p>
-  <p data-t="lgA3">NeoDex contacte seulement : GitHub (mises à jour, NeoStore, applis retirées), Google Fonts (les polices d'écriture, au démarrage), Ghostery (listes du bloqueur de pub), Open-Meteo (la météo de la ville que tu choisis), Have I Been Pwned (vérifier un mot de passe : seuls 5 caractères de son empreinte partent, jamais le mot de passe), Google Traduction (seulement quand tu traduis une page), Twitch (tes chaînes en direct), Cloudflare WARP ou Tor (seulement VPN allumé), et bien sûr les sites que tu ouvres.</p>
+  <p data-t="lgA3">NeoDex contacte seulement : GitHub (mises à jour, NeoStore, applis retirées), Ghostery (listes du bloqueur de pub), Open-Meteo (la météo de la ville que tu choisis), Have I Been Pwned (vérifier un mot de passe : seuls 5 caractères de son empreinte partent, jamais le mot de passe), Google Traduction (seulement quand tu traduis une page), Twitch (tes chaînes en direct), Cloudflare WARP ou Tor (seulement VPN allumé), et bien sûr les sites que tu ouvres.</p>
   <p data-t="lgA4">En cas de plantage, rien n'est envoyé tout seul : NeoDex te propose d'ouvrir toi-même un rapport sur GitHub. Chaque appli de NeoStore déclare ses accès, et l'écran Autorisations montre les sites qu'elle joint.</p>
   <p data-t="lgA5">Pour tout effacer, supprime le dossier <code>%APPDATA%&#92;NeoDex</code> ou désinstalle NeoDex. Une question : <a href="https://github.com/NDesumeur/neodex-releases/issues">écris sur GitHub</a>.</p>
   <h3 class="group" data-t="lgLegal">Mentions légales</h3>

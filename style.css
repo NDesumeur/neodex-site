@@ -134,22 +134,57 @@ h1 .dyme { color: var(--shell); text-shadow: 3px 3px 0 var(--magenta); }
 ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: transparent; }
 html { scrollbar-color: var(--line2) transparent; scrollbar-width: thin; }
 
-/* la barre d'applis à gauche, comme celle de NeoDex : un bouton par page */
-#dock { position: fixed; top: 0; left: 0; bottom: 0; width: 100px; z-index: 40; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 0;
-  background: rgba(8, 3, 20, .94); box-shadow: inset -3px 0 0 var(--line); overflow-y: auto; }
-.dkLogo { margin-bottom: 8px; } .dkLogo img { display: block; image-rendering: auto; filter: drop-shadow(0 3px 0 var(--out)); }
-.dkI { --c: rgba(var(--mgr), .22); --fill: rgba(255, 255, 255, .03); width: 82px; padding: 9px 0 7px; display: flex; flex-direction: column; align-items: center; gap: 7px;
-  color: var(--lilac); text-decoration: none; background: var(--fill); border: 0; cursor: pointer; font: inherit;
+/* le menu à gauche : un panneau pixel, une ligne par page (icône + nom lisible), la page ouverte marquée par une encoche rose */
+#dock { position: fixed; top: 0; left: 0; bottom: 0; width: 236px; z-index: 40; display: flex; flex-direction: column; gap: 4px; padding: 26px 18px 18px;
+  background: repeating-conic-gradient(rgba(255, 255, 255, .018) 0 25%, transparent 0 50%) 0 0/8px 8px, rgba(9, 3, 22, .95);
+  box-shadow: inset -3px 0 0 var(--line2), 3px 0 0 var(--out); overflow-y: auto; }
+.dkHead { font: 8px var(--title); letter-spacing: 3px; color: var(--muted); text-transform: uppercase; padding: 0 12px 14px; margin-bottom: 8px;
+  background: repeating-linear-gradient(90deg, var(--line2) 0 6px, transparent 6px 10px) 0 100%/100% 3px no-repeat; }
+.dkI { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; padding: 11px 12px; border: 0; background: transparent; cursor: pointer;
+  color: var(--lilac); text-decoration: none; font: 500 18px/1 var(--text); text-align: left; transition: transform .12s steps(2), background .12s steps(2); }
+.dkI .pix { width: 30px; color: var(--muted); }
+.dkI span { flex: 1; }
+.dkI:hover { background: rgba(255, 255, 255, .05); color: #fff; transform: translateX(3px); }
+.dkI:hover .pix { color: var(--lilac); }
+.dkI::before { content: ""; position: absolute; left: -18px; top: 50%; width: 6px; height: 0; background: var(--pink); transition: height .12s steps(3), top .12s steps(3); }
+.dkI.on { --c: var(--magenta); background: rgba(var(--mgr), .16); color: #fff;
   box-shadow: 0 -3px 0 0 var(--c), 0 3px 0 0 var(--c), -3px 0 0 0 var(--c), 3px 0 0 0 var(--c); }
-.dkI span { font: 7px/1.3 var(--title); letter-spacing: .5px; text-align: center; }
-.dkI:hover { --c: var(--violet); --fill: var(--btnh); color: #fff; }
-.dkI.on { --c: var(--magenta); --fill: rgba(var(--mgr), .2); color: #fff; }
+.dkI.on::before { top: 6px; height: calc(100% - 12px); box-shadow: 0 0 10px rgba(var(--pkr), .7); }
+.dkI.on::after { content: ""; width: 6px; height: 6px; background: var(--pink); box-shadow: 0 0 8px var(--pink); }
 .dkI.on .pix { color: var(--pink); filter: drop-shadow(0 0 6px rgba(var(--pkr), .5)); }
-.dkSep { flex: none; width: 40px; height: 3px; background: var(--line); margin: 4px 0; }
-.dkLang b { font: 10px var(--title); color: var(--pink); padding: 6px 0; }
-.dkDl { --c: var(--mgl); --fill: var(--magenta); color: #fff; margin-top: auto; } .dkDl:hover { --fill: var(--mgh); --c: var(--mgl); }
-body { padding-left: 100px; }
+.dkSep { flex: none; height: 3px; margin: 14px 4px; background: repeating-linear-gradient(90deg, var(--line2) 0 6px, transparent 6px 10px); }
+.dkLang span { font-size: 15px; color: var(--muted); }
+.dkLang b { font: 9px var(--title); color: #fff; background: var(--line2); padding: 6px 7px; box-shadow: 0 3px 0 var(--out); }
+.dkLang:hover b { background: var(--magenta); }
+.dkDl { margin-top: auto; justify-content: center; padding: 16px 12px; background: var(--magenta); color: #fff; font: 10px var(--title); letter-spacing: 1px;
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, .3), inset -3px -3px 0 rgba(0, 0, 0, .3), 0 0 0 3px var(--mgl), 6px 6px 0 3px var(--out); }
+.dkDl span { flex: none; } .dkDl .pix { width: auto; color: #fff; }
+.dkDl:hover { background: var(--mgh); color: #fff; transform: translateY(-2px); filter: drop-shadow(0 0 12px rgba(var(--mgr), .55)); }
+body { padding-left: 236px; }
 .top { margin-bottom: 26px; } #where { margin-left: 6px; }
+
+/* panneaux : quatre coins roses en pixels, comme les tuiles sélectionnées de NeoDex */
+.panel, .hero { position: relative; }
+.panel::after { content: ""; position: absolute; inset: -6px; pointer-events: none; --b: linear-gradient(var(--pink), var(--pink));
+  background: var(--b) 0 0/12px 3px, var(--b) 0 0/3px 12px, var(--b) 100% 0/12px 3px, var(--b) 100% 0/3px 12px,
+              var(--b) 0 100%/12px 3px, var(--b) 0 100%/3px 12px, var(--b) 100% 100%/12px 3px, var(--b) 100% 100%/3px 12px; background-repeat: no-repeat; opacity: .7; }
+.panel .head { padding-bottom: 14px; background: repeating-linear-gradient(90deg, var(--line2) 0 6px, transparent 6px 10px) 0 100%/100% 3px no-repeat; }
+.panel .head .label { color: var(--lilac); }
+
+/* accueil : le texte à gauche, une vraie capture de NeoDex à droite */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 34px; align-items: center; }
+.heroShot { margin: 0; position: relative; transform: rotate(1.2deg); }
+.heroShot img { display: block; width: 100%; height: auto; image-rendering: auto; border: 8px solid transparent; border-image: url(img/store/frameOn.png) 8 round;
+  background: #160c2a; box-shadow: 10px 10px 0 var(--out), 0 0 40px rgba(var(--mgr), .35); }
+.heroShot::before { content: "NeoDex"; position: absolute; top: -16px; left: 18px; z-index: 1; font: 8px var(--title); color: #fff; background: var(--magenta); padding: 6px 8px; box-shadow: 3px 3px 0 var(--out); }
+.hero .big { font-size: 22px; } .hero .big br { display: none; }
+.hero .steps { max-width: none; }
+h1 { font-size: 34px; }
+.tile .pix.big { width: 56px; height: 56px; align-items: center; background: rgba(var(--mgr), .1); box-shadow: 0 0 0 3px var(--line2), 4px 4px 0 3px var(--out); }
+.tile:hover .pix.big { box-shadow: 0 0 0 3px var(--magenta), 4px 4px 0 3px var(--out); }
+.tile h3 { margin-top: 18px; }
+.wrap { max-width: 1240px; }
+@media (max-width: 1180px) { .hero { grid-template-columns: 1fr; } .heroShot { transform: none; max-width: 720px; } }
 
 /* une page à la fois */
 .view { display: none; } .view.on { display: block; animation: viewIn .18s steps(3); }
@@ -199,8 +234,14 @@ body { padding-left: 100px; }
 
 @media (max-width: 760px) {
   body { padding-left: 0; padding-bottom: 76px; }
-  #dock { top: auto; right: 0; width: auto; height: 72px; flex-direction: row; padding: 0 8px; gap: 6px; overflow-x: auto; overflow-y: hidden; box-shadow: inset 0 3px 0 var(--line); justify-content: flex-start; }
-  .dkLogo, .dkSep { display: none; }
-  .dkI { width: 64px; flex: none; } .dkDl { margin-top: 0; }
+  #dock { top: auto; right: 0; width: auto; height: 76px; flex-direction: row; padding: 6px 8px; gap: 6px; overflow-x: auto; overflow-y: hidden; box-shadow: inset 0 3px 0 var(--line2); }
+  .dkHead, .dkSep, .dkI::before, .dkI.on::after, .dkLang span { display: none; }
+  .dkI { width: 70px; flex: none; flex-direction: column; gap: 6px; padding: 8px 2px; font-size: 12px; text-align: center; }
+  .dkI .pix { width: auto; } .dkI:hover { transform: none; }
+  .dkDl { margin-top: 0; padding: 8px 2px; font-size: 7px; box-shadow: inset 3px 3px 0 rgba(255, 255, 255, .3), inset -3px -3px 0 rgba(0, 0, 0, .3); }
+  .hero .big { font-size: 14px; }
   .shHead img { width: 52px; height: 52px; }
 }
+
+/* la vidéo de présentation */
+.pubVid { display: block; width: 100%; height: auto; background: #000; border: 8px solid transparent; border-image: url(img/store/frameOn.png) 8 round; box-shadow: 10px 10px 0 var(--out); }
