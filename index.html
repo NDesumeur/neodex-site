@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NeoDex</title>
-<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows, tout en pixel art. Plus de 160 applis et jeux gratuits, 25 thèmes, sans publicité et sans compte.">
+<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows. Plus de 160 applis et jeux gratuits, 25 thèmes, sans publicité et sans compte.">
 <meta property="og:title" content="NeoDex">
-<meta property="og:description" content="Accueil, navigateur et applis : un seul écran, tout en pixel art. Gratuit, sans publicité, sans compte.">
+<meta property="og:description" content="Accueil, navigateur et applis : un seul écran. Gratuit, sans publicité, sans compte.">
 <meta property="og:image" content="img/logo.png">
 <link rel="icon" href="img/favicon.png">
 <link rel="stylesheet" href="style.css?v=4.0.0">
@@ -22,7 +22,7 @@
 
 <!-- l'affichage du haut, comme dans un jeu : il sert de menu -->
 <header class="hud"><div class="wrap">
-  <a class="p1" href="#accueil">1UP NEODEX</a>
+  <a class="p1" href="#accueil">NEODEX</a>
   <nav id="nav" aria-label="Pages du site">
     <a href="#accueil" data-v="accueil" data-t="nHome">ACCUEIL</a>
     <a href="#store" data-v="store">NEOSTORE</a>
@@ -41,17 +41,15 @@
 <div class="view" id="v-accueil">
 
 <div class="titleScreen"><div class="wrap">
-  <img class="logoImg" src="img/logo.png" alt="" width="150" height="150">
   <h1>Neo<b>Dex</b></h1>
   <p class="tagline" data-t="hTag">Accueil, navigateur et applis : un seul écran.</p>
-  <p class="pitch" data-t="hPitch">Tout ton PC dans une fenêtre en pixel art. Gratuit, sans publicité, sans compte.</p>
+  <p class="pitch" data-t="hPitch">Tout ton PC dans une fenêtre. Gratuit, sans publicité, sans compte.</p>
   <ul class="menu" id="menu">
     <li><a class="sel" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl data-t="mNew">NOUVELLE PARTIE (TELECHARGER)</a></li>
     <li><a href="#niveaux" data-jump="niveaux" data-t="mMap">CARTE DES NIVEAUX</a></li>
     <li><a href="#store" data-t="mInv">INVENTAIRE (NEOSTORE)</a></li>
     <li><a href="#scores" data-jump="scores" data-t="mScores">SCORES</a></li>
   </ul>
-  <p class="coin blink" data-t="hCoin">INSERT COIN — NON, C'EST GRATUIT</p>
   <p class="keys"><span data-t="hKeys">↑ ↓ pour choisir · Entrée pour valider</span> · <span class="dlInfo"></span></p>
 </div></div>
 
@@ -81,7 +79,7 @@
         <p data-t="l1p">À chaque lancement, tu arrives chez toi : tes sites et tes applis en tuiles, devant un décor animé tiré au hasard.</p>
         <ul><li data-t="l1a">Tuiles rangées par groupes</li><li data-t="l1b">Agenda de la semaine</li><li data-t="l1c">Widgets : Pomodoro, note rapide, compte à rebours, météo</li></ul>
       </article>
-      <article data-img="img/shots/code.jpg">
+      <article data-img="img/niveaux/navigateur.jpg">
         <h3 data-t="l2t">Niveau 2 : le navigateur</h3>
         <p data-t="l2p">Un vrai navigateur à onglets. Ctrl + K trouve tout : un onglet, un site, une appli, un réglage.</p>
         <ul><li data-t="l2a">Deux pages côte à côte</li><li data-t="l2b">Onglets privés</li><li data-t="l2c">Traduction de pages et mini-lecteur vidéo</li><li data-t="l2d">Extensions Chrome</li></ul>
@@ -91,15 +89,15 @@
         <p data-t="l3p">Une boutique où tout est gratuit. Un clic, c'est installé, et l'appli se pose sur ton accueil.</p>
         <ul><li data-t="l3a">Musique, bureautique, outils</li><li data-t="l3b">Jeux d'arcade, de réflexion, de cartes</li><li data-t="l3c">Chaque appli est vérifiée et signée</li></ul>
       </article>
-      <article data-img="img/shots/couleurs.jpg">
+      <article data-img="img/niveaux/themes.jpg">
         <h3 data-t="l4t">Niveau 4 : les thèmes</h3>
         <p data-t="l4p">25 thèmes qui changent tout, pas seulement la couleur.</p>
         <ul><li data-t="l4a">Polices, cadres et décor propres à chaque thème</li><li data-t="l4b">Sons et curseur en pixels</li><li data-t="l4c">Thèmes favoris tirés au hasard</li></ul>
       </article>
-      <article data-img="img/shots/vpn.jpg">
+      <article data-img="img/niveaux/coffre.jpg">
         <h3 data-t="l5t">Niveau 5 : la vie privée</h3>
         <p data-t="l5p">Pas de compte, pas de serveur NeoDex. Tes données restent sur ton PC.</p>
-        <ul><li data-t="l5a">Bloqueur de pubs et VPN</li><li data-t="l5b">Mots de passe et coffre-fort chiffrés</li><li data-t="l5c">Synchro par ton propre cloud, chiffrée</li></ul>
+        <ul><li data-t="l5b">Mots de passe et coffre-fort chiffrés</li><li data-t="l5c">Synchro par ton propre cloud, chiffrée</li></ul>
       </article>
       <article data-img="img/shots/studio.jpg">
         <h3 data-t="l6t">Niveau bonus : crée la tienne</h3>
@@ -148,6 +146,7 @@
   </ol>
   <a class="start" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl>▶ PRESS START</a>
   <p class="keys"><span data-t="eFor">Windows 10 et 11 · gratuit</span> · <span class="dlInfo"></span></p>
+  <p class="keys dlAlso" hidden><span data-t="eAlso">Aussi :</span> <a data-dl-os="apk" hidden href="#">ANDROID (APK)</a> <a data-dl-os="AppImage" hidden href="#">LINUX (APPIMAGE)</a></p>
 </div></section>
 </div>
 
@@ -191,7 +190,7 @@
     <details class="frame"><summary data-t="q1">Est-ce gratuit ?</summary><p data-t="a1">Oui. NeoDex et toutes les applis de NeoStore sont gratuits, sans publicité.</p></details>
     <details class="frame"><summary data-t="q2">Mes données vont où ?</summary><p data-t="a2">Sur ton PC, dans le dossier <code>%APPDATA%\NeoDex</code>. Elles n'en sortent que si tu actives la synchro : elles passent alors par ton propre OneDrive, Google Drive ou Dropbox, chiffrées avec ton mot de passe. Chaque appli ne voit que ce que ses autorisations lui permettent.</p></details>
     <details class="frame"><summary data-t="q3">Comment désinstaller NeoDex ?</summary><p data-t="a3">Dans Windows : Paramètres › Applications › Applications installées › NeoDex › Désinstaller. Tes données restent dans <code>%APPDATA%\NeoDex</code> au cas où tu reviendrais ; supprime ce dossier pour tout effacer.</p></details>
-    <details class="frame"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">NeoDex est fait pour Windows 10 et 11. Une version Linux est en préparation : elle se construit et passe ses tests à chaque version, mais n'est pas encore proposée au téléchargement. Pas de version Mac. Une appli Android accompagne NeoDex pour retrouver tes raccourcis et ta musique. Dans NeoStore, chaque appli indique les systèmes où elle marche.</p></details>
+    <details class="frame"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">NeoDex est fait pour Windows 10 et 11. Une version Linux (AppImage) est proposée en bas de la page d'accueil, à côté de l'appli Android (APK, à installer en autorisant les sources inconnues), qui retrouve tes raccourcis, ta musique et tes applis compatibles. Pas de version Mac. Dans NeoStore, chaque appli indique les systèmes où elle marche.</p></details>
     <details class="frame"><summary data-t="q5">Pourquoi Windows affiche un avertissement ?</summary><p data-t="a5">L'installateur n'a pas de certificat payant de Microsoft, alors Windows prévient par précaution. Clique sur « Informations complémentaires », puis « Exécuter quand même ». Les mises à jour, elles, sont signées et vérifiées par NeoDex avant d'être installées.</p></details>
     <details class="frame"><summary data-t="q6">Les applis de NeoStore sont-elles sûres ?</summary><p data-t="a6">Les applis du catalogue officiel sont examinées puis signées : NeoDex refuse une archive modifiée. Une appli non vérifiée reste installable, mais NeoStore te prévient avant. Chaque appli dit ce qu'elle peut faire, et tu peux retirer une autorisation à tout moment.</p></details>
     <details class="frame"><summary data-t="q7">Comment se font les mises à jour ?</summary><p data-t="a7">Toutes seules : NeoDex vérifie s'il existe une nouvelle version et te propose de l'installer en un clic. Les applis de NeoStore se mettent à jour de la même façon.</p></details>

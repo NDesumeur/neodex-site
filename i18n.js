@@ -4,9 +4,9 @@ const EN = {
   // --- le menu du haut et l'écran de titre ---
   nHome: 'HOME', nDecors: 'SCENES', nNews: 'NEWS', nFaq: 'HELP', nDev: 'CREATE', nDl: 'DOWNLOAD',
   hTag: 'Home page, browser and apps: one screen.',
-  hPitch: 'Your whole PC in one pixel-art window. Free, no ads, no account.',
+  hPitch: 'Your whole PC in one window. Free, no ads, no account.',
   mNew: 'NEW GAME (DOWNLOAD)', mMap: 'LEVEL MAP', mInv: 'INVENTORY (NEOSTORE)', mScores: 'SCORES',
-  hCoin: 'INSERT COIN — NO, IT IS FREE', hKeys: '↑ ↓ to choose · Enter to confirm',
+  hKeys: '↑ ↓ to choose · Enter to confirm',
   // --- c'est quoi, NeoDex ? ---
   wTitle: 'WHAT IS NEODEX?', wSub: 'IN THREE SENTENCES',
   w1: 'NeoDex brings together, in one window, what you open twenty times a day: your home page, your browser and your apps.',
@@ -24,7 +24,7 @@ const EN = {
   l4t: 'Level 4: themes', l4p: '25 themes that change everything, not just the colour.',
   l4a: 'Fonts, frames and scene of their own', l4b: 'Sounds and pixel cursor', l4c: 'Favourite themes picked at random',
   l5t: 'Level 5: privacy', l5p: 'No account, no NeoDex server. Your data stays on your PC.',
-  l5a: 'Ad blocker and VPN', l5b: 'Encrypted passwords and file vault', l5c: 'Sync through your own cloud, encrypted',
+  l5b: 'Encrypted passwords and file vault', l5c: 'Sync through your own cloud, encrypted',
   l6t: 'Bonus level: make your own', l6p: 'Every app is a plugin. You can build yours.',
   l6a: 'Plugin Studio, no code needed', l6b: 'Or with code: three files on GitHub', l6c: 'NeoStore finds it by itself',
   // --- l'inventaire, les scores, les thèmes, la démo, la fin ---
@@ -35,7 +35,7 @@ const EN = {
   tTitle: 'PICK YOUR COLOUR', tSub: '25 THEMES', vTitle: 'DEMO MODE',
   eTitle: 'READY, PLAYER 1?', eSub: 'Three levels and you are in.',
   e1: 'Download <code>NeoDex-Setup.exe</code>.', e2: 'Run it. If Windows warns you: “More info”, then “Run anyway”.', e3: 'Pick a theme, add your sites, open NeoStore.',
-  eFor: 'Windows 10 and 11 · free',
+  eAlso: 'Also:', eFor: 'Windows 10 and 11 · free',
   // --- les autres écrans ---
   stLead: 'Every app and game in NeoStore. Everything is free: they install in one click from NeoDex. Click an app to see its card.',
   dTitle2: 'STAGE SELECT', dSub: 'SCENES', dLead2: 'Each launch of NeoDex draws a new scene, made of pixels, with twinkling stars. Pick one to see it.',
@@ -47,7 +47,7 @@ const EN = {
   q1: 'Is it free?', a1: 'Yes. NeoDex and every NeoStore app are free, with no ads.',
   q2: 'Where does my data go?', a2: 'On your PC, in the <code>%APPDATA%\\NeoDex</code> folder. It only leaves it if you turn on sync: it then goes through your own OneDrive, Google Drive or Dropbox, encrypted with your password. Each app only sees what its permissions allow.',
   q3: 'How do I uninstall NeoDex?', a3: 'In Windows: Settings › Apps › Installed apps › NeoDex › Uninstall. Your data stays in <code>%APPDATA%\\NeoDex</code> in case you come back; delete that folder to erase everything.',
-  q4: 'Does it work on Mac or Linux?', a4: 'NeoDex is made for Windows 10 and 11. A Linux version is on its way: it is built and tested with every release, but not offered for download yet. No Mac version. An Android app comes with NeoDex to find your shortcuts and music. In NeoStore, every app shows the systems it runs on.',
+  q4: 'Does it work on Mac or Linux?', a4: 'NeoDex is made for Windows 10 and 11. A Linux version (AppImage) is offered at the bottom of the home page, next to the Android app (APK, to install by allowing unknown sources), which brings your shortcuts, music and compatible apps. No Mac version. In NeoStore, every app shows the systems it runs on.',
   q5: 'Why does Windows show a warning?', a5: 'The installer has no paid Microsoft certificate, so Windows warns you as a precaution. Click “More info”, then “Run anyway”. Updates, on the other hand, are signed and checked by NeoDex before they are installed.',
   q6: 'Are NeoStore apps safe?', a6: 'Apps in the official catalog are reviewed and then signed: NeoDex refuses a modified archive. An unverified app can still be installed, but NeoStore warns you first. Each app says what it can do, and you can remove a permission at any time.',
   q7: 'How do updates work?', a7: 'By themselves: NeoDex checks for a new version and offers to install it in one click. NeoStore apps update the same way.',

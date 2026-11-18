@@ -129,6 +129,9 @@
     const r = rels[0], exe = (r.assets || []).find(a => /\.exe$/i.test(a.name)), v = r.tag_name.replace(/^v/, '');
     document.querySelectorAll('.dlInfo').forEach(e => e.textContent = UI[lang].ver + ' ' + v + (exe ? ' · ' + Math.round(exe.size / 1048576) + ' ' + UI[lang].size : ''));
     if (exe) document.querySelectorAll('[data-dl]').forEach(a => a.href = exe.browser_download_url);   // le bouton télécharge directement l'installateur
+    // l'appli Android et la version Linux : montrées seulement si la dernière version les contient
+    document.querySelectorAll('[data-dl-os]').forEach(a => { const f = (r.assets || []).find(x => x.name.endsWith('.' + a.dataset.dlOs)); a.hidden = !f; if (f) a.href = f.browser_download_url; });
+    document.querySelectorAll('.dlAlso').forEach(p => p.hidden = !p.querySelector('[data-dl-os]:not([hidden])'));
   }
   const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>');
   // les notes de version : le français, puis l'anglais sous le repère <!-- en --> (les anciennes n'ont que le français)
