@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script src="i18n.js"></script><title>NeoDex · aperçu</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* the previews of a program's windows, above the taskbar (a window of its own, see taskbar-main.js) */
+html,body{margin:0;height:100%;overflow:hidden;background:transparent;font-family:'Pixelify Sans',Consolas,monospace;color:#fff;user-select:none}
+#cards{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;align-items:flex-end;padding:10px;box-sizing:border-box}
+.card{width:240px;background:linear-gradient(180deg,color-mix(in srgb,var(--line2,#3a2a6e) 60%,var(--bg0,#0b031c)),var(--bg0,#0b031c));box-shadow:0 0 0 2px var(--line2,#3a2a6e),0 0 0 4px #05010b,0 6px 0 4px rgba(0,0,0,.4);cursor:pointer;animation:up .14s steps(3)}
+@keyframes up{from{transform:translateY(8px);opacity:0}}
+.card:hover{box-shadow:0 0 0 2px var(--magenta,#e01ec8),0 0 0 4px #05010b,0 0 14px 4px color-mix(in srgb,var(--magenta,#e01ec8) 50%,transparent)}
+.head{display:flex;align-items:center;gap:6px;padding:6px 6px 6px 8px;font-size:13px}
+.head img{width:16px;height:16px} .head span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.x{border:0;background:none;color:#8f7bb8;font:10px 'Press Start 2P',monospace;cursor:pointer;padding:3px 5px} .x:hover{background:#c42a3c;color:#fff}
+.shot{height:140px;margin:0 6px 6px;background:#05010b;display:grid;place-items:center;overflow:hidden}
+.shot img{max-width:100%;max-height:100%;image-rendering:auto} .shot i{color:#8f7bb8;font-style:normal;font-size:13px}
+</style></head><body><div id="cards"></div>
+<script>
+const $ = id => document.getElementById(id), el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+neo.onTbpShow(({cards, icon}) => {
+  $('cards').replaceChildren(...cards.map(c => {
+    const card = el('div', 'card'), head = el('div', 'head'), shot = el('div', 'shot'), x = el('button', 'x', 'X');
+    if (icon) { const i = el('img'); i.src = icon; head.append(i); }
+    head.append(el('span', '', c.t), x); x.title = 'Fermer la fenêtre';
+    if (c.thumb) { const i = el('img'); i.src = c.thumb; shot.append(i); } else shot.append(el('i', '', c.min ? 'fenêtre réduite' : 'pas d\'aperçu'));
+    card.append(head, shot);
+    card.onclick = () => neo.tbpAct({cmd: 'focus', h: c.h});
+    x.onclick = e => { e.stopPropagation(); neo.tbpAct({cmd: 'close', h: c.h}); };
+    return card;
+  }));
+});
+neo.onTbTheme(t => { for (const [k, v] of Object.entries(t)) document.documentElement.style.setProperty(k, v); });
+document.addEventListener('mouseenter', () => neo.tbpHover(true)); document.addEventListener('mouseleave', () => neo.tbpHover(false));
+</script></body></html>

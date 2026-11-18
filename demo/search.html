@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script src="i18n.js"></script><title>NeoDex · recherche</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* a window for searching only: the colours are NeoDex's theme ones (sent by the main window) */
+:root{--bg0:#0b031c;--line:#2a1d52;--line2:#3a2a6e;--magenta:#e01ec8;--pink:#ff5ad9;--violet:#8a5cf0;--lilac:#d9c6ff;--muted:#8f7bb8;--shell:#f3eaff;--pkr:255,90,217;--title:'Press Start 2P',monospace;--text:'Pixelify Sans',Consolas,monospace}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg0);color:var(--shell);font-family:var(--text)}
+body{display:flex;flex-direction:column}
+#bar{display:flex;align-items:center;gap:6px;height:44px;padding:0 8px;box-sizing:border-box;flex:none;-webkit-app-region:drag;background:linear-gradient(180deg,color-mix(in srgb,var(--line2) 60%,var(--bg0)),var(--bg0));box-shadow:inset 0 -2px 0 var(--line2)}
+button,input{-webkit-app-region:no-drag;font:inherit}
+button{border:0;background:none;color:var(--lilac);height:32px;min-width:32px;padding:0 8px;font-size:15px;cursor:pointer} button:hover{background:rgba(var(--pkr),.16);color:#fff}
+#keep{font-size:13px;white-space:nowrap}
+#q{flex:1;min-width:80px;height:30px;padding:0 10px;border:2px solid var(--line2);background:color-mix(in srgb,var(--bg0) 75%,transparent);color:var(--shell);font-size:16px;outline:0} #q:focus{border-color:var(--magenta)}
+#view{flex:1;background:#fff}
+</style></head><body>
+<div id="bar">
+  <button id="back" title="Précédent (Alt+←)">◀</button><button id="fwd" title="Suivant (Alt+→)">▶</button><button id="reload" title="Recharger (F5)">↻</button>
+  <input id="q" placeholder="Rechercher sur le web ou entrer une adresse" spellcheck="false">
+  <button id="keep" title="Ouvrir cette page dans NeoDex">OUVRIR DANS NEODEX</button>
+  <button id="min" title="Réduire">_</button><button id="close" title="Fermer">X</button>
+</div>
+<script>
+const SEARCH = {google: 'https://www.google.com/search?q=', duckduckgo: 'https://duckduckgo.com/?q=', bing: 'https://www.bing.com/search?q=', qwant: 'https://www.qwant.com/?q=', brave: 'https://search.brave.com/search?q='};
+const $ = id => document.getElementById(id), v = document.createElement('webview');
+neo.onTbTheme(t => { for (const [k, c] of Object.entries(t)) document.documentElement.style.setProperty(k, c); });
+neo.getSettings().then(s => {
+  const engine = SEARCH[s.search] || SEARCH.google, go = t => {
+    t = t.trim(); if (!t) return;
+    v.loadURL(/^https?:\/\/\S+$/.test(t) ? t : /^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(t) ? 'https://' + t : engine + encodeURIComponent(t));
+  };
+  v.id = 'view'; v.partition = 'persist:web'; v.setAttribute('allowpopups', ''); v.src = new URL(engine).origin; document.body.append(v);
+  const show = e => { if (e.isMainFrame !== false && document.activeElement !== $('q')) $('q').value = v.getURL(); };
+  v.addEventListener('did-navigate', show); v.addEventListener('did-navigate-in-page', show);
+  $('q').onkeydown = e => { if (e.key === 'Enter') { go($('q').value); v.focus(); } };
+  $('q').onfocus = () => { neo.win('focus'); $('q').select(); };
+  $('back').onclick = () => v.goBack(); $('fwd').onclick = () => v.goForward(); $('reload').onclick = () => v.reload();
+  $('keep').onclick = () => neo.searchToMain(v.getURL());
+  $('min').onclick = () => neo.win('min'); $('close').onclick = () => neo.win('quit');
+  neo.onOpenTab(url => v.loadURL(url));  // links that open a new tab stay in this window
+  neo.onKey(k => ({'Ctrl+l': () => $('q').focus(), 'Alt+ArrowLeft': () => v.goBack(), 'Alt+ArrowRight': () => v.goForward(), F5: () => v.reload(), 'Ctrl+r': () => v.reload(), F12: () => v.openDevTools()})[k]?.());
+  $('q').focus();
+});
+</script>
+</body></html>

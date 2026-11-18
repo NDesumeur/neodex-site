@@ -1,0 +1,235 @@
+/* NeoDex sur téléphone : la mise en page pour petit écran, ajoutée par-dessus les styles du PC (chargée en dernier).
+   On ne redessine rien : les couleurs, polices, cadres et décors viennent des thèmes du PC. On ne fait que replacer et agrandir
+   ce qui doit l'être pour un écran étroit et pour le doigt. */
+
+/* ---------- la barre du haut : Accueil, les onglets ouverts, +, NeoStore, Menu ---------- */
+/* les boutons de fenêtre de Windows (réduire, agrandir, fermer) et la zone pour déplacer la fenêtre n'existent pas sur téléphone */
+.wbtn,#bDrag{display:none!important}
+body.electron #tabstrip{height:48px;padding:0 4px;gap:2px}
+main{padding-top:5px}   /* la barre fait 5 px de plus que sur PC */
+#bHomeTab{min-width:48px;justify-content:center;padding:0}
+#bHomeTab .hTitle{display:none}
+#bHomeTab svg,#mStore svg{width:20px;height:20px}
+#bTabs{display:flex!important;flex:1 1 0;min-width:0;overflow-x:auto;scrollbar-width:none}   /* les onglets défilent au doigt */
+#bTabs::-webkit-scrollbar{display:none}
+#bTabs .btab{flex:0 0 auto;min-width:48px;max-width:150px}
+#tabstrip>button{min-width:48px;height:100%;padding:0 10px}
+#mStore{all:unset;display:grid;place-items:center;color:var(--lilac);min-width:48px;height:100%}
+
+/* ---------- l'accueil ---------- */
+@media(max-width:760px){
+  .wrap{padding:14px 12px 40px}
+  header{margin-bottom:16px;gap:10px;flex-wrap:wrap}
+  .toolbar{gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  #homeBlocks{gap:16px}
+  #homeBlocks>*{padding-inline:14px}   /* des panneaux moins rembourrés : quatre tuiles tiennent sur une ligne */
+  header{justify-content:space-between}
+  header h1{font-size:26px}
+  #clock{margin-left:auto;text-align:right}
+  #searchWrap{flex:1 1 100%;min-width:0;max-width:100%;box-sizing:border-box}   /* la recherche sur sa propre ligne, les trois boutons dessous */
+  .toolbar>.btn{flex:1 1 0;min-height:44px;justify-content:center;padding-inline:8px}
+  /* les tuiles : quatre par ligne au lieu de la taille choisie sur PC */
+  #homeLinks .grid:not(.nbWidgets){grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
+  #homeLinks .tile{height:88px}
+  .grid{gap:10px}
+  .tile{gap:6px}
+  .tile img,.tile svg{max-width:36px;max-height:36px}
+  .tile span,.tile .name{font-size:12px}
+}
+
+/* ---------- les menus déroulants (Menu, Trier, Disposer…) : sur PC ils se placent sous leur bouton ; ici ils prennent la largeur de l'écran ---------- */
+@media(max-width:760px){
+  .tbPop{min-width:0!important}
+  .tbPop.on{left:8px!important;right:8px!important;grid-template-columns:1fr;max-height:calc(100vh - 64px)}   /* une seule colonne, large comme l'écran */
+  .tbPop .tbMore{grid-template-columns:1fr}
+  .tbPop .tbtn{min-height:44px;white-space:normal}
+  .tbPop .tbtn small{display:none}   /* les raccourcis clavier (Ctrl+…) n'ont pas de sens au doigt */
+}
+
+/* ---------- les applis intégrées (NeoStore, Notes, Agenda…) : marges du PC (40px) réduites, pour garder la largeur aux contenus ---------- */
+@media(max-width:760px){
+  .appWrap{padding:16px 14px 32px;gap:14px}
+  .agHead{gap:10px;margin-bottom:10px}
+}
+
+/* ---------- NeoStore : les filtres tiennent chacun sur une ligne qu'on fait défiler au doigt, au lieu de s'empiler sur deux écrans ---------- */
+@media(max-width:760px){
+  .sxTabs,.nsSel,.nsChips{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;margin:0;padding:2px 2px 8px;scrollbar-width:none}
+  .sxTabs>*,.nsSel>*,.nsChips>*{flex:0 0 auto}
+  .nsFilters{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+  .nsFilters>*{min-width:0;max-width:100%}   /* sans ça la ligne garde sa largeur entière et pousse toute la page vers la droite */
+  .sxHero{flex-direction:column;align-items:flex-start;min-height:0;padding:22px 12px 14px;gap:12px}   /* l'icône au-dessus du texte : côte à côte, le texte n'avait plus que 60px */
+  .sxHero .stIcon{width:72px;height:72px} .sxHero .stIcon img{width:60px;height:60px}
+  .sxHeroT{font-size:18px}
+  .sxCard{flex-basis:220px}
+}
+
+/* ---------- tout un peu plus petit : les tailles du PC (textes, boutons, cadres) sont pensées pour un grand écran ---------- */
+/* zoom réduit toute la page d'un coup, sans retoucher chaque taille. Attention : sous zoom, « 90vw » ne vaut plus 90 % de l'écran
+   mais 90 % × 0,85 : pour une largeur d'écran, écrire 100 % et non des vw. */
+@media(max-width:760px){
+  html{zoom:.85}
+}
+
+/* ---------- les fenêtres de dialogue (Paramètres, Historique, Ajouter…) : presque tout l'écran, et leur contenu défile ---------- */
+@media(max-width:760px){
+  #modal.on,#evModal.on,#setModal.on,#histModal.on,#quitModal.on,#askModal.on,#nbDialog.on{grid-template:minmax(0,1fr)/minmax(0,1fr);padding:8px}   /* une seule case, pas plus grande que l'écran */
+  .win,#setModal .win,#nbDialog .win{width:100%!important;max-width:none;max-height:100%;align-self:center;display:flex;flex-direction:column}
+  .win>.body{overflow-y:auto;min-height:0}
+  .winHead{padding:12px 14px}
+  #setModal .body.setTabs{min-height:0;gap:12px}
+  .setNav{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;padding-bottom:6px;align-self:stretch;max-width:100%}   /* les rubriques des Paramètres : une ligne qui défile */
+  .setNav>*{flex:0 0 auto}
+}
+
+/* ce qui ne concerne que le PC (marqué par neo-mobile.js) */
+.mPcOnly{display:none!important}
+
+/* les boutons d'en-tête des applis (« Tout effacer »…) passent à la ligne au lieu de pousser la page vers la droite */
+@media(max-width:760px){
+  .agNav{flex-wrap:wrap;min-width:0;max-width:100%}
+  .agNav .btn{white-space:normal}
+}
+
+/* ---------- le confort au doigt ---------- */
+@media(max-width:760px){
+  /* une cible de doigt fait au moins 44 px à l'écran, soit 52 px ici à cause du zoom de 0,85 */
+  .btn,.tab,.nsChip,select.f,input.f,.setNav>*,.x{min-height:52px}
+  .btn,.tab,.nsChip{display:inline-flex;align-items:center;justify-content:center}
+  .x{min-width:52px}
+  input[type=checkbox],input[type=radio]{width:26px;height:26px}
+  label{min-height:44px}
+  /* les barres de défilement du PC prennent de la largeur et ne servent à rien au doigt */
+  *{scrollbar-width:none} *::-webkit-scrollbar{display:none}
+  /* le rappel de touche « ENTRÉE » de la recherche n'a pas de sens sans clavier */
+  #searchWrap kbd{display:none}
+  main footer{display:none}   /* les rappels « CLIC DROIT », « ÉCHAP »… du bas de l'accueil */
+  /* NeoStore : la grande enseigne et le cadre d'en-tête prenaient le premier écran ; l'en-tête tient sur une ligne et la recherche arrive tout de suite */
+  .nsBanner{display:none}
+  #storeApp .agHead{flex-wrap:nowrap;align-items:center;padding:8px 12px}
+  #storeApp .agHead .label{display:none}
+  #storeApp .agHead #nsInfo{flex:1;min-width:0;font-size:13px}
+  #storeApp .agHead .agNav{flex:0 0 auto;flex-wrap:nowrap;max-width:none}
+  .sxCard{flex-basis:200px}
+  /* la barre du haut reste accessible : un fond plein, et la page ne passe pas dessous quand on défile */
+  .tbPop .tbtn{padding-inline:16px;font-size:14px}
+}
+
+/* ---------- l'accueil au doigt : les widgets en une rangée qu'on fait glisser (empilés, ils cachaient les applis sous deux écrans) ---------- */
+@media(max-width:760px){
+  #wGrid.nbWidgets{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px}
+  #wGrid.nbWidgets>.nbWidget{flex:0 0 86%;scroll-snap-align:start}   /* le bord du widget suivant dépasse : on voit qu'il y en a d'autres */
+}
+
+/* ---------- la barre du haut, revue après l'essai sur téléphone ----------
+   Avant : chaque onglet montrait son nom et prenait toute la place, on n'en voyait qu'un.
+   Maintenant : un onglet est une icône (on en voit quatre ou cinq, la rangée glisse au doigt) ; seul l'onglet ouvert montre sa croix. */
+#bTabs .btab{flex:0 0 52px!important;min-width:52px!important;max-width:none!important;padding:0!important;justify-content:center;gap:4px}
+#bTabs .btab>span{display:none}
+#bTabs .btab img{width:24px;height:24px}
+#bTabs .btab .x{display:none}
+#bTabs .btab.on{flex-basis:84px!important}
+#bTabs .btab.on .x{display:block;visibility:visible;min-height:0;min-width:32px;height:100%;font-size:13px;display:grid;place-items:center}
+#tabstrip>button{min-width:46px;padding:0 6px}
+#bMenu{font-size:0!important;min-width:46px}   /* « MENU » en toutes lettres prenait la place d'un onglet : trois traits à la place */
+#bMenu::before{content:'';display:block;width:20px;height:16px;margin:auto;background:linear-gradient(currentColor 0 0) 0 0/100% 3px,linear-gradient(currentColor 0 0) 0 50%/100% 3px,linear-gradient(currentColor 0 0) 0 100%/100% 3px;background-repeat:no-repeat}
+
+/* ---------- Notes : sur PC la liste est à gauche et la note à droite ; sur téléphone on voit l'une ou l'autre ---------- */
+#mNaBack{display:none}
+@media(max-width:760px){
+  .naSide{width:auto;flex:1;border-right:0;padding:14px}
+  #notesApp:has(#naEditor:not(.on))::after{display:none}       /* « Choisis une note à gauche » n'a plus de sens */
+  #notesApp:has(#naEditor.on) .naSide{display:none}             /* une note est ouverte : elle prend tout l'écran */
+  #naEditor{max-width:none;margin:8px;padding:14px 16px 16px 44px}
+  #naEditor::before{left:10px;top:14px;bottom:14px;width:16px}
+  #naEditor::after{display:none}
+  #mNaBack{display:inline-flex;align-self:flex-start}
+  #naText{min-height:50vh}
+}
+
+/* Coffre-fort : pas de corbeille sur téléphone, et les deux cartes du PC qui ne sont pas faites ici (codes, mots de passe) ne laissent pas de cadre vide */
+label:has(#vtBin),#vtPwCard:empty,#vtTotpCard:empty{display:none!important}
+
+/* ---------- listes à boutons (coffre-fort, téléchargements…) : sur PC les boutons texte de 8 px sont à droite du nom ;
+   au doigt le nom prend la ligne et les boutons passent dessous, assez grands pour être touchés ---------- */
+@media(max-width:760px){
+  .txRow,.vtRow{grid-template-columns:minmax(0,1fr)!important;gap:6px;padding:10px 0}
+  .txRow>.d:empty{display:none}
+  .txRow .tn{white-space:normal;word-break:break-word}
+  .dlInfo{flex-wrap:wrap;gap:8px!important}
+  .dlInfo button{font-size:11px;padding:12px 14px;box-shadow:inset 0 0 0 2px var(--line2)}
+}
+/* l'aperçu d'un fichier du coffre (neo-vault.js) */
+#mVaultView .mClose{position:fixed;top:10px;right:10px;font:12px var(--title);color:#fff;background:var(--line2,#333);border:0;padding:14px 18px;z-index:1}
+
+/* ---------- Paramètres, revus après l'essai sur téléphone ---------- */
+@media(max-width:760px){
+  html.mBig{zoom:1}                                    /* « Texte plus grand » (réglage bigText) : sur PC Electron agrandit de 15 % ; ici le zoom passe de 0,85 à 1 */
+  #setModal.on{padding:0}
+  #setModal .win{height:100%;max-height:none;border-radius:0}   /* une page entière, pas une petite fenêtre au milieu */
+  #setModal .win>.body.setTabs{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:10px 12px 0;min-width:0}   /* .body.setTabs : la règle du PC (une grille qui s'élargit selon son contenu) est aussi précise, il faut la battre */
+  #setModal .setPane,#setModal .setSec,#setModal .field{min-width:0;max-width:100%}
+  #setModal .setPane{flex:1;min-height:0;max-height:none;overflow-y:auto;padding-bottom:24px}   /* max-height : le PC la limite à 62 % de la hauteur */
+  /* décors (46) et thèmes (27) : des rangées qu'on fait glisser de côté au lieu de 2 500 px à faire défiler */
+  #setScene,#setBg{grid-auto-flow:column;grid-template-columns:none!important;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px}
+  #setScene{grid-template-rows:repeat(3,auto)!important;grid-auto-columns:44%}
+  #setBg{grid-template-rows:repeat(2,auto)!important;grid-auto-columns:46%}
+  #setScene>*,#setBg>*{scroll-snap-align:start}
+  #setWebColors{grid-template-columns:1fr!important}
+  label.check{align-items:center;gap:12px}
+}
+@media(max-width:760px){
+  #setBg>.tab{flex-direction:column;align-items:stretch;justify-content:flex-start;padding:8px}   /* la miniature du thème au-dessus de son nom (la règle des boutons plus haut les met en ligne) */
+}
+@media(max-width:760px){
+  /* Polices : les cartes en deux rangées qu'on fait glisser. Le curseur (forme, couleur, taille) n'existe pas au doigt : caché */
+  .lkFonts{display:grid!important;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-template-columns:none!important;grid-auto-columns:46%;overflow-x:auto;gap:8px;padding-bottom:6px}
+  .lkKinds,.lkTwo{display:none!important}
+}
+
+/* Visionneuse : « Ouvrir avec Windows », « Ouvrir avec… » et « Dossier » n'existent pas sur téléphone (viewer.js les remet en display:'' à chaque fichier) */
+#vwWin, #vwWith, #vwDir { display: none !important; }
+
+/* Agenda : la semaine garde ses 7 jours, mais chaque jour reste lisible (92px) et la grille défile de côté ; la colonne des heures reste à gauche.
+   neo-mobile.js amène le jour d'aujourd'hui dans la partie visible à chaque affichage. */
+#agGrid { grid-template-columns: 30px repeat(7, 92px) !important; overflow-x: auto; scroll-snap-type: x proximity; }
+#agGrid > .agDay { scroll-snap-align: start; scroll-margin-left: 30px; }
+#agGrid > div:first-child, #agGrid > .agAllLabel, #agGrid > .agTimes { position: sticky; left: 0; z-index: 3; background: var(--win); }
+#agGrid .agTimes span { right: 4px; font-size: 11px; }
+
+/* Notifications : la liste puis les réglages « Ne pas déranger », l'un sous l'autre (côte à côte sur PC) */
+.nfLayout { grid-template-columns: minmax(0, 1fr) !important; }
+/* une notification : les boutons (Ouvrir, Plus tard, Lue, Effacer) passent sous le texte, pour laisser toute la largeur au titre */
+.nfCard { grid-template-columns: 40px minmax(0, 1fr) !important; }
+.nfCard .nfTop { flex-wrap: wrap; }
+.nfCard .nfAct { grid-column: 2 !important; grid-row: auto !important; flex-direction: row !important; flex-wrap: wrap; justify-content: flex-start !important; gap: 4px 14px !important; }
+.nfCard .nfAct > * { padding: 10px 6px !important; font-size: 9px !important; }
+
+/* NeoMusic : le lecteur YouTube qui joue le son (neo-music.js), hors de l'écran ; pas caché par display:none, sinon YouTube s'arrête */
+#mYtBox { position: fixed; width: 200px; height: 113px; left: -400px; top: 0; opacity: .01; pointer-events: none; }
+
+/* plus fluide : le flou derrière les panneaux (backdrop-filter) recalcule l'image à chaque défilement, ce qui fait ramer un téléphone */
+*, *::before, *::after { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+
+/* la fenêtre d'un raccourci : ◀ ▶ Supprimer sur une ligne, Annuler et Enregistrer en dessous (neo-touch.js) */
+#modal .winFoot { flex-wrap: wrap; row-gap: 10px; }
+/* les polices larges de certains thèmes (Nebula, Cyberpunk…) poussaient des boutons hors de l'écran : ils passent à la ligne */
+.win .winFoot, #evKind { flex-wrap: wrap; row-gap: 8px; }
+#modal .winFoot .mBreak { flex-basis: 100%; height: 0; }
+
+/* Sites et données : chaque site sur deux lignes (son nom, puis ses boutons) */
+.stRow { grid-template-columns: minmax(0, 1fr) !important; gap: 8px !important; }
+.stRow .stActs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.stRow .stPerms:empty { display: none; }
+
+/* plus fluide : les groupes de tuiles hors de l'écran ne sont pas dessinés tant qu'on ne fait pas défiler jusqu'à eux */
+#groups .group { content-visibility: auto; contain-intrinsic-size: auto 260px; }
+
+/* le bandeau « nouvelle version » (web/about.js) : sur téléphone il passait inaperçu en haut de l'accueil. Il reste en bas de l'écran, par-dessus
+   tout (même dans une appli ouverte), avec un liseré qui pulse jusqu'à ce qu'on choisisse. */
+#updBar { position: fixed; left: 8px; right: 8px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 9000; margin: 0; padding: 14px; gap: 10px;
+  background: var(--bg0); box-shadow: inset 0 0 0 3px var(--magenta), 0 6px 24px rgba(0,0,0,.6); animation: updPulse 1.6s ease-in-out infinite; }
+#updBar .updTxt { flex-basis: 100%; font-size: 15px; font-weight: bold; }
+#updBar .btn { flex: 1; }
+@keyframes updPulse { 50% { box-shadow: inset 0 0 0 3px var(--pink), 0 0 22px rgba(var(--mgr),.7); } }
+@media (prefers-reduced-motion: reduce) { #updBar { animation: none; } }

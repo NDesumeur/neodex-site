@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script src="i18n.js"></script><title>NeoDex · panneau</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* the panel above the taskbar (taskbar-main.js): the search of Windows programs, or the sound. The theme's colours come from the main window. */
+:root{--bg0:#0b031c;--line:#2a1d52;--line2:#3a2a6e;--magenta:#e01ec8;--pink:#ff5ad9;--violet:#8a5cf0;--lilac:#d9c6ff;--muted:#8f7bb8;--shell:#f3eaff;--pkr:255,90,217;--title:'Press Start 2P',monospace;--text:'Pixelify Sans',Consolas,monospace}
+html,body{margin:0;height:100%;overflow:hidden;color:var(--shell);font:15px var(--text);user-select:none}
+body{box-sizing:border-box;padding:14px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(180deg,color-mix(in srgb,var(--line2) 55%,var(--bg0)),var(--bg0));box-shadow:inset 0 0 0 2px var(--line2),inset 0 2px 0 2px var(--magenta)}
+h2{margin:0;font:11px var(--title);color:var(--lilac);letter-spacing:.5px} small{color:var(--muted)}
+input[type=search]{background:color-mix(in srgb,var(--bg0) 70%,#000);border:0;box-shadow:inset 0 0 0 2px var(--line2);color:#fff;font:16px var(--text);padding:10px 12px;outline:none} input[type=search]:focus{box-shadow:inset 0 0 0 2px var(--magenta)}
+.list{flex:1;overflow:auto;display:flex;flex-direction:column;gap:2px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.item{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--shell);text-align:left;padding:7px 8px;font:15px var(--text);cursor:pointer}
+.item:hover,.item.sel{background:rgba(var(--pkr),.2)} .item img,.item .ic{width:22px;height:22px;flex:none} .item .ic{display:grid;place-items:center;font:10px var(--title);color:var(--lilac);background:color-mix(in srgb,var(--line2) 50%,transparent)}
+.item span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row{display:flex;align-items:center;gap:10px}
+.mute{border:0;width:34px;height:30px;background:color-mix(in srgb,var(--line2) 60%,transparent);color:#fff;font-size:15px;cursor:pointer;flex:none} .mute:hover{background:rgba(var(--pkr),.3)} .mute.off{background:#c42a3c}
+input[type=range]{flex:1;accent-color:var(--magenta);height:18px}
+.pct{width:56px;flex:none;white-space:nowrap;text-align:right;font:10px var(--title);color:var(--lilac)}
+.card{background:color-mix(in srgb,var(--bg0) 55%,transparent);box-shadow:inset 0 0 0 1px var(--line2);padding:10px;display:flex;flex-direction:column;gap:8px}
+.dev{display:flex;align-items:center;gap:8px;border:0;background:none;color:var(--shell);font:14px var(--text);padding:5px 6px;cursor:pointer;text-align:left} .dev:hover{background:rgba(var(--pkr),.15)} .dev.on{color:#fff;background:rgba(var(--pkr),.25)} .dev b{width:12px;color:var(--pink)}
+.app{display:grid;grid-template-columns:22px 1fr auto;gap:4px 8px;align-items:center} .app img,.app .ic{width:22px;height:22px} .app .ic{display:grid;place-items:center;font:9px var(--title);background:color-mix(in srgb,var(--line2) 50%,transparent)}
+.app span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .app .row{grid-column:1/-1}
+.scroll{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.empty{color:var(--muted);text-align:center;padding:20px}
+.pxi{width:18px;height:auto;display:block;margin:auto} .item .ic .pxi,.app .ic .pxi{width:12px} small .pxi{display:inline-block;width:10px;vertical-align:middle} .net small .pxi{width:9px}
+/* calendar */
+.now b{font:22px var(--title);color:#fff;text-shadow:0 0 8px rgba(var(--pkr),.6)} .now small{display:block;margin-top:6px;font-size:15px;text-transform:capitalize}
+.mhead{display:flex;align-items:center;gap:8px} .mhead span{flex:1;font:10px var(--title);color:var(--lilac);text-transform:uppercase;text-align:center}
+.nav{border:0;width:30px;height:26px;background:color-mix(in srgb,var(--line2) 60%,transparent);color:#fff;cursor:pointer} .nav:hover{background:rgba(var(--pkr),.3)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px} .grid .wd{font:8px var(--title);color:var(--muted);text-align:center;padding:4px 0}
+.day{position:relative;height:40px;border:0;background:color-mix(in srgb,var(--bg0) 55%,transparent);color:var(--shell);font:14px var(--text);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:4px}
+.day:hover{background:rgba(var(--pkr),.18)} .day.out{opacity:.3} .day.today{background:color-mix(in srgb,var(--magenta) 45%,var(--bg0));color:#fff} .day.sel{box-shadow:inset 0 0 0 2px var(--pink)}
+.day .dots{display:flex;gap:2px;margin-top:3px} .day .dots i{width:5px;height:5px}
+.items{flex:1;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.it{display:flex;gap:8px;align-items:baseline;font-size:14px} .it i{width:8px;height:8px;flex:none;align-self:center} .it em{font-style:normal;color:var(--muted);font:9px var(--title);flex:none;width:44px}
+.open{border:0;background:color-mix(in srgb,var(--magenta) 70%,var(--bg0));color:#fff;font:9px var(--title);padding:9px;cursor:pointer} .open:hover{filter:brightness(1.15)}
+/* network */
+.big{display:flex;gap:16px;align-items:baseline} .big b{font:13px var(--title);color:#fff} .big .dn{color:var(--pink)} .big .up{color:var(--lilac)}
+canvas{width:100%;height:56px;display:block}
+.net{display:flex;align-items:center;gap:8px;border:0;background:none;color:var(--shell);font:14px var(--text);padding:5px 6px;cursor:pointer;text-align:left} .net:hover{background:rgba(var(--pkr),.15)} .net.on{background:rgba(var(--pkr),.25);color:#fff}
+.net span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .bars{font-size:12px;letter-spacing:-1px;color:var(--pink);width:34px} .net small{flex:none}
+.toggle{border:0;background:color-mix(in srgb,var(--line2) 60%,transparent);color:#fff;font:9px var(--title);padding:6px 10px;cursor:pointer} .toggle.on{background:color-mix(in srgb,var(--magenta) 70%,var(--bg0))}
+.link{border:0;background:none;color:var(--muted);font:13px var(--text);cursor:pointer;text-align:left;padding:2px 6px;text-decoration:underline} .link:hover{color:#fff}
+.h2r{display:flex;align-items:center;justify-content:space-between}
+/* pixel art : bords pleins, ombres dures, curseur en blocs, barres de signal en pixels */
+.card{background:color-mix(in srgb,var(--bg0) 75%,#000);box-shadow:inset 0 0 0 2px var(--line2),inset 0 4px 0 2px color-mix(in srgb,var(--line2) 45%,transparent),4px 4px 0 rgba(0,0,0,.5);padding:12px}
+h2{display:flex;align-items:center;gap:8px} h2::before{content:'';width:6px;height:6px;background:var(--pink);box-shadow:2px 2px 0 var(--magenta)}
+input[type=range]{-webkit-appearance:none;appearance:none;height:22px;background:none;--p:50%;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:12px;box-shadow:inset 0 0 0 2px var(--line2);
+  background:repeating-linear-gradient(90deg,transparent 0 6px,color-mix(in srgb,var(--bg0) 80%,#000) 6px 8px),linear-gradient(90deg,var(--magenta) 0 var(--p),color-mix(in srgb,var(--line2) 40%,var(--bg0)) var(--p))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:22px;margin-top:-5px;background:var(--shell);box-shadow:inset -2px -2px 0 var(--muted),0 0 0 2px var(--bg0),3px 3px 0 rgba(0,0,0,.5)}
+input[type=range]:hover::-webkit-slider-thumb{background:#fff;box-shadow:inset -2px -2px 0 var(--pink),0 0 0 2px var(--bg0),3px 3px 0 rgba(0,0,0,.5)}
+.mute{box-shadow:inset 0 0 0 2px var(--line2),2px 2px 0 rgba(0,0,0,.5)} .mute.off{box-shadow:inset 0 0 0 2px #ff6a7a,2px 2px 0 rgba(0,0,0,.5)}
+.net .sig,.sig{display:inline-flex;align-items:flex-end;gap:2px;width:30px;height:14px;flex:none} .sig i{width:5px;background:color-mix(in srgb,var(--line2) 70%,transparent)} .sig i.on{background:var(--pink);box-shadow:inset 0 2px 0 #fff4}
+.sig i:nth-child(1){height:4px} .sig i:nth-child(2){height:7px} .sig i:nth-child(3){height:10px} .sig i:nth-child(4){height:14px}
+canvas{image-rendering:pixelated;height:56px;box-shadow:inset 0 0 0 2px var(--line2);background:color-mix(in srgb,var(--bg0) 60%,#000)}
+.big b{text-shadow:2px 2px 0 #000;white-space:nowrap} .big{flex-wrap:wrap;gap:6px 16px}
+.net{box-shadow:inset 0 -2px 0 color-mix(in srgb,var(--line2) 40%,transparent)} .net.on{box-shadow:inset 3px 0 0 var(--pink)}
+.join{display:flex;gap:6px;padding:4px 6px 8px 44px} .join input{flex:1;min-width:0;background:color-mix(in srgb,var(--bg0) 70%,#000);border:0;box-shadow:inset 0 0 0 2px var(--line2);color:#fff;font:14px var(--text);padding:6px 8px;outline:none}
+.join input:focus{box-shadow:inset 0 0 0 2px var(--magenta)} .join button{border:0;background:var(--magenta);color:#fff;font:8px var(--title);padding:0 10px;cursor:pointer;box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.vu{display:flex;align-items:flex-end;gap:3px;height:34px} .vu i{flex:1;background:color-mix(in srgb,var(--line2) 55%,transparent)} .vu i.on{background:var(--pink)} .vu i.hot{background:#ffd040}
+.volTop{display:flex;align-items:center;gap:12px} .volTop .pctBig{font:20px var(--title);color:#fff;text-shadow:2px 2px 0 #000;width:96px;text-align:right}
+</style></head><body>
+<div id="box"></div>
+<script src="taskbar-icons.js"></script>
+<script>
+const $ = id => document.getElementById(id), el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+const icons = new Map(), iconOf = p => { if (!icons.has(p)) icons.set(p, neo.tbIcon(p).catch(() => '')); return icons.get(p); };
+const icon = (path, name) => { const ph = el('div', 'ic', (name || '?')[0].toUpperCase()); if (path) iconOf(path).then(u => { if (u) { const i = el('img'); i.src = u; ph.replaceWith(i); } }); return ph; };
+let kind = '', timer = 0, timer2 = 0, apps = [], sel = 0;
+neo.onTbTheme(t => { for (const [k, v] of Object.entries(t)) document.documentElement.style.setProperty(k, v); });
+neo.onTbxOpen(k => { kind = k; clearInterval(timer); clearInterval(timer2); document.body.replaceChildren(); ({search, volume, calendar, net: network})[k]?.(); });
+
+/* ---------- search: the Start menu's programs ---------- */
+async function search() {
+  const q = Object.assign(el('input'), {type: 'search', placeholder: 'Rechercher un programme…'}), list = el('div', 'list');
+  document.body.append(el('h2', '', 'Programmes'), q, list);
+  setTimeout(() => q.focus(), 30);
+  list.append(el('div', 'empty', 'Chargement…'));
+  apps = (await neo.tbApps()).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
+  const show = () => {
+    const s = q.value.trim().toLowerCase(), hits = !s ? apps : apps.filter(a => a.name.toLowerCase().includes(s)).sort((a, b) => (b.name.toLowerCase().startsWith(s) ? 1 : 0) - (a.name.toLowerCase().startsWith(s) ? 1 : 0));
+    sel = Math.min(sel, Math.max(0, hits.length - 1));
+    list.replaceChildren(...(hits.length ? hits.slice(0, 80).map((a, i) => {
+      const b = el('button', 'item' + (i === sel ? ' sel' : '')); b.append(icon(/\.exe$/i.test(a.id) ? a.id : '', a.name), el('span', '', a.name));
+      b.onclick = () => neo.tbRunApp(a.id); return b;
+    }) : [el('div', 'empty', 'Aucun programme ne correspond.')]));
+    list.querySelector('.sel')?.scrollIntoView({block: 'nearest'});
+    return hits;
+  };
+  let hits = show();
+  q.oninput = () => { sel = 0; hits = show(); };
+  q.onkeydown = e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(0, Math.min(hits.length - 1, sel + (e.key === 'ArrowDown' ? 1 : -1))); hits = show(); }
+    else if (e.key === 'Enter' && hits[sel]) neo.tbRunApp(hits[sel].id);
+    else if (e.key === 'Escape') neo.tbPanelClose();
+  };
+}
+
+/* ---------- sound: the general volume, the output, the volume of each program ---------- */
+const slider = (v, on) => { const r = Object.assign(el('input'), {type: 'range', min: 0, max: 100, value: Math.round(v * 100)}), fill = () => r.style.setProperty('--p', r.value + '%');
+  fill(); r.oninput = () => { fill(); on(r.value / 100); }; return r; };
+const vuBars = (v, mute) => { const b = el('div', 'vu'); for (let i = 0; i < 16; i++) { const x = el('i', !mute && i < Math.round(v * 16) ? (i >= 13 ? 'on hot' : 'on') : ''); x.style.height = (30 + i * 70 / 15) + '%'; b.append(x); } return b; };
+let dragging = false; document.addEventListener('pointerdown', () => dragging = true); document.addEventListener('pointerup', () => dragging = false);
+async function volume() {
+  const draw = async () => {
+    if (kind !== 'volume' || dragging) return;
+    let s; try { s = await neo.audioState(); } catch (e) { document.body.replaceChildren(el('div', 'empty', 'Le son ne répond pas : ' + e.message)); return; }
+    const set = c => neo.audioSet(c).then(draw);
+    // the general volume
+    const m = el('div', 'card'), mr = el('div', 'row'), mb = el('button', 'mute' + (s.master.mute ? ' off' : '')), pct = el('span', 'pct', Math.round(s.master.volume * 100) + ' %');
+    mb.append(TBI.sound(s.master.mute ? 0 : 3)); mb.title = s.master.mute ? 'Réactiver le son' : 'Couper le son'; mb.onclick = () => set({cmd: 'mute', pid: -1, value: !s.master.mute});
+    const vtop = el('div', 'volTop'), big = el('span', 'pctBig', s.master.mute ? 'COUPÉ' : Math.round(s.master.volume * 100) + '%'), vu = el('div'); vu.style.flex = '1'; vu.append(vuBars(s.master.volume, s.master.mute));
+    mr.append(mb, slider(s.master.volume, v => { pct.textContent = Math.round(v * 100) + ' %'; big.textContent = Math.round(v * 100) + '%'; vu.replaceChildren(vuBars(v, false)); neo.audioSet({cmd: 'volume', pid: -1, value: v}); }), pct);
+    vtop.append(vu, big); m.append(el('h2', '', 'Volume'), vtop, mr);
+    // the output: headphones or speakers
+    const o = el('div', 'card'); o.append(el('h2', '', 'Sortie'));
+    for (const d of s.devices) { const b = el('button', 'dev' + (d.default ? ' on' : '')); b.append(el('b', '', d.default ? '●' : ''), el('span', '', d.name)); b.onclick = () => set({cmd: 'device', id: d.id}); o.append(b); }
+    // each program that makes sound
+    const mx = el('div', 'card'); mx.append(el('h2', '', 'Mixeur'));
+    const list = s.sessions.filter(x => x.system || x.name);
+    if (!list.length) mx.append(el('small', '', 'Aucun programme ne joue de son.'));
+    for (const a of list) {
+      const r = el('div', 'app'), name = a.system ? 'Sons système' : a.title || a.name, row = el('div', 'row'), b = el('button', 'mute' + (a.mute ? ' off' : '')), p = el('span', 'pct', Math.round(a.volume * 100) + ' %');
+      b.append(TBI.sound(a.mute ? 0 : 3)); b.title = a.mute ? 'Réactiver le son' : 'Couper le son';
+      b.onclick = () => set({cmd: 'mute', pid: a.pid, value: !a.mute});
+      row.append(b, slider(a.volume, v => { p.textContent = Math.round(v * 100) + ' %'; neo.audioSet({cmd: 'volume', pid: a.pid, value: v}); }), p);
+      const sys = el('div', 'ic'), playing = el('small'); sys.append(TBI.note()); if (a.active) playing.append(TBI.note()); playing.title = a.active ? 'joue du son' : '';
+      r.append(a.system ? sys : icon(a.path, a.name), el('span', '', name), playing, row); mx.append(r);
+    }
+    const sc = el('div', 'scroll'); sc.append(m, o, mx);
+    const top = document.querySelector('.scroll')?.scrollTop || 0;
+    document.body.replaceChildren(sc); sc.scrollTop = top;
+  };
+  await draw(); timer = setInterval(draw, 1500);
+}
+/* ---------- calendar (the clock): the month with NeoDex's agenda, the holidays and the anime episodes; a day shows its list ---------- */
+const pad2 = n => String(n).padStart(2, '0'), ymdOf = d => d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+const KIND_COL = {holiday: '#ffd040', anime: '#46e0ff', birthday: '#ff8ae2', task: '#ff4f6d', cours: '#8a5cf0'};
+const KIND_TXT = {holiday: 'Férié', anime: 'Anime', birthday: 'Anniv.', task: 'À rendre', cours: 'Cours', event: 'Journée'};
+async function calendar() {
+  const today = ymdOf(new Date());
+  let month = new Date(new Date().getFullYear(), new Date().getMonth(), 1), sel = today, data = {};
+  const now = el('div', 'card now'), box = el('div', 'card'), head = el('div', 'mhead'), grid = el('div', 'grid'), list = el('div', 'card items'), open = el('button', 'open', "OUVRIR DANS L'AGENDA");
+  const prev = el('button', 'nav', '‹'), next = el('button', 'nav', '›'), title = el('span');
+  prev.title = 'Mois précédent'; next.title = 'Mois suivant';
+  head.append(prev, title, next); box.append(head, grid);
+  document.body.append(now, box, list, open);
+  const clock = () => { const d = new Date(); now.replaceChildren(el('b', '', d.toLocaleTimeString('fr-FR')), el('small', '', d.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}))); };
+  clock(); timer2 = setInterval(clock, 1000);
+  const dotOf = x => { const i = el('i'); i.style.background = KIND_COL[x.kind] || x.c || '#3fb8c8'; return i; };
+  const showDay = () => {
+    const l = data[sel] || [];
+    list.replaceChildren(el('h2', '', new Date(sel + 'T12:00').toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'})));
+    if (!l.length) list.append(el('small', '', 'Rien de prévu.'));
+    for (const x of l) { const r = el('div', 'it'); r.append(dotOf(x), el('em', '', x.at || KIND_TXT[x.kind] || ''), el('span', '', x.t)); list.append(r); }
+  };
+  const draw = async () => {
+    const y = month.getFullYear(), m = month.getMonth();
+    title.textContent = month.toLocaleDateString('fr-FR', {month: 'long', year: 'numeric'});
+    try { data = await neo.tbCal({y, m}) || {}; } catch { data = {}; }
+    if (kind !== 'calendar') return;
+    const first = (new Date(y, m, 1).getDay() + 6) % 7, cells = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(w => el('div', 'wd', w));
+    for (let i = -first; i < 42 - first; i++) {
+      const d = new Date(y, m, 1 + i), k = ymdOf(d), ev = data[k] || [];
+      const b = el('button', 'day' + (d.getMonth() !== m ? ' out' : '') + (k === today ? ' today' : '') + (k === sel ? ' sel' : ''));
+      b.append(el('span', '', String(d.getDate())));
+      if (ev.length) { const dots = el('div', 'dots'); dots.append(...ev.slice(0, 4).map(dotOf)); b.append(dots); }
+      b.title = ev.map(x => (x.at ? x.at + ' ' : '') + x.t).join('\n') + (ev.length ? '\n' : '') + "Double-clic : ouvrir l'agenda";
+      b.onclick = () => { sel = k; if (d.getMonth() !== m) month = new Date(d.getFullYear(), d.getMonth(), 1); draw(); };
+      b.ondblclick = () => neo.tbCalOpen(k);
+      cells.push(b);
+    }
+    grid.replaceChildren(...cells); showDay();
+  };
+  const step = n => { month = new Date(month.getFullYear(), month.getMonth() + n, 1); draw(); };
+  prev.onclick = () => step(-1); next.onclick = () => step(1);
+  grid.onwheel = e => step(e.deltaY > 0 ? 1 : -1);
+  open.onclick = () => neo.tbCalOpen(sel);
+  await draw();
+}
+
+/* ---------- network: the speed of the connection, the Wi-Fi networks, the Bluetooth devices ---------- */
+const rate = b => b < 1024 ? Math.round(b) + ' o/s' : b < 1048576 ? (b / 1024).toFixed(b < 10240 ? 1 : 0) + ' Ko/s' : (b / 1048576).toFixed(1) + ' Mo/s';
+const sigBars = s => { const b = el('span', 'sig'); for (let i = 0; i < 4; i++) b.append(el('i', s != null && i < Math.max(1, Math.ceil(s / 25)) ? 'on' : '')); return b; };
+async function network() {
+  const sp = el('div', 'card'), wifi = el('div', 'card'), bt = el('div', 'card'), cv = el('canvas'), big = el('div', 'big'), name = el('small', '', 'Mesure…'), sc = el('div', 'scroll');
+  sp.append(el('h2', '', 'Connexion'), name, big, cv); sc.append(sp, wifi, bt); document.body.append(sc);
+  wifi.append(el('h2', '', 'Wi-Fi'), el('small', '', 'Recherche…')); bt.append(el('h2', '', 'Bluetooth'), el('small', '', 'Recherche…'));
+  let prev = null; const hist = [];
+  const plot = () => {  // the last minute in pixel columns: received in pink, sent as a lilac mark, on the same scale
+    const w = cv.width = 120, h = cv.height = 28, g = cv.getContext('2d'), cs = getComputedStyle(document.documentElement);
+    const max = Math.max(1024, ...hist.flatMap(p => [p.dn, p.up]));
+    hist.forEach((p, i) => {
+      const x = w - (hist.length - i) * 2, dn = Math.round(p.dn / max * (h - 3)), up = Math.round(p.up / max * (h - 3));
+      g.fillStyle = cs.getPropertyValue('--pink').trim(); if (dn) g.fillRect(x, h - 1 - dn, 2, dn);
+      g.fillStyle = cs.getPropertyValue('--lilac').trim(); g.fillRect(x, h - 2 - up, 2, 1);
+    });
+  };
+  const traffic = async () => {
+    let r; try { r = await neo.tbNet({cmd: 'traffic'}); } catch (e) { name.textContent = 'Le réseau ne répond pas : ' + e.message; return; }
+    if (kind !== 'net') return;
+    const main = r.nics.filter(n => n.rx + n.tx > 0).sort((a, b) => b.rx + b.tx - a.rx - a.tx)[0];  // the busiest connection
+    if (!main) { name.textContent = 'Aucune connexion.'; big.replaceChildren(); return; }
+    name.textContent = main.name + ' · ' + (main.type === 'Wireless80211' ? 'Wi-Fi' : main.type === 'Ethernet' ? 'câble' : main.type) + (main.speed > 0 ? ' · ' + (main.speed >= 1e9 ? main.speed / 1e9 + ' Gbit/s' : Math.round(main.speed / 1e6) + ' Mbit/s') : '');
+    const p = prev?.[main.name], dt = p ? (r.at - p.at) / 1000 : 0;
+    if (p && dt > 0) {
+      const dn = Math.max(0, (main.rx - p.rx) / dt), up = Math.max(0, (main.tx - p.tx) / dt);
+      hist.push({dn, up}); if (hist.length > 60) hist.shift();
+      big.replaceChildren(el('b', 'dn', '↓ ' + rate(dn)), el('b', 'up', '↑ ' + rate(up)), el('small', '', 'reçu · envoyé'));
+      plot();
+    }
+    prev = Object.fromEntries(r.nics.map(n => [n.name, {...n, at: r.at}]));
+  };
+  const state = async () => {
+    let r; try { r = await neo.tbNet({cmd: 'state'}); } catch (e) { wifi.replaceChildren(el('h2', '', 'Wi-Fi'), el('small', '', e.message)); return; }
+    if (kind !== 'net') return;
+    const w = r.wifi, wh = el('div', 'h2r');
+    wh.append(el('h2', '', 'Wi-Fi'), Object.assign(el('button', 'link', 'Paramètres'), {onclick: () => neo.tbWinSettings('network-wifi')}));
+    if (wifi.querySelector('.join input:focus')) return;  // don't redraw under someone typing a password
+    wifi.replaceChildren(wh, el('small', '', w.state === 'off' ? 'Pas de carte Wi-Fi.' : w.state === 'connected' ? 'Connecté à ' + w.ssid + (w.signal != null ? ' · signal ' + w.signal + ' %' : '') : 'Pas connecté au Wi-Fi.'));
+    const ask = async (b, cmd) => {
+      b.lastChild.textContent = 'connexion…';
+      try { const x = await neo.tbNet(cmd); b.lastChild.textContent = x.ok ? 'demandé' : 'échec'; if (!x.ok && x.msg) b.title = x.msg; } catch (e) { b.lastChild.textContent = e.message; }
+      setTimeout(state, 4000);
+    };
+    for (const n of w.networks) {
+      const here = n.ssid === w.ssid, known = w.known.includes(n.ssid), b = el('button', 'net' + (here ? ' on' : ''));
+      b.append(sigBars(n.signal), el('span', '', n.ssid), n.secure && !here && !known ? Object.assign(el('small'), {title: 'protégé par un mot de passe'}) : el('small', '', here ? 'se déconnecter' : known ? 'se connecter' : 'ouvert'));
+      if (n.secure && !here && !known) b.lastChild.append(TBI.lock());
+      b.title = 'Signal ' + n.signal + ' %' + (here ? ' · clic : se déconnecter' : '');
+      b.onclick = async () => {
+        if (here) return ask(b, {cmd: 'disconnect'});
+        if (known || !n.secure) return ask(b, {cmd: 'join', ssid: n.ssid});
+        if (b.nextSibling?.classList?.contains('join')) return b.nextSibling.remove();
+        const f = el('form', 'join'), pw = Object.assign(el('input'), {type: 'password', placeholder: 'Mot de passe du réseau', autocomplete: 'off', minLength: 8, maxLength: 63, required: true}), go = el('button', '', 'OK');
+        f.append(pw, go); b.after(f); pw.focus();
+        f.onsubmit = e => { e.preventDefault(); const key = pw.value; f.remove(); ask(b, {cmd: 'join', ssid: n.ssid, key}); };
+      };
+      wifi.append(b);
+    }
+    const B = r.bt, bh = el('div', 'h2r'), tg = el('button', 'toggle' + (B.on ? ' on' : ''), B.on ? 'ACTIVÉ' : 'DÉSACTIVÉ');
+    tg.title = B.on ? 'Désactiver le Bluetooth' : 'Activer le Bluetooth';
+    tg.onclick = async () => { tg.textContent = '…'; try { const x = await neo.tbNet({cmd: 'bluetooth', on: !B.on}); if (!x.ok) tg.title = x.msg; } catch (e) { tg.title = e.message; } state(); };
+    bh.append(el('h2', '', 'Bluetooth'), B.present ? tg : el('small', '', 'absent'));
+    bt.replaceChildren(bh);
+    if (B.present && !B.devices.length) bt.append(el('small', '', 'Aucun appareil associé.'));
+    for (const d of B.devices) { const row = el('div', 'net' + (d.connected ? ' on' : '')); row.append(el('b', 'bars', d.connected ? '■' : '□'), el('span', '', d.name), el('small', '', d.connected ? 'connecté' : B.on ? 'pas connecté' : '')); bt.append(row); }
+    bt.append(Object.assign(el('button', 'link', 'Associer un appareil…'), {onclick: () => neo.tbWinSettings('bluetooth')}));
+  };
+  traffic(); state();
+  timer = setInterval(traffic, 1000); timer2 = setInterval(state, 8000);
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') neo.tbPanelClose(); });
+</script></body></html>

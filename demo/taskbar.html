@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script src="i18n.js"></script><title>NeoDex · barre des tâches</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* the colours are NeoDex's theme ones (sent by the main window, see taskbar-host.js); these are the default theme's */
+:root{--bg0:#0b031c;--line:#2a1d52;--line2:#3a2a6e;--magenta:#e01ec8;--pink:#ff5ad9;--violet:#8a5cf0;--lilac:#d9c6ff;--muted:#8f7bb8;--shell:#f3eaff;--pkr:255,90,217;--title:'Press Start 2P',monospace;--text:'Pixelify Sans',Consolas,monospace}
+html,body{margin:0;height:100%;overflow:hidden;color:var(--shell);font-family:var(--text);user-select:none}
+/* a glass of the theme's colours with faint scanlines, and a glowing pixel edge on top */
+body{display:flex;align-items:center;gap:8px;padding:0 10px;box-sizing:border-box;position:relative;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),linear-gradient(180deg,color-mix(in srgb,var(--line2) 60%,var(--bg0)) 0%,color-mix(in srgb,var(--line) 55%,var(--bg0)) 55%,var(--bg0) 100%)}
+body::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--magenta),var(--violet) 40%,var(--pink) 70%,var(--magenta));box-shadow:0 0 8px color-mix(in srgb,var(--magenta) 70%,transparent)}
+body::after{content:"";position:absolute;left:0;right:0;top:2px;height:1px;background:rgba(255,255,255,.08)}
+button{font:inherit;cursor:pointer}
+#start{height:calc(100% - 12px);min-height:30px;padding:0 14px;border:0;color:#fff;font:10px var(--title);letter-spacing:.5px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--magenta) 80%,#fff),color-mix(in srgb,var(--magenta) 75%,#000));box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.35),0 0 0 2px #05010b;transition:filter .12s}
+#start:hover{filter:brightness(1.15) saturate(1.1)} #start:active{transform:translateY(1px)}
+#start.front{background:linear-gradient(180deg,color-mix(in srgb,var(--violet) 85%,#fff),color-mix(in srgb,var(--violet) 70%,#000))}
+.sep{width:2px;height:60%;background:linear-gradient(transparent,var(--line2),transparent)}
+#apps{flex:1;display:flex;gap:3px;height:100%;align-items:center;overflow-x:auto;scrollbar-width:none}
+.app{position:relative;flex:none;width:46px;height:calc(100% - 8px);border:0;background:transparent;display:grid;place-items:center;transition:transform .12s steps(2),background .12s}
+.app img{width:28px;height:28px;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
+.app:hover{background:linear-gradient(180deg,rgba(var(--pkr),.22),rgba(var(--pkr),.06));transform:translateY(-2px)} .app:active{transform:translateY(0)}
+.app.gone{opacity:.4}
+.app.run::after{content:"";position:absolute;bottom:1px;left:18px;width:10px;height:3px;background:var(--lilac);box-shadow:0 0 4px color-mix(in srgb,var(--lilac) 60%,transparent)}
+.app.fg{background:linear-gradient(180deg,rgba(var(--pkr),.32),color-mix(in srgb,var(--violet) 12%,transparent));box-shadow:inset 0 0 0 1px rgba(var(--pkr),.35)}
+.app.fg::after{left:7px;width:32px;background:linear-gradient(90deg,var(--magenta),var(--pink));box-shadow:0 0 6px var(--magenta);animation:glow 1.6s steps(4) infinite alternate}
+@keyframes glow{to{box-shadow:0 0 10px var(--pink)}}
+.app.pin:not(.run) img{opacity:.75}
+.count{position:absolute;top:2px;right:2px;min-width:9px;font:8px var(--title);background:var(--magenta);padding:2px 3px 1px;box-shadow:0 0 0 1px #05010b}
+.letter{font:15px var(--title);color:var(--lilac)}
+#tray{display:flex;align-items:center;gap:4px;height:calc(100% - 12px);padding:0 4px 0 2px;background:color-mix(in srgb,var(--bg0) 60%,transparent);box-shadow:inset 0 0 0 1px var(--line2)}
+/* the sync, in one square pixel: green up to date, blinking yellow on its way, red on an error */
+#sync{width:8px;height:8px;margin:0 6px;background:#3ddc84;box-shadow:0 2px 0 rgba(0,0,0,.45)} #sync.wait{background:#ffd23f;animation:syncb 1s steps(2) infinite} #sync.err{background:#ff4d6d} @keyframes syncb{50%{opacity:.3}}
+.tbtn{height:100%;min-width:34px;border:0;background:none;color:var(--lilac);font-size:16px;display:grid;place-items:center} .tbtn:hover{background:rgba(var(--pkr),.16);color:#fff} .tbtn .pxi{width:22px;height:auto;display:block;filter:drop-shadow(0 2px 0 rgba(0,0,0,.45))}
+#bat{display:flex;gap:4px;padding:0 6px} #bat[hidden]{display:none} #bat small{font-size:11px} #bat .pxi{width:24px} #bat.low{color:#ff6a5a}
+#clock{border:0;background:none;height:100%;cursor:pointer;font-family:var(--text);display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:3px;line-height:1;padding:0 8px 0 4px} #clock b{font:11px var(--title);color:#fff;text-shadow:0 0 6px rgba(var(--pkr),.6)} #clock small{color:var(--muted);font-size:12px} #clock:hover{background:rgba(var(--pkr),.16)}
+#petLane{position:absolute;top:0;bottom:0;pointer-events:none;overflow:hidden} #petLane img{position:absolute;bottom:2px;height:42px;pointer-events:auto;transform-origin:50% 90%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
+#petLane img.left{scale:-1 1} .tp-walk{animation:tpWalk .36s ease-in-out infinite} @keyframes tpWalk{50%{translate:0 -3px}}
+.tp-hop{animation:tpHop .5s cubic-bezier(.3,.7,.4,1.4)} @keyframes tpHop{40%{translate:0 -12px}}
+.tp-dance{animation:tpDance .52s ease-in-out infinite} @keyframes tpDance{0%,100%{rotate:-8deg}25%,75%{translate:0 -4px}50%{rotate:8deg}}
+.tp-sleep{animation:tpSleep 4s ease-in-out infinite} @keyframes tpSleep{50%{scale:1.04 .96}}
+#hide{border:0;background:none;color:var(--muted);font-size:13px;height:100%;padding:0 4px} #hide:hover{color:#fff}
+/* the style of the theme (html[data-style], sent with the colours): the same decor as the side bar and the browser bar (styles.css), its edge on top */
+html[data-style] #start{font-family:var(--title)} html[data-style] #clock b{font-family:var(--title)} html[data-style] body::after{display:none}
+[data-style=terminal] body{background:#000} [data-style=terminal] body::before{height:1px;background:repeating-linear-gradient(90deg,var(--magenta) 0 6px,transparent 6px 10px);box-shadow:0 0 10px rgba(var(--mgr),.4)} [data-style=terminal] #start{background:#000;color:var(--magenta);box-shadow:inset 0 0 0 1px var(--magenta)}
+[data-style=poche] body{background:linear-gradient(0deg,var(--line),var(--navy))} [data-style=poche] body::before{height:5px;background:var(--out);box-shadow:none} [data-style=poche] #start{border-radius:12px}
+[data-style=synthwave] body{background:linear-gradient(0deg,rgb(var(--d8)),color-mix(in srgb,var(--magenta) 22%,rgb(var(--d8))))}
+[data-style=grimoire] body{background:linear-gradient(0deg,rgb(var(--d19)),rgb(var(--d12)))} [data-style=grimoire] body::before{height:5px;background:linear-gradient(var(--magenta) 0 1px,transparent 1px 4px,var(--magenta) 4px);box-shadow:none}
+[data-style=verre] body{background:linear-gradient(0deg,rgb(var(--d12)),color-mix(in srgb,#fff 8%,rgb(var(--d12))))} [data-style=verre] body::before{height:1px;background:rgba(255,255,255,.16);box-shadow:none} [data-style=verre] #start{border-radius:10px} [data-style=verre] .app{border-radius:10px}
+[data-style=plan] body{background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/12px 12px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/12px 12px,rgb(16,52,118)} [data-style=plan] body::before{height:1px;background:repeating-linear-gradient(90deg,#fff 0 5px,transparent 5px 9px);box-shadow:none}
+[data-style=manga] body{background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.7px) 0 0/6px 6px,#0a0a0a} [data-style=manga] body::before{height:3px;background:#fff;box-shadow:0 -4px 0 var(--violet)}
+[data-style=sakura] body{background:linear-gradient(0deg,rgb(var(--d19)),rgb(var(--d12)))} [data-style=sakura] body::before{height:3px;background:var(--pink)} [data-style=sakura] #start{border-radius:14px}
+[data-style=abysses] body{background:linear-gradient(0deg,rgb(var(--d5)),rgb(var(--d12)))} [data-style=abysses] body::before{height:1px;background:var(--magenta);box-shadow:0 0 18px rgba(var(--mgr),.6)}
+[data-style=cyber] body{background:rgb(var(--d8))} [data-style=cyber] body::before{height:2px;background:var(--magenta);box-shadow:0 0 12px rgba(var(--mgr),.6)} [data-style=cyber] #start{clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+[data-style=foret] body{background:linear-gradient(0deg,#3a2716,#5a3d22)} [data-style=foret] body::before{height:3px;background:#24170c;box-shadow:none}
+[data-style=arcade] body{background:#000} [data-style=arcade] body::before{height:4px;background:var(--magenta);box-shadow:none}
+[data-style=ardoise] body{background:linear-gradient(0deg,#5b3d22,#7a5532)} [data-style=ardoise] body::before{height:4px;background:#3e2915;box-shadow:none}
+[data-style=vapor] body{background:linear-gradient(90deg,var(--violet),var(--magenta) 60%,var(--pink))} [data-style=vapor] body::before{height:2px;background:rgba(255,255,255,.6);box-shadow:none} [data-style=vapor] #start{background:#c0c0c0;color:#000;box-shadow:inset 2px 2px 0 #fff,inset -2px -2px 0 #404040}
+[data-style=lave] body{background:linear-gradient(0deg,#0d0504 55%,#2a0a05)} [data-style=lave] body::before{background:var(--magenta);box-shadow:0 0 16px rgba(var(--mgr),.8)}
+[data-style=givre] body{background:linear-gradient(0deg,rgb(var(--d12)),color-mix(in srgb,#fff 14%,rgb(var(--d12))))} [data-style=givre] body::before{background:var(--magenta);box-shadow:0 -2px 12px rgba(var(--mgr),.5)}
+[data-style=sepia] body{background:repeating-linear-gradient(90deg,transparent 0 14px,rgba(246,231,200,.22) 14px 22px) 0 100%/100% 5px no-repeat,#1a120a} [data-style=sepia] body::before{height:3px;background:var(--violet);box-shadow:none}
+[data-style=holo] body{background:rgb(var(--d8))} [data-style=holo] body::before{background:linear-gradient(90deg,var(--magenta),var(--pink),var(--violet),var(--magenta));background-size:200% 100%;animation:tbHolo 6s linear infinite} @keyframes tbHolo{to{background-position:200% 0}}
+[data-style=hud] body{background:rgb(0,10,14)} [data-style=hud] body::before{height:1px;background:rgba(var(--mgr),.6);box-shadow:0 0 8px rgba(var(--mgr),.5)} [data-style=hud] #start{background:transparent;color:var(--magenta);box-shadow:inset 0 0 0 1px rgba(var(--mgr),.6)}
+[data-style=jardin] body{background:linear-gradient(0deg,rgb(var(--d19)),rgb(var(--d12)))} [data-style=jardin] body::before{height:16px;top:-2px;background:url(themes/liane.svg) 0 0/64px 16px repeat-x;box-shadow:none;image-rendering:pixelated;transform:scaleY(-1)}
+[data-style=neige] body{background:linear-gradient(0deg,rgb(var(--d19)),rgb(var(--d12)))} [data-style=neige] body::before{height:12px;background:url(themes/neige-bord.svg) 0 0/48px 12px repeat-x;box-shadow:none;image-rendering:pixelated}
+[data-style=aurore] body{background:rgb(var(--d5))} [data-style=aurore] body::before{background:linear-gradient(90deg,var(--magenta),var(--violet),var(--pink),var(--magenta))}
+[data-style=steampunk] body{background:linear-gradient(0deg,#5a3a14,#7a4e1c 45%,#9a6828)} [data-style=steampunk] body::before{height:3px;background:#2a1806;box-shadow:none}
+[data-style=bonbon] body{background:rgb(var(--d19))} [data-style=bonbon] body::before{height:5px;background:repeating-linear-gradient(-45deg,var(--magenta) 0 10px,#fff 10px 20px);box-shadow:none} [data-style=bonbon] #start{border-radius:16px}
+@media (prefers-reduced-motion:reduce){[data-style=holo] body::before{animation:none}}
+</style></head><body>
+<button id="start" title="Clic : NeoDex (ou le réduire s'il est devant) · clic droit : rechercher un programme, veille, redémarrer, éteindre">NeoDex</button><span class="sep"></span><div id="apps"></div>
+<div id="tray"><span id="sync" hidden></span><button id="bat" class="tbtn" hidden></button><button id="net" class="tbtn" title="Réseau et Bluetooth"></button><button id="vol" class="tbtn" title="Son · molette : volume"></button><button id="clock" title="Calendrier"><b></b><small></small></button></div><button id="hide" title="Masquer la barre (MENU > Barre des tâches pour la remettre)">▾</button>
+<script src="taskbar-icons.js"></script>
+<script src="taskbar.js"></script>
+</body></html>

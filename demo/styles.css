@@ -1,0 +1,312 @@
+/* part of the NeoDex page (index.html): the look of each colour theme (html[data-style], set by applyTheme in interface.js).
+   Néon (nebula) is base.css itself. The palettes are in interface.js (PAL); a font chosen by hand in Paramètres › Apparence wins (look.js).
+   The title fonts are used down to 9px (labels, tabs): their scaled copies (size-adjust) are in fonts.css. */
+
+/* light accents: the main button's text and the letter icons go dark */
+html:is([data-style=terminal],[data-style=poche],[data-style=grimoire],[data-style=plan],[data-style=manga],[data-style=sakura],[data-style=abysses],[data-style=cyber],[data-style=foret],[data-style=ardoise],[data-style=givre],[data-style=sepia],[data-style=holo],[data-style=hud],[data-style=jardin],[data-style=neige],[data-style=aurore],[data-style=steampunk],[data-style=bonbon]) :is(.btn.main,.ico b){color:var(--bg0);text-shadow:none}
+
+/* Terminal: one console font, glowing text, strong scanlines and a curved-screen vignette */
+html[data-style=terminal]{--title:'T VT323',monospace;--text:'X VT323',monospace;--px:2px}
+[data-style=terminal] body{text-shadow:0 0 6px rgba(var(--mgr),.45)}
+[data-style=terminal] .px{box-shadow:0 0 0 2px var(--c)}
+[data-style=terminal] body::after{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.25) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.5))}
+[data-style=terminal] :is(h1,.hTitle) span{color:var(--magenta);text-shadow:0 0 10px var(--magenta)} [data-style=terminal] :is(h1,.hTitle) .dyme::after{content:'_';animation:stBlink 1s steps(1) infinite}
+[data-style=terminal] .label,[data-style=terminal] .tab{text-transform:uppercase}
+@keyframes stBlink{50%{opacity:0}}
+
+/* Console de poche: LCD greens, big pixels, a dot matrix over the screen */
+html[data-style=poche]{--title:'T Tiny5',monospace;--px:5px}
+[data-style=poche] body::after{background:radial-gradient(rgba(0,0,0,.2) 1px,transparent 1.6px) 0 0/4px 4px}
+[data-style=poche] :is(h1,.hTitle) span{text-shadow:4px 4px 0 var(--out)} [data-style=poche] :is(h1,.hTitle) .neo{color:var(--pink)} [data-style=poche] :is(h1,.hTitle) .dyme{color:var(--magenta)}
+[data-style=poche] .btn{filter:drop-shadow(0 4px 0 var(--out))}
+
+/* Synthwave: sunset gradients, chrome titles, a glow on the horizon */
+html[data-style=synthwave]{--title:'T Jersey',monospace}
+[data-style=synthwave] .panel{--fill:linear-gradient(180deg,rgba(var(--d12),.9) 0%,rgba(var(--d12),.78) 65%,rgba(var(--mgr),.2) 100%)}
+[data-style=synthwave] .panel,[data-style=synthwave] .btn.main{filter:drop-shadow(0 0 10px rgba(var(--mgr),.35))}
+[data-style=synthwave] :is(h1,.hTitle) span{background:linear-gradient(180deg,#fff 0%,#ffe0f4 46%,var(--pink) 52%,var(--violet) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 8px rgba(var(--mgr),.8))}
+[data-style=synthwave] #time{color:var(--pink);text-shadow:0 0 14px rgba(var(--mgr),.9)}
+[data-style=synthwave] body::after{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.06) 0 2px,transparent 2px 4px),linear-gradient(to top,rgba(var(--mgr),.2),transparent 40%)}
+
+/* Grimoire: role-playing game dialog boxes, a golden double frame on dark parchment */
+html[data-style=grimoire]{--title:'T DotGothic',monospace;--text:'DotGothic16','Pixelify Sans',monospace}
+[data-style=grimoire] .px{box-shadow:0 calc(-1*var(--px)) 0 0 var(--c),0 var(--px) 0 0 var(--c),calc(-1*var(--px)) 0 0 0 var(--c),var(--px) 0 0 0 var(--c),inset 0 0 0 3px var(--bg0),inset 0 0 0 5px rgba(var(--mgr),.5)}
+[data-style=grimoire] .panel{--fill:linear-gradient(180deg,rgba(var(--d19),.94),rgba(var(--d12),.9))}
+[data-style=grimoire] .label{color:var(--magenta)}
+[data-style=grimoire] :is(h1,.hTitle) .neo{color:var(--pink);text-shadow:2px 2px 0 var(--out),0 0 16px rgba(var(--mgr),.5)} [data-style=grimoire] :is(h1,.hTitle) .dyme{text-shadow:2px 2px 0 var(--magenta)}
+[data-style=grimoire] body::after{background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55))}
+
+/* Verre dépoli: modern, translucent blurred panels, rounded corners, a sharp system font */
+html[data-style=verre]{--title:'T Silkscreen',monospace;--text:'Segoe UI',system-ui,sans-serif;--px:1px}
+[data-style=verre] .px{border-radius:12px;box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 75%,rgba(255,255,255,.25)),0 10px 28px rgba(0,0,0,.28)}
+[data-style=verre] .panel{--fill:rgba(var(--d12),.45);backdrop-filter:blur(18px) saturate(1.3)}
+[data-style=verre] body::after{background:none}
+[data-style=verre] :is(h1,.hTitle) span{text-shadow:none} [data-style=verre] :is(h1,.hTitle) .dyme{color:var(--magenta)} [data-style=verre] #time{text-shadow:none}
+
+/* Plan d'architecte: blue squared paper, thin dashed lines, capitals */
+html[data-style=plan]{--title:'T Silkscreen',monospace}
+[data-style=plan] .px{box-shadow:none;outline:1px dashed var(--c);outline-offset:-1px}
+[data-style=plan] .panel{--fill:rgba(16,52,118,.9)}
+[data-style=plan] .btn,[data-style=plan] .label,[data-style=plan] .tab{text-transform:uppercase}
+[data-style=plan] body::after{background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/24px 24px}
+[data-style=plan] :is(h1,.hTitle) span{color:#fff;text-shadow:none;text-decoration:underline 2px dashed var(--violet);text-underline-offset:8px}
+
+/* Manga: black and white, thick strokes, hard drop shadows, halftone dots */
+html[data-style=manga]{--title:'T Jersey',monospace}
+[data-style=manga] .px{box-shadow:0 0 0 3px var(--c),6px 6px 0 0 rgba(255,255,255,.85)}
+[data-style=manga] .btn:hover,[data-style=manga] .tile:hover{transform:translate(-2px,-2px)}
+[data-style=manga] body::after{background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.7px) 0 0/6px 6px}
+[data-style=manga] :is(h1,.hTitle) .neo{color:#fff;text-shadow:4px 4px 0 var(--violet)} [data-style=manga] :is(h1,.hTitle) .dyme{color:#0a0a0a;-webkit-text-stroke:2px #fff;paint-order:stroke fill;text-shadow:4px 4px 0 var(--violet)}
+[data-style=manga] .count{color:#000;background:#fff}
+
+/* Sakura: soft pastel, round corners, no scanlines */
+html[data-style=sakura]{--title:'T Pixelify',monospace}
+[data-style=sakura] .px{border-radius:9px;box-shadow:0 0 0 3px var(--c)}
+[data-style=sakura] body::after{background:none}
+[data-style=sakura] :is(h1,.hTitle) .neo{color:var(--pink);text-shadow:0 3px 0 var(--magenta)} [data-style=sakura] :is(h1,.hTitle) .dyme{color:var(--violet);text-shadow:0 3px 0 rgba(0,0,0,.35)}
+
+/* Abysses: deep blues, bioluminescent glows, thin frames */
+html[data-style=abysses]{--title:'T Handjet',monospace}
+[data-style=abysses] .px{box-shadow:0 0 0 1px var(--c),0 0 16px -3px rgba(var(--mgr),.5)}
+[data-style=abysses] .panel{--fill:rgba(var(--d12),.72)}
+[data-style=abysses] body::after{background:radial-gradient(ellipse at 50% 120%,rgba(var(--mgr),.16),transparent 60%)}
+[data-style=abysses] :is(h1,.hTitle) .neo{color:var(--pink);text-shadow:0 0 12px var(--magenta),0 0 30px var(--magenta)} [data-style=abysses] :is(h1,.hTitle) .dyme{color:#fff;text-shadow:0 0 12px var(--violet)}
+
+/* ---------- the top bar (tabs + address bar) and the side bar (dock) follow the style ----------
+   (html … body #tabstrip and body.dockOn #dock: stronger than base.css / apps.css, which set their colours) */
+/* Terminal: black console, a dashed phosphor line, "> " before the open tab */
+html[data-style=terminal] body #tabstrip,[data-style=terminal] .bBar{background:#000;border-bottom:1px dashed var(--magenta);box-shadow:0 0 10px rgba(var(--mgr),.25)}
+[data-style=terminal] .btab{text-transform:uppercase;border-right:0} [data-style=terminal] .btab.on{background:none;box-shadow:none;color:var(--magenta);text-shadow:0 0 8px var(--magenta)} [data-style=terminal] .btab.on::before{content:'>'}
+html[data-style=terminal] body.dockOn #dock{background:#000;box-shadow:inset -1px 0 0 var(--magenta),2px 0 12px rgba(var(--mgr),.25)}
+[data-style=terminal] .dkI{box-shadow:0 0 0 1px var(--c)} [data-style=terminal] .dkI.on{box-shadow:0 0 0 1px var(--magenta),0 0 10px rgba(var(--mgr),.6)}
+/* Console de poche: the plastic shell around the screen, thick dark edges, the open tab like a pressed button */
+html[data-style=poche] body #tabstrip,[data-style=poche] .bBar{background:linear-gradient(180deg,var(--line) 0,var(--navy) 100%);border-bottom:5px solid var(--out)}
+[data-style=poche] .btab.on{background:var(--magenta);color:var(--bg0);box-shadow:inset 0 -4px 0 var(--out)} [data-style=poche] .btab{border-right:3px solid var(--out)}
+html[data-style=poche] body.dockOn #dock{background:linear-gradient(90deg,var(--navy),var(--line));box-shadow:inset -5px 0 0 var(--out)}
+[data-style=poche] .dkI{filter:drop-shadow(0 3px 0 var(--out))} [data-style=poche] .dkI.on{--fill:var(--magenta)}
+/* Synthwave: sunset bars, a pink-to-cyan horizon line, glowing open tab */
+html[data-style=synthwave] body #tabstrip,[data-style=synthwave] .bBar{background:linear-gradient(180deg,rgba(var(--d8),.96),rgba(var(--mgr),.22));border-bottom:2px solid;border-image:linear-gradient(90deg,var(--magenta),var(--pink),var(--violet)) 1}
+[data-style=synthwave] .btab.on{background:linear-gradient(0deg,rgba(var(--mgr),.35),transparent);box-shadow:inset 0 -3px 0 var(--pink);text-shadow:0 0 8px var(--magenta)}
+html[data-style=synthwave] body.dockOn #dock{background:linear-gradient(180deg,rgba(var(--d8),.97) 40%,rgba(var(--mgr),.3));box-shadow:2px 0 0 var(--magenta),4px 0 14px rgba(var(--mgr),.45)}
+[data-style=synthwave] .dkI.on{box-shadow:0 0 0 2px var(--pink),0 0 12px var(--magenta)}
+/* Grimoire: dark parchment, a golden double frame, a diamond before the open tab */
+html[data-style=grimoire] body #tabstrip,[data-style=grimoire] .bBar{background:linear-gradient(180deg,rgba(var(--d19),.97),rgba(var(--d12),.95));border-bottom:5px double var(--magenta)}
+[data-style=grimoire] .btab{border-right:1px solid rgba(var(--mgr),.25)} [data-style=grimoire] .btab.on{background:rgba(var(--mgr),.12);box-shadow:none;color:var(--pink)} [data-style=grimoire] .btab.on::before{content:'◆';color:var(--magenta);font-size:9px}
+html[data-style=grimoire] body.dockOn #dock{background:linear-gradient(90deg,rgba(var(--d12),.97),rgba(var(--d19),.95));box-shadow:inset -2px 0 0 var(--magenta),inset -5px 0 0 var(--bg0),inset -7px 0 0 rgba(var(--mgr),.5)}
+[data-style=grimoire] .dkI{box-shadow:0 0 0 2px var(--c),inset 0 0 0 2px var(--bg0),inset 0 0 0 3px rgba(var(--mgr),.35)}
+/* Verre dépoli: frosted bars, the open tab a rounded pill, the side bar floating with round corners */
+html[data-style=verre] body #tabstrip,[data-style=verre] .bBar{background:rgba(var(--d12),.5);backdrop-filter:blur(18px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.12)}
+[data-style=verre] .btab{border-right:0;margin:6px 2px;border-radius:10px} [data-style=verre] .btab.on{background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+html[data-style=verre] body.dockOn #dock{top:51px;left:4px;bottom:8px;width:48px;padding:10px 0;border-radius:16px;background:rgba(var(--d12),.5);backdrop-filter:blur(18px);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 10px 28px rgba(0,0,0,.3)}
+[data-style=verre] .dkI{border-radius:10px;box-shadow:0 0 0 1px rgba(255,255,255,.1)} [data-style=verre] .dkI.on{box-shadow:0 0 0 1px var(--magenta)} [data-style=verre] .dkI::before{display:none}
+/* Plan d'architecte: squared blue paper, dashed lines, capitals */
+html[data-style=plan] body #tabstrip,[data-style=plan] .bBar,html[data-style=plan] body.dockOn #dock{background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/12px 12px,linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px) 0 0/12px 12px,rgb(16,52,118)}
+html[data-style=plan] body #tabstrip,[data-style=plan] .bBar{border-bottom:1px dashed #fff} html[data-style=plan] body.dockOn #dock{box-shadow:inset -1px 0 0 #fff}
+[data-style=plan] .btab{text-transform:uppercase;border-right:1px dashed rgba(255,255,255,.3)} [data-style=plan] .btab.on{background:none;box-shadow:none;outline:1px dashed #fff;outline-offset:-6px;color:#fff}
+[data-style=plan] .dkI{box-shadow:none;outline:1px dashed var(--c);outline-offset:-1px}
+/* Manga: ink black bars, thick white strokes, hard shadows, the open tab in negative */
+html[data-style=manga] body #tabstrip,[data-style=manga] .bBar{background:#0a0a0a;border-bottom:3px solid #fff;box-shadow:0 4px 0 var(--violet)}
+[data-style=manga] .btab{border-right:3px solid #fff} [data-style=manga] .btab.on{background:#fff;color:#000;box-shadow:none}
+html[data-style=manga] body.dockOn #dock{background:radial-gradient(rgba(255,255,255,.08) 1.2px,transparent 1.7px) 0 0/6px 6px,#0a0a0a;box-shadow:inset -3px 0 0 #fff,4px 0 0 var(--violet)}
+[data-style=manga] .dkI{box-shadow:0 0 0 3px var(--c),4px 4px 0 0 rgba(255,255,255,.85)} [data-style=manga] .dkI.on{--fill:#fff;box-shadow:0 0 0 3px #fff,4px 4px 0 0 var(--violet)}
+/* Sakura: soft pink bars, the open tab a rounded tab, the side bar with round corners */
+html[data-style=sakura] body #tabstrip,[data-style=sakura] .bBar{background:linear-gradient(180deg,rgba(var(--d19),.96),rgba(var(--d12),.94));border-bottom:3px solid var(--pink)}
+[data-style=sakura] .btab{border-right:0;border-radius:12px 12px 0 0;margin-top:5px} [data-style=sakura] .btab.on{background:rgba(var(--mgr),.25);box-shadow:none;color:#fff}
+html[data-style=sakura] body.dockOn #dock{border-radius:0 18px 18px 0;bottom:8px;background:linear-gradient(180deg,rgba(var(--d19),.96),rgba(var(--d12),.94));box-shadow:inset -3px 0 0 var(--pink)}
+[data-style=sakura] .dkI{border-radius:10px;box-shadow:0 0 0 3px var(--c)}
+/* Abysses: deep water, a glowing line under the tabs, glowing icons */
+html[data-style=abysses] body #tabstrip,[data-style=abysses] .bBar{background:linear-gradient(180deg,rgba(var(--d5),.97),rgba(var(--d12),.92));border-bottom:1px solid var(--magenta);box-shadow:0 0 18px rgba(var(--mgr),.35)}
+[data-style=abysses] .btab{border-right:0} [data-style=abysses] .btab.on{background:radial-gradient(ellipse at 50% 100%,rgba(var(--mgr),.35),transparent 70%);box-shadow:inset 0 -1px 0 var(--magenta);text-shadow:0 0 8px var(--magenta)}
+html[data-style=abysses] body.dockOn #dock{background:linear-gradient(180deg,rgba(var(--d12),.95),rgba(var(--d5),.98));box-shadow:inset -1px 0 0 var(--magenta),3px 0 16px rgba(var(--mgr),.3)}
+[data-style=abysses] .dkI{box-shadow:0 0 0 1px var(--c),0 0 12px -3px rgba(var(--mgr),.6)}
+
+/* Cyberpunk: yellow neon on night concrete, cut corners, hazard stripes, a glitch on the title */
+html[data-style=cyber]{--title:'T Handjet',monospace;--px:2px}
+[data-style=cyber] .px{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));box-shadow:inset 0 0 0 2px var(--c),inset -14px 14px 0 -12px var(--c)}  /* the frame inside: the cut corners would hide one drawn outside */
+[data-style=cyber] .label,[data-style=cyber] .tab,[data-style=cyber] .btn{text-transform:uppercase;letter-spacing:2px}
+[data-style=cyber] body::after{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.12) 0 1px,transparent 1px 4px)}
+[data-style=cyber] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:3px 0 0 var(--violet),-3px 0 0 var(--pink)} [data-style=cyber] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:0 0 12px var(--pink)}
+[data-style=cyber] :is(h1,.hTitle){animation:cyGlitch 4s steps(1) infinite} @keyframes cyGlitch{0%,92%,100%{transform:none}93%{transform:translateX(3px) skewX(-8deg)}95%{transform:translateX(-2px)}}
+html[data-style=cyber] body #tabstrip,[data-style=cyber] .bBar{background:rgba(var(--d8),.97);border-bottom:2px solid var(--magenta);box-shadow:0 0 14px rgba(var(--mgr),.55),0 3px 0 -1px rgba(var(--pkr),.5)}
+[data-style=cyber] .btab{border-right:0;text-transform:uppercase} [data-style=cyber] .btab.on{background:var(--magenta);color:#000;box-shadow:none;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+html[data-style=cyber] body.dockOn #dock{background:rgba(var(--d8),.97);box-shadow:inset -3px 0 0 var(--magenta)}
+[data-style=cyber] .dkI{box-shadow:inset 0 0 0 2px var(--c),inset -10px 10px 0 -8px var(--c)} [data-style=cyber] .dkI.on{--fill:rgba(var(--mgr),.3);box-shadow:inset 0 0 0 2px var(--magenta)} [data-style=cyber] .dkI .dkN{right:0;bottom:0} /* the .px clip-path hides anything drawn outside the button */
+
+/* Forêt enchantée: moss green, wooden frames with rounded corners, a firefly glow */
+html[data-style=foret]{--title:'T Pixelify',monospace;--px:4px}
+[data-style=foret] .px{border-radius:8px;box-shadow:0 0 0 4px #6b4a2b,0 0 0 6px #3a2716,inset 0 0 0 1px rgba(var(--mgr),.25)}
+[data-style=foret] .panel{--fill:linear-gradient(180deg,rgba(var(--d19),.94),rgba(var(--d12),.92))}
+[data-style=foret] body::after{background:radial-gradient(circle at 20% 30%,rgba(var(--pkr),.10),transparent 18%),radial-gradient(circle at 75% 60%,rgba(var(--mgr),.10),transparent 20%),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.45))}
+[data-style=foret] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:0 0 14px rgba(var(--mgr),.8),3px 3px 0 #3a2716} [data-style=foret] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:3px 3px 0 #3a2716}
+html[data-style=foret] body #tabstrip,[data-style=foret] .bBar{background:linear-gradient(180deg,#5a3d22,#3a2716);border-bottom:3px solid #24170c}
+[data-style=foret] .btab{border-right:2px solid #24170c;color:#e8d3a8} [data-style=foret] .btab.on{background:rgba(var(--mgr),.22);box-shadow:inset 0 -3px 0 var(--magenta);color:#fff}
+html[data-style=foret] body.dockOn #dock{background:linear-gradient(90deg,#3a2716,#5a3d22);box-shadow:inset -3px 0 0 #24170c}
+[data-style=foret] .dkI{border-radius:8px;box-shadow:0 0 0 3px #24170c} [data-style=foret] .dkI.on{box-shadow:0 0 0 3px var(--magenta),0 0 12px rgba(var(--mgr),.6)}
+
+/* Borne d'arcade: primary colours, thick black outlines, dot-matrix digits, a marquee over the tabs */
+html[data-style=arcade]{--title:'T Jersey',monospace;--px:4px}
+[data-style=arcade] .px{box-shadow:0 0 0 4px #000,0 0 0 7px var(--c)}
+[data-style=arcade] :is(h1,.hTitle) .neo{color:var(--pink);text-shadow:3px 3px 0 #000,5px 5px 0 var(--magenta)} [data-style=arcade] :is(h1,.hTitle) .dyme{color:#fff;text-shadow:3px 3px 0 #000,5px 5px 0 var(--violet)}
+[data-style=arcade] #time{color:var(--pink);text-shadow:3px 3px 0 var(--magenta)}
+[data-style=arcade] body::after{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.18) 0 2px,transparent 2px 4px)}
+[data-style=arcade] .btn.main{color:#fff;text-shadow:2px 2px 0 #000}
+html[data-style=arcade] body #tabstrip,[data-style=arcade] .bBar{background:#000;border-bottom:4px solid var(--magenta)}
+[data-style=arcade] .btab{border-right:0} [data-style=arcade] .btab.on{background:var(--violet);color:#fff;box-shadow:inset 0 -4px 0 var(--pink)}
+html[data-style=arcade] body.dockOn #dock{background:#000;box-shadow:inset -4px 0 0 var(--magenta)}
+[data-style=arcade] .dkI{box-shadow:0 0 0 3px #000,0 0 0 5px var(--c)} [data-style=arcade] .dkI.on{--fill:var(--violet);box-shadow:0 0 0 3px #000,0 0 0 5px var(--pink)}
+
+/* Tableau noir: chalk lines, a wooden frame around the board, smudges of the sponge */
+html[data-style=ardoise]{--title:'T Handjet',monospace;--px:2px}
+[data-style=ardoise] body{text-shadow:0 0 1px rgba(255,255,255,.45)}
+[data-style=ardoise] .px{box-shadow:0 0 0 2px rgba(244,241,232,.55),0 0 6px rgba(244,241,232,.22)}
+[data-style=ardoise] :is(.panel,.tcard){--fill:radial-gradient(ellipse 30% 22% at 22% 30%,rgba(255,255,255,.08),transparent 70%),radial-gradient(ellipse 26% 18% at 78% 70%,rgba(255,255,255,.06),transparent 70%),repeating-linear-gradient(100deg,transparent 0 46px,rgba(255,255,255,.018) 46px 60px),linear-gradient(170deg,#1e2120,#151716 60%,#0f1110);background:var(--fill);box-shadow:0 0 0 5px #7a5532,0 0 0 7px #3e2915,inset 0 0 0 1px rgba(255,255,255,.06),0 10px 0 -4px rgba(0,0,0,.35)}
+[data-style=ardoise] :is(.panel,.tcard) .label{color:#f4f1e8;text-shadow:0 0 1px #fff,1px 0 0 rgba(255,255,255,.25)}
+[data-style=ardoise] body::after{background:radial-gradient(ellipse 40% 18% at 28% 22%,rgba(255,255,255,.06),transparent),radial-gradient(ellipse 35% 15% at 72% 78%,rgba(255,255,255,.05),transparent),radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.35))}
+[data-style=ardoise] :is(h1,.hTitle){transform:rotate(-2deg)} [data-style=ardoise] :is(h1,.hTitle) .neo{color:#f4f1e8;text-shadow:0 0 2px #fff,1px 1px 0 rgba(255,255,255,.35),-1px 0 0 rgba(255,255,255,.2)} [data-style=ardoise] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:0 0 2px var(--pink),1px 1px 0 rgba(255,209,220,.35)}
+html[data-style=ardoise] body #tabstrip,[data-style=ardoise] .bBar{background:linear-gradient(180deg,#7a5532,#5b3d22);border-bottom:4px solid #3e2915}
+[data-style=ardoise] .btab{color:#f0dfc0;border-right:2px solid #3e2915} [data-style=ardoise] .btab.on{background:rgba(0,0,0,.2);color:#fff;box-shadow:inset 0 -2px 0 #f4f1e8}
+html[data-style=ardoise] body.dockOn #dock{background:linear-gradient(90deg,#5b3d22,#7a5532);box-shadow:inset -4px 0 0 #3e2915}
+[data-style=ardoise] .dkI{box-shadow:0 0 0 2px rgba(244,241,232,.5)} [data-style=ardoise] .dkI.on{box-shadow:0 0 0 2px #f4f1e8,0 0 8px rgba(255,255,255,.5)}
+
+/* Vaporwave 95: an old pastel desktop, bevelled windows, gradient title strips, a pink grid on the horizon */
+html[data-style=vapor]{--title:'T Silkscreen',monospace;--px:2px}
+[data-style=vapor] .px{box-shadow:inset 2px 2px 0 rgba(255,255,255,.45),inset -2px -2px 0 rgba(0,0,0,.45),0 0 0 2px var(--c)}
+[data-style=vapor] .panel{--fill:linear-gradient(90deg,var(--violet),var(--magenta) 55%,var(--pink)) 0 0/100% 7px no-repeat,rgba(var(--d12),.86)}
+[data-style=vapor] body::after{background:repeating-linear-gradient(90deg,rgba(var(--pkr),.12) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(var(--mgr),.12) 0 1px,transparent 1px 32px);-webkit-mask-image:linear-gradient(transparent 62%,#000);mask-image:linear-gradient(transparent 62%,#000)}
+[data-style=vapor] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:3px 3px 0 var(--pink)} [data-style=vapor] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:3px 3px 0 var(--violet)}
+html[data-style=vapor] body #tabstrip,[data-style=vapor] .bBar{background:linear-gradient(90deg,var(--violet),var(--magenta) 60%,var(--pink));border-bottom:2px solid rgba(0,0,0,.5)}
+[data-style=vapor] .btab,[data-style=vapor] #tabstrip .tbtn,[data-style=vapor] #bHomeTab{color:#fff;border-right:0} [data-style=vapor] .btab.on{background:rgba(255,255,255,.2);box-shadow:inset 2px 2px 0 rgba(0,0,0,.35),inset -2px -2px 0 rgba(255,255,255,.45)}
+html[data-style=vapor] body.dockOn #dock{background:rgba(var(--d19),.95);box-shadow:inset -2px 0 0 rgba(0,0,0,.5),inset 2px 0 0 rgba(255,255,255,.2)}
+[data-style=vapor] .dkI{box-shadow:inset 2px 2px 0 rgba(255,255,255,.4),inset -2px -2px 0 rgba(0,0,0,.45)} [data-style=vapor] .dkI.on{--fill:rgba(var(--mgr),.35);box-shadow:inset 2px 2px 0 rgba(0,0,0,.4),inset -2px -2px 0 rgba(255,255,255,.4)}
+
+/* Volcan: obsidian panels with glowing edges, a molten title, heat rising from the bottom */
+html[data-style=lave]{--title:'T Jersey',monospace}
+[data-style=lave] .px{box-shadow:0 calc(-1*var(--px)) 0 0 var(--c),0 var(--px) 0 0 var(--c),calc(-1*var(--px)) 0 0 0 var(--c),var(--px) 0 0 0 var(--c),0 0 16px -2px rgba(var(--mgr),.55)}
+[data-style=lave] .panel{--fill:linear-gradient(160deg,rgba(18,7,5,.93),rgba(42,12,7,.88))}
+[data-style=lave] body::after{background:radial-gradient(ellipse 80% 40% at 50% 115%,rgba(255,90,31,.35),transparent),repeating-linear-gradient(to bottom,rgba(0,0,0,.08) 0 2px,transparent 2px 4px)}
+[data-style=lave] :is(h1,.hTitle) .neo{color:var(--pink);animation:lvGlow 2.4s ease-in-out infinite alternate} [data-style=lave] :is(h1,.hTitle) .dyme{background:linear-gradient(0deg,var(--violet),var(--magenta) 45%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 8px rgba(var(--mgr),.8))}
+@keyframes lvGlow{from{text-shadow:0 0 6px var(--magenta),0 0 14px var(--violet)}to{text-shadow:0 0 12px var(--magenta),0 0 30px var(--violet)}}
+[data-style=lave] #time{color:var(--pink);text-shadow:0 0 14px var(--magenta)}
+html[data-style=lave] body #tabstrip,[data-style=lave] .bBar{background:#0d0504;border-bottom:2px solid var(--magenta);box-shadow:0 0 16px rgba(var(--mgr),.55)}
+[data-style=lave] .btab{border-right:0} [data-style=lave] .btab.on{background:linear-gradient(0deg,rgba(var(--mgr),.4),transparent);box-shadow:inset 0 -2px 0 var(--pink);color:#fff}
+html[data-style=lave] body.dockOn #dock{background:linear-gradient(180deg,#0d0504 55%,#2a0a05);box-shadow:inset -2px 0 0 var(--magenta),3px 0 14px rgba(var(--mgr),.45)}
+[data-style=lave] .dkI.on{box-shadow:0 0 0 2px var(--pink),0 0 14px var(--magenta)}
+
+/* Givre: frozen panels, frost in the corners, snow sparkles */
+html[data-style=givre]{--title:'T Tiny5',monospace;--px:2px}
+[data-style=givre] .px{border-radius:4px;box-shadow:0 0 0 2px var(--c),0 0 12px rgba(var(--mgr),.3),inset 0 1px 0 rgba(255,255,255,.35)}
+[data-style=givre] .panel{--fill:linear-gradient(180deg,rgba(var(--d19),.78),rgba(var(--d12),.72));backdrop-filter:blur(6px)}
+[data-style=givre] body::after{background:radial-gradient(circle at 0 0,rgba(255,255,255,.2),transparent 22%),radial-gradient(circle at 100% 0,rgba(255,255,255,.16),transparent 20%),radial-gradient(circle at 0 100%,rgba(255,255,255,.14),transparent 20%),radial-gradient(circle at 100% 100%,rgba(255,255,255,.18),transparent 22%)}
+[data-style=givre] :is(h1,.hTitle) .neo{color:#fff;text-shadow:0 0 8px var(--magenta),0 2px 0 var(--violet)} [data-style=givre] :is(h1,.hTitle) .dyme{color:var(--magenta);text-shadow:0 0 12px #fff}
+html[data-style=givre] body #tabstrip,[data-style=givre] .bBar{background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(var(--d12),.88));border-bottom:2px solid var(--magenta);box-shadow:0 2px 12px rgba(var(--mgr),.35)}
+[data-style=givre] .btab{border-right:1px solid rgba(255,255,255,.12)} [data-style=givre] .btab.on{background:rgba(255,255,255,.14);box-shadow:inset 0 -2px 0 #fff;color:#fff}
+html[data-style=givre] body.dockOn #dock{background:linear-gradient(90deg,rgba(var(--d12),.9),rgba(255,255,255,.1));box-shadow:inset -2px 0 0 var(--magenta),2px 0 12px rgba(var(--mgr),.3)}
+[data-style=givre] .dkI{border-radius:4px;box-shadow:0 0 0 2px var(--c),inset 0 1px 0 rgba(255,255,255,.3)}
+
+/* Vieux film: sepia, grain and scratches that flicker, film perforations around the bars */
+html[data-style=sepia]{--title:'T VT323',monospace;--text:'X VT323',monospace;--px:2px}
+[data-style=sepia] .px{box-shadow:0 0 0 2px var(--c),4px 4px 0 rgba(0,0,0,.35)}
+[data-style=sepia] body::after{background:radial-gradient(ellipse at center,transparent 50%,rgba(30,15,5,.6)),repeating-linear-gradient(90deg,transparent 0 211px,rgba(255,240,210,.07) 211px 212px),radial-gradient(rgba(255,240,210,.06) 1px,transparent 1.5px) 0 0/5px 5px;animation:spFilm 1.1s steps(4) infinite}
+@keyframes spFilm{0%{background-position:0 0,0 0,0 0;opacity:1}25%{background-position:0 0,73px 0,2px 1px;opacity:.88}50%{background-position:0 0,-41px 0,1px 3px;opacity:1}75%{background-position:0 0,129px 0,3px 2px;opacity:.93}}
+[data-style=sepia] :is(h1,.hTitle) .neo{color:#f6e7c8;text-shadow:2px 2px 0 rgba(0,0,0,.5)} [data-style=sepia] :is(h1,.hTitle) .dyme{color:var(--magenta);text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+html[data-style=sepia] body #tabstrip,[data-style=sepia] .bBar{background:repeating-linear-gradient(90deg,transparent 0 14px,rgba(246,231,200,.22) 14px 22px) 0 100%/100% 5px no-repeat,#1a120a;border-bottom:3px solid var(--violet)}
+[data-style=sepia] .btab{border-right:1px solid rgba(246,231,200,.15)} [data-style=sepia] .btab.on{background:rgba(var(--mgr),.15);box-shadow:inset 0 -3px 0 var(--magenta);color:#fff}
+html[data-style=sepia] body.dockOn #dock{background:repeating-linear-gradient(180deg,transparent 0 14px,rgba(246,231,200,.22) 14px 22px) 2px 0/5px 100% no-repeat,repeating-linear-gradient(180deg,transparent 0 14px,rgba(246,231,200,.22) 14px 22px) calc(100% - 5px) 0/5px 100% no-repeat,#1a120a;box-shadow:inset -3px 0 0 var(--violet)}
+
+/* Hologramme: rainbow sheen, frames whose sides change colour, a title that shimmers */
+html[data-style=holo]{--title:'T Silkscreen',monospace;--px:2px}
+[data-style=holo] .px{box-shadow:0 -2px 0 0 var(--magenta),0 2px 0 0 var(--pink),-2px 0 0 0 var(--violet),2px 0 0 0 var(--pink),0 0 14px -4px var(--pink)}
+[data-style=holo] .panel{--fill:linear-gradient(135deg,rgba(157,247,229,.08),rgba(247,168,255,.08) 50%,rgba(168,200,255,.08)),rgba(var(--d12),.84)}
+[data-style=holo] body::after{background:conic-gradient(from 200deg at 50% 50%,rgba(157,247,229,.06),rgba(247,168,255,.06),rgba(168,200,255,.06),rgba(157,247,229,.06)),repeating-linear-gradient(to bottom,rgba(255,255,255,.03) 0 1px,transparent 1px 3px)}
+[data-style=holo] :is(h1,.hTitle) span{background:linear-gradient(90deg,#00ffd5,#ff4fd8,#6f8cff,#ffe45c,#00ffd5) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 6px rgba(247,168,255,.5));animation:hoShift 5s linear infinite}
+@keyframes hoShift{to{background-position:200% 0}}
+html[data-style=holo] body #tabstrip,[data-style=holo] .bBar{background:rgba(var(--d8),.92);border-bottom:2px solid;border-image:linear-gradient(90deg,var(--magenta),var(--pink),var(--violet),var(--magenta)) 1}
+[data-style=holo] .btab{border-right:0} [data-style=holo] .btab.on{background:linear-gradient(90deg,rgba(157,247,229,.18),rgba(247,168,255,.18),rgba(168,200,255,.18));box-shadow:none;color:#fff}
+html[data-style=holo] body.dockOn #dock{background:rgba(var(--d8),.94);box-shadow:none;border-right:2px solid;border-image:linear-gradient(180deg,var(--magenta),var(--pink),var(--violet)) 1}
+[data-style=holo] .dkI{box-shadow:0 -2px 0 0 var(--magenta),0 2px 0 0 var(--pink),-2px 0 0 0 var(--violet),2px 0 0 0 var(--pink)}
+
+/* Cockpit: aiming corners instead of frames, thin cyan lines, orange alerts */
+html[data-style=hud]{--title:'T Handjet',monospace;--px:1px}
+[data-style=hud] .px{box-shadow:0 0 0 1px rgba(var(--mgr),.16);background:linear-gradient(var(--c),var(--c)) 0 0/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 0 0/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 100% 0/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 100% 0/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 0 100%/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 0 100%/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 100% 100%/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 100% 100%/2px 12px no-repeat,var(--fill,var(--ink))}
+[data-style=hud] .panel{--fill:rgba(var(--d12),.7)}
+[data-style=hud] .label,[data-style=hud] .tab{text-transform:uppercase;letter-spacing:3px}
+[data-style=hud] body::after{background:linear-gradient(rgba(var(--mgr),.05) 1px,transparent 1px) 0 0/100% 4px,linear-gradient(90deg,transparent calc(50% - 1px),rgba(var(--mgr),.05) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+[data-style=hud] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:0 0 8px var(--magenta)} [data-style=hud] :is(h1,.hTitle) .neo::before{content:'[ ';color:var(--violet)} [data-style=hud] :is(h1,.hTitle) .dyme{color:var(--pink)} [data-style=hud] :is(h1,.hTitle) .dyme::after{content:' ]';color:var(--violet)}
+[data-style=hud] #time{color:var(--magenta);text-shadow:0 0 10px var(--magenta)}
+html[data-style=hud] body #tabstrip,[data-style=hud] .bBar{background:rgba(0,10,14,.92);border-bottom:1px solid rgba(var(--mgr),.5)}
+[data-style=hud] .btab{border-right:0;text-transform:uppercase} [data-style=hud] .btab.on{background:none;box-shadow:inset 0 -2px 0 var(--magenta);color:var(--magenta)} [data-style=hud] .btab.on::before{content:'▸'}
+html[data-style=hud] body.dockOn #dock{background:rgba(0,10,14,.92);box-shadow:inset -1px 0 0 rgba(var(--mgr),.5)}
+[data-style=hud] .dkI{box-shadow:none;background:linear-gradient(var(--c),var(--c)) 0 0/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 0 0/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 100% 0/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 100% 0/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 0 100%/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 0 100%/2px 12px no-repeat,linear-gradient(var(--c),var(--c)) 100% 100%/12px 2px no-repeat,linear-gradient(var(--c),var(--c)) 100% 100%/2px 12px no-repeat,var(--fill)} [data-style=hud] .dkI.on{--c:var(--violet)}
+
+/* the layer behind the page (above the decor, below the content): the meadow, the falling snow, the aurora; nothing while browsing */
+body.browsing::before{display:none}
+/* inside an app (a plugin's frame, which gets this file too): its buttons follow the style, but no snow, meadow or aurora over it, nothing that moves */
+html[data-plugin] body::before{display:none} html[data-plugin] body::after{animation:none}
+
+/* Jardin fleuri: a meadow at the bottom of the screen, vines along the bars, little flowers in the corners */
+html[data-style=jardin]{--title:'T Pixelify',monospace;--px:3px}
+[data-style=jardin] body::before{content:'';position:fixed;left:0;right:0;bottom:0;height:72px;z-index:1;pointer-events:none;background:url(themes/prairie.svg) 0 100%/144px 72px repeat-x;image-rendering:pixelated}
+[data-style=jardin] .px{border-radius:8px;box-shadow:0 0 0 3px var(--c)}
+[data-style=jardin] .panel{--fill:url(themes/fleur.svg) calc(100% - 10px) 10px/20px no-repeat,url(themes/fleur.svg) 10px calc(100% - 10px)/14px no-repeat,linear-gradient(180deg,rgba(var(--d19),.9),rgba(var(--d12),.88));image-rendering:pixelated}
+[data-style=jardin] body::after{background:radial-gradient(ellipse at 50% -20%,rgba(255,224,102,.12),transparent 55%)}
+[data-style=jardin] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:3px 3px 0 #1f4a1c} [data-style=jardin] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:3px 3px 0 #1f4a1c} [data-style=jardin] :is(h1,.hTitle)::after{content:'';display:inline-block;width:20px;height:20px;margin-left:8px;background:url(themes/fleur.svg) 0 0/100%;image-rendering:pixelated}
+html[data-style=jardin] body #tabstrip,[data-style=jardin] .bBar{background:url(themes/liane.svg) 0 100%/64px 16px repeat-x,linear-gradient(180deg,rgba(var(--d19),.97),rgba(var(--d12),.95));border-bottom:0;padding-bottom:6px;image-rendering:pixelated}
+[data-style=jardin] .btab{border-right:0;border-radius:10px 10px 0 0} [data-style=jardin] .btab.on{background:rgba(var(--mgr),.2);box-shadow:none;color:#fff} [data-style=jardin] .btab.on::before{content:'';width:12px;height:12px;flex:none;background:url(themes/fleur.svg) 0 0/100%;image-rendering:pixelated}
+html[data-style=jardin] body.dockOn #dock{background:url(themes/liane-v.svg) 100% 0/16px 64px repeat-y,linear-gradient(90deg,rgba(var(--d12),.96),rgba(var(--d19),.94));box-shadow:none;image-rendering:pixelated}
+[data-style=jardin] .dkI{border-radius:14px 4px;box-shadow:0 0 0 2px var(--c)} [data-style=jardin] .dkI.on{box-shadow:0 0 0 2px var(--magenta),0 0 10px rgba(var(--mgr),.5)}
+
+/* Neige: snow falling softly behind the page, snow lying on the panels and the bars */
+html[data-style=neige]{--title:'T Tiny5',monospace;--px:3px}
+[data-style=neige] body::before{content:'';position:fixed;left:0;right:0;top:-480px;bottom:0;z-index:1;pointer-events:none;background:url(themes/neige.svg) 0 0/240px 240px,url(themes/neige.svg) 117px 63px/480px 480px;opacity:.8;will-change:transform;animation:snFall 16s linear infinite}
+@keyframes snFall{to{transform:translateY(480px)}}
+[data-style=neige] .px{border-radius:6px;box-shadow:0 0 0 3px var(--c)}
+[data-style=neige] .panel{--fill:url(themes/neige-bord.svg) 0 0/48px 12px repeat-x,linear-gradient(180deg,rgba(var(--d19),.9),rgba(var(--d12),.88));image-rendering:pixelated}
+[data-style=neige] body::after{background:linear-gradient(to top,rgba(255,255,255,.14),transparent 14%),radial-gradient(ellipse at 50% 120%,rgba(255,170,90,.12),transparent 60%)}
+[data-style=neige] :is(h1,.hTitle) .neo{color:#fff;text-shadow:0 3px 0 var(--pink)} [data-style=neige] :is(h1,.hTitle) .dyme{color:var(--violet);text-shadow:0 3px 0 rgba(0,0,0,.4)}
+html[data-style=neige] body #tabstrip,[data-style=neige] .bBar{background:url(themes/neige-bord.svg) 0 0/48px 12px repeat-x,linear-gradient(180deg,rgba(var(--d19),.97),rgba(var(--d12),.95));border-bottom:3px solid var(--line2);image-rendering:pixelated}
+[data-style=neige] .btab{border-right:0} [data-style=neige] .btab.on{background:rgba(255,255,255,.12);box-shadow:inset 0 -3px 0 var(--violet);color:#fff} [data-style=neige] .btab.on::before{content:'❄';color:#fff;font-size:11px}
+html[data-style=neige] body.dockOn #dock{background:url(themes/neige-bord.svg) 0 0/48px 12px repeat-x,linear-gradient(90deg,rgba(var(--d12),.96),rgba(var(--d19),.94));box-shadow:inset -3px 0 0 var(--line2);image-rendering:pixelated}
+[data-style=neige] .dkI{border-radius:6px} [data-style=neige] .dkI.on{box-shadow:0 0 0 2px #fff}
+
+/* Aurore boréale: green and violet veils waving in the sky, frames shining like ice */
+html[data-style=aurore]{--title:'T Handjet',monospace;--px:2px}
+[data-style=aurore] body::before{content:'';position:fixed;left:-20%;right:-20%;top:-10%;height:70%;z-index:1;pointer-events:none;background:radial-gradient(ellipse 14% 65% at 22% 45%,rgba(92,255,176,.42),transparent 70%),radial-gradient(ellipse 10% 75% at 40% 35%,rgba(92,225,255,.3),transparent 70%),radial-gradient(ellipse 16% 60% at 60% 40%,rgba(178,141,255,.42),transparent 70%),radial-gradient(ellipse 11% 70% at 80% 45%,rgba(255,120,220,.3),transparent 70%);will-change:transform;animation:auWave 18s ease-in-out infinite alternate}
+@keyframes auWave{0%{transform:translateX(-6%) skewX(-6deg) scaleY(1)}50%{transform:translateX(3%) skewX(4deg) scaleY(1.15)}100%{transform:translateX(7%) skewX(-3deg) scaleY(.92)}}
+[data-style=aurore] .px{box-shadow:0 0 0 2px var(--c),0 0 14px -4px rgba(var(--mgr),.6)}
+[data-style=aurore] .panel{--fill:linear-gradient(180deg,rgba(var(--d12),.78),rgba(var(--d5),.85))}
+[data-style=aurore] :is(h1,.hTitle) span{background:linear-gradient(180deg,var(--magenta),var(--violet) 50%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 10px rgba(var(--mgr),.6))}
+html[data-style=aurore] body #tabstrip,[data-style=aurore] .bBar{background:rgba(var(--d5),.92);border-bottom:2px solid;border-image:linear-gradient(90deg,var(--magenta),var(--violet),var(--pink),var(--magenta)) 1}
+[data-style=aurore] .btab{border-right:0} [data-style=aurore] .btab.on{background:linear-gradient(0deg,rgba(var(--mgr),.25),transparent);box-shadow:inset 0 -2px 0 var(--magenta);color:#fff}
+html[data-style=aurore] body.dockOn #dock{background:linear-gradient(180deg,rgba(var(--d5),.95),rgba(var(--d12),.92));box-shadow:inset -2px 0 0 var(--magenta),3px 0 14px rgba(var(--mgr),.3)}
+[data-style=aurore] .dkI.on{box-shadow:0 0 0 2px var(--magenta),0 0 14px rgba(var(--mgr),.6)}
+
+/* Steampunk: brass and copper, rivets in the corners, a gear on every panel, riveted metal bars */
+html[data-style=steampunk]{--title:'T Jersey',monospace;--px:3px}
+[data-style=steampunk] .px{border-radius:3px;box-shadow:0 0 0 3px var(--c),0 0 0 5px #3a250e,inset 0 1px 0 rgba(255,230,170,.25)}
+[data-style=steampunk] .panel{--fill:url(themes/engrenage.svg) calc(100% - 12px) calc(100% - 12px)/40px no-repeat,radial-gradient(circle at 6px 6px,#e8c070 2.5px,#5a3a14 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 6px) 6px,#e8c070 2.5px,#5a3a14 3px,transparent 3.5px),radial-gradient(circle at 6px calc(100% - 6px),#e8c070 2.5px,#5a3a14 3px,transparent 3.5px),radial-gradient(circle at calc(100% - 6px) calc(100% - 6px),#e8c070 2.5px,#5a3a14 3px,transparent 3.5px),linear-gradient(180deg,rgba(var(--d19),.94),rgba(var(--d12),.92));image-rendering:pixelated}
+[data-style=steampunk] body::after{background:radial-gradient(ellipse at center,transparent 55%,rgba(20,10,0,.5)),repeating-linear-gradient(to bottom,rgba(0,0,0,.05) 0 2px,transparent 2px 4px)}
+[data-style=steampunk] :is(h1,.hTitle) span{background:linear-gradient(180deg,#fff3c4 0%,var(--magenta) 45%,#8a5a22 55%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(2px 2px 0 #2a1806)}
+html[data-style=steampunk] body #tabstrip,[data-style=steampunk] .bBar{background:linear-gradient(180deg,#9a6828,#7a4e1c 55%,#5a3a14);border-bottom:3px solid #2a1806}
+[data-style=steampunk] .btab{color:#f0d6a0;border-right:2px solid #2a1806} [data-style=steampunk] .btab.on{background:linear-gradient(180deg,#d9a441,#a8762c);color:#2a1806;box-shadow:inset 0 -3px 0 #2a1806}
+html[data-style=steampunk] body.dockOn #dock{background:linear-gradient(90deg,#5a3a14,#7a4e1c 45%,#9a6828);box-shadow:inset -3px 0 0 #2a1806}
+[data-style=steampunk] .dkI{border-radius:50%;box-shadow:0 0 0 3px #a8762c,0 0 0 4px #2a1806}
+
+/* Bonbons: barley-sugar stripes, round corners, acid colours, tiles that bounce */
+html[data-style=bonbon]{--title:'T Pixelify',monospace;--px:4px}
+[data-style=bonbon] .px{border-radius:14px;box-shadow:0 0 0 4px var(--c),0 6px 0 0 rgba(0,0,0,.25)}
+[data-style=bonbon] .panel{--fill:repeating-linear-gradient(-45deg,rgba(var(--mgr),.06) 0 14px,transparent 14px 28px),rgba(var(--d12),.9)}
+[data-style=bonbon] body::after{background:radial-gradient(rgba(255,255,255,.07) 2px,transparent 2.5px) 0 0/22px 22px}
+[data-style=bonbon] :is(h1,.hTitle) .neo{color:var(--magenta);text-shadow:0 4px 0 #fff,0 7px 0 rgba(0,0,0,.3)} [data-style=bonbon] :is(h1,.hTitle) .dyme{color:var(--pink);text-shadow:0 4px 0 #fff,0 7px 0 rgba(0,0,0,.3)}
+[data-style=bonbon] .tile:hover{animation:bbBounce .45s ease-out}
+@keyframes bbBounce{30%{transform:translateY(-6px) scale(1.04,.97)}60%{transform:translateY(1px) scale(.98,1.03)}}
+html[data-style=bonbon] body #tabstrip,[data-style=bonbon] .bBar{background:repeating-linear-gradient(-45deg,var(--magenta) 0 10px,#fff 10px 20px) 0 100%/100% 5px no-repeat,rgba(var(--d19),.97);border-bottom:0;padding-bottom:5px}
+[data-style=bonbon] .btab{border-right:0;border-radius:14px;margin:6px 2px} [data-style=bonbon] .btab.on{background:var(--magenta);color:var(--bg0);box-shadow:0 3px 0 rgba(0,0,0,.3)}
+html[data-style=bonbon] body.dockOn #dock{background:repeating-linear-gradient(-45deg,var(--pink) 0 10px,#fff 10px 20px) 100% 0/5px 100% no-repeat,rgba(var(--d19),.97);box-shadow:none}
+[data-style=bonbon] .dkI{border-radius:50%;box-shadow:0 0 0 3px var(--c)} [data-style=bonbon] .dkI.on{--fill:rgba(var(--mgr),.35);box-shadow:0 0 0 3px var(--magenta)}
+
+@media (prefers-reduced-motion:reduce){[data-style=neige] body::before,[data-style=aurore] body::before,[data-style=bonbon] .tile:hover{animation:none}}
+@media (prefers-reduced-motion:reduce){[data-style=cyber] :is(h1,.hTitle),[data-style=lave] :is(h1,.hTitle) .neo,[data-style=sepia] body::after,[data-style=holo] :is(h1,.hTitle) span{animation:none}}
+@media (prefers-reduced-motion:reduce){[data-style=terminal] :is(h1,.hTitle) .dyme::after{animation:none}}
+/* the home tab carries the home title: on a light tab colour its effects would vanish, so it sits on the dark of the page */
+[data-style=cyber] #bHomeTab.on{background:#0b0d10;box-shadow:inset 0 -3px 0 var(--magenta)} [data-style=steampunk] #bHomeTab.on{background:#f3e3bd;box-shadow:inset 0 -3px 0 #2a1806} [data-style=ardoise] #bHomeTab.on{background:#151716}
+[data-style=arcade] #bHomeTab.on{background:#000;box-shadow:inset 0 -4px 0 var(--pink)} [data-style=arcade] #bHomeTab .hTitle .neo{text-shadow:4px 4px 0 var(--magenta)} [data-style=arcade] #bHomeTab .hTitle .dyme{text-shadow:4px 4px 0 var(--violet)}  /* arcade: the tab is too small for the double shadow of the home title */

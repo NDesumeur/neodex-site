@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NeoDex</title>
+<script>window.NEO_MOBILE_VERSION = "3.2.2"; window.NEO_DEFAULTS = {"v":5,"search":"google","adblock":true,"adblockOff":[],"adblockMine":[],"antiTrack":true,"pluginAutoUpdate":true,"bigText":false,"neodleCat":false,"openAtLogin":true,"fullscreen":true,"closeToTray":true,"hotkey":true,"restoreTabs":true,"weatherCity":"","weatherLat":0,"weatherLon":0,"tabs":[],"bgTheme":"random","bgScene":"random","sceneFavs":[],"themeFavs":[],"pip":true,"notesTile":false,"appTiles":[],"dndHours":false,"dndFrom":"22:00","dndTo":"07:00","dndGame":true,"dockOn":true,"dockMin":false,"dockNf":false,"dock":["neodex:notes","neodex:agenda","neodex:notifs","plugin:neodex.music","plugin:neodex.discord","https://www.twitch.tv/","https://www.youtube.com/"],"sounds":true,"soundVol":0.6,"typeSounds":false,"syncFile":"","nbaTeam":"","pixelCursor":true,"gmailSkin":true,"discordSkin":true,"worldClocks":[],"tadaoStops":[],"wheel":[],"bgFit":"fill","webColors":"","webBg":"","webFg":"","webAcc":"","tfont":"","font":"","cursorKind":"","cursorBack":"","catsHidden":[],"bgImage":"","themes":[],"themeId":"","soundPack":"retro","soundEvents":{},"fontScale":1,"contrast":false,"readableFont":false,"reduceMotion":false,"bigCursor":false,"homeLayout":[],"homeWidgets":[],"homeWidgetSizes":{},"homeBuiltins":["pomo","note","count","meteo"],"quickNote":"","countdown":{},"trNever":[],"lang":"","tourDone":false}; window.NEO_PUBKEY = "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEASSYte6HTMkx67OhEr9p6FlM/9wCCLXqLCQROg6J4/bc=\n-----END PUBLIC KEY-----"; </script>
+<script src="neo-reg.js?mwlvbcqa"></script>
+<script src="neo-mobile.js?mwlvbcqa"></script>
+<script src="neo-notifs.js?mwlvbcqa"></script>
+<script src="neo-plugins.js?mwlvbcqa"></script>
+<script src="neo-vault.js?mwlvbcqa"></script>
+<script src="neo-music.js?mwlvbcqa"></script>
+<script src="neo-browser.js?mwlvbcqa"></script>
+<script>addEventListener('DOMContentLoaded', () => { tourFaces = Object.fromEntries(TOUR.map(s => [s[1], 'tour/' + s[1] + '.png'])); });</script>
+<script src="neo-touch.js?mwlvbcqa"></script>
+<script src="neosync.js?mwlvbcqa"></script>
+<script src="neo-sync-crypto.js?mwlvbcqa"></script>
+<script src="neo-sync.js?mwlvbcqa"></script>
+<script src="i18n.js?mwlvbcqa"></script>
+<link rel="icon" href="NeoDex.ico">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="store.css">
+<link rel="stylesheet" href="apps.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mobile.css?mwlvbcqa">
+</head>
+<body>
+<canvas id="skyFar"></canvas><canvas id="sky"></canvas>
+<div id="tabstrip">
+  <div class="btab on" id="bHomeTab" title="Accueil NeoDex"><span class="hTitle"><span class="neo">Neo</span><span class="dyme">Dex</span></span></div>
+  <div id="bTabs" style="display:contents"></div>
+  <button id="bNew" title="Nouvel onglet (Ctrl+T)" data-pix="plus"></button>
+  <div id="bDrag" title="Glisser pour déplacer la fenêtre · double-clic : agrandir"></div>
+  <button id="bDownloads" class="tbtn" title="Téléchargements">TÉLÉCHARGEMENTS</button>
+  <button id="bHistory" class="tbtn" title="Historique (Ctrl+H)">HISTORIQUE</button>
+  <button id="bSettings" class="tbtn" title="Paramètres">PARAMÈTRES</button>
+  <button class="wbtn" id="wMin" title="Réduire" data-pix="min"></button>
+  <button class="wbtn" id="wMax" title="Agrandir / plein écran" data-pix="max"></button>
+  <button class="wbtn" id="wClose" title="Fermer" data-pix="close"></button>
+</div>
+<div id="dlPanel" class="px">
+  <div class="dlHead"><span class="label">Téléchargements</span><button id="dlFolder" title="Ouvrir le dossier Téléchargements">DOSSIER</button><button id="dlClear" title="Retirer les téléchargements terminés de la liste">VIDER</button></div>
+  <div id="dlList"></div>
+</div>
+<div id="browserView">
+  <div class="bBar">
+    <button class="btn px" id="bBack" title="Précédent (Alt+←)" data-pix="back"></button>
+    <button class="btn px" id="bFwd" title="Suivant (Alt+→)" data-pix="fwd"></button>
+    <button class="btn px" id="bReload" title="Recharger (F5)" data-pix="reload"></button>
+    <input class="f" id="bUrl" spellcheck="false" placeholder="Adresse ou recherche Google (Ctrl+L)">
+    <span id="bShield" hidden></span><!-- la place du bouton du plugin Bloqueur de pubs (le VPN se met juste après) -->
+    <button class="btn px" id="bExt" title="Ouvrir dans le navigateur par défaut" data-pix="ext"></button>
+  </div>
+  <div id="bViews">
+    <div id="notesApp">
+      <div class="naSide">
+        <div class="agHead"><span class="label">Notes</span>
+          <button class="btn main px" id="naAdd" style="margin-left:auto"><span class="plus">+</span>Note</button></div>
+        <input class="f" id="naSearch" placeholder="Rechercher…" spellcheck="false" autocomplete="off">
+        <div id="naList"></div>
+      </div>
+      <div id="naEditor">
+        <input id="naTitle" placeholder="Titre" spellcheck="false">
+        <div class="naMeta"><span id="naWhen"></span><button class="x" id="naDel">SUPPRIMER</button></div>
+        <textarea id="naText" placeholder="Écris ici…"></textarea>
+      </div>
+    </div>
+    <div id="fgApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">fgestion</span><span class="hint" id="fgStatus"></span><div class="agNav"><button class="btn px" id="fgSyncNow">SYNCHRONISER</button></div></div>
+      <div id="fgAlert" hidden></div>
+      <div class="fgSum" id="fgSum"></div>
+      <div class="sysCard px fgCrypt" id="fgCrypt"></div>
+      <div class="sysCard px"><div class="fgTitle"><span class="label">Conflits</span><span class="badge" id="fgCount"></span></div>
+        <div class="hint">La même chose changée sur deux appareils sans que l'un ait vu l'autre. Rien n'est écrasé : choisis la version à garder, ton choix va sur tous les appareils.</div>
+        <div id="fgConflicts"></div></div>
+      <div class="fgCols">
+        <div class="sysCard px"><span class="label">Appareils</span><div id="fgDevices"></div></div>
+        <div class="sysCard px"><span class="label">Journal</span><div id="fgLog"></div></div>
+      </div>
+      <div class="sysCard px"><div class="fgTitle"><span class="label">Applis et synchro</span><input class="f" id="fgPlugQ" placeholder="Chercher une appli…" spellcheck="false"></div>
+        <div class="hint">Chaque appli dit elle-même ce qu'elle synchronise. Clique un mode pour ne voir que ses applis.</div>
+        <div class="fgModes" id="fgModes"></div><div class="fgPlugGrid" id="fgPlugins"></div></div>
+      <div class="sysCard px"><span class="label">Historique des versions</span>
+        <div class="hint">Une sauvegarde complète chaque minute où quelque chose change (les 30 dernières, une par heure sur 24 h, une par jour sur 7 jours), plus avant chaque restauration. Restaurer remet les parties choisies de ce PC comme dans la sauvegarde, puis les envoie aux autres appareils.</div>
+        <div id="fgBackups"></div></div>
+    </div></div>
+    <div id="filesApp" class="ptView">
+      <div class="ptBar">
+        <button class="btn px" id="exBack" data-pix="back" title="Précédent"></button><button class="btn px" id="exFwd" data-pix="fwd" title="Suivant"></button><button class="btn px" id="exUp" title="Dossier parent (Retour arrière)">↑</button><button class="btn px" id="exRefresh" data-pix="reload" title="Actualiser"></button>
+        <input class="f" id="exPath" spellcheck="false" title="Tape un chemin puis Entrée">
+        <input class="f" id="exFilter" placeholder="Filtrer…" spellcheck="false">
+        <select class="f" id="exSort" title="Trier par"><option value="name">Nom</option><option value="date">Date</option><option value="size">Taille</option><option value="type">Type</option></select>
+        <button class="btn px" id="exViewBtn">LISTE</button><button class="btn px" id="exNewDir">+ Dossier</button>
+      </div>
+      <div class="ptMain"><nav id="exPlaces"></nav><div id="exList" tabindex="-1"></div></div>
+      <div class="exStatus hint" id="exStatus"></div>
+    </div>
+    <div id="sitesApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Sites et données</span><span class="hint" id="stInfo"></span><div class="agNav"><input class="f" id="stSearch" placeholder="Chercher un site…"><button class="btn main px" id="stClearOthers" title="Efface les cookies et données de tous les sites, sauf ceux gardés connectés">EFFACER LES AUTRES</button></div></div>
+      <label class="check"><input type="checkbox" id="stClearExit"> À la fermeture de NeoDex, effacer les sites qui ne sont pas gardés connectés</label>
+      <div id="stList" class="stList"></div>
+      <div class="hint">Chaque site qui demande ta caméra, ton micro, les notifications, ta position ou ton presse-papiers te pose la question une fois ; ta réponse est retenue (et synchronisée). Clic sur une autorisation : l'oublier (le site redemandera) · clic droit : l'inverser. « Garder connecté » protège les cookies d'un site quand tu effaces les autres. Les fenêtres privées ne retiennent rien.</div>
+    </div></div>
+    <div id="storeApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">NeoStore</span><span class="hint" id="nsInfo"></span><div class="agNav"><button class="btn main px" id="nsRefresh">ACTUALISER</button></div></div>
+      <div class="nsSearchRow"><input id="nsSearch" class="f" placeholder="Rechercher une appli : nom, description, catégorie…" spellcheck="false"></div>
+      <div class="nsFilters"><div class="sxTabs" id="nsTabs"></div><div class="nsSel"><select id="nsCat" class="f"></select><select id="nsState" class="f"><option value="">Tous les états</option><option value="inst">Installées</option><option value="new">Pas installées</option><option value="upd">À mettre à jour</option></select><select id="nsKind" class="f"><option value="">Tous types</option><option value="ok">Approuvées</option><option value="warn">Non vérifiées</option><option value="mobile">Aussi sur mobile</option><option value="offline">Marche hors ligne</option><option value="pad">Avec une manette</option></select><select id="nsSync" class="f"><option value="">Toutes les synchros</option><option value="progression">Synchro : progression</option><option value="fusion">Synchro : fusion</option><option value="aucune">Pas synchronisée</option></select><select id="nsSort" class="f"><option value="">Tri : pertinence</option><option value="updated">Dernière mise à jour</option><option value="installs">Les plus installées</option><option value="name">Par nom</option></select></div></div>
+      <div class="nsChips" id="nsChips"></div><div class="hint" id="nsCount"></div><div id="nsBody"></div>
+    </div></div>
+    <div id="agendaApp" class="appView"><div class="appWrap" id="agendaHolder"></div></div>
+    <div id="notifsApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Notifications</span><span class="hint" id="nfInfo"></span><div class="agNav"><button class="btn px" id="nfAllRead">TOUT MARQUER LU</button><button class="btn px" id="nfClear">TOUT EFFACER</button></div></div>
+      <div class="nfLayout"><div class="nfMain"><div id="nfApps" class="nfChips"></div><div id="nfList"></div></div>
+        <div class="sysCard px nfSet"><span class="label">Ne pas déranger</span><div class="hint">Les notifications sont gardées ici, sans bulle Windows ni message.</div>
+          <label class="nfType"><input type="checkbox" id="nfDndGame"><span>Pendant un jeu en plein écran</span><small>Un autre programme qui remplit l'écran (barre des tâches NeoDex active).</small></label>
+          <label class="nfType"><input type="checkbox" id="nfDndHours"><span>Aux heures : <input type="time" id="nfDndFrom" class="f nfTime"> à <input type="time" id="nfDndTo" class="f nfTime"></span></label>
+          <span class="label">Types de notification</span><div class="hint">Chaque appli dit ce qu'elle peut t'envoyer. Décoche ce que tu ne veux plus recevoir.</div><div id="nfTypes"></div></div></div>
+    </div></div>
+    <div id="permsApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Autorisations</span><span class="hint">Ce que chaque plugin peut faire, avec son niveau de risque. Coupe une autorisation quand tu veux : le plugin la redemandera s'il en a besoin.</span></div>
+      <span class="label">NeoDex</span><div id="pmNeo" class="stList"></div>
+      <span class="label">Plugins</span><div id="pmPlugins" class="stList"></div>
+      <span class="label">Journal</span><div id="pmLog" class="stList"></div>
+    </div></div>
+    <div id="securityApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Sécurité</span><span class="hint" id="scInfo"></span><div class="agNav"><button class="btn main px" id="scCheck" title="Vérifie un fichier de ton choix">VÉRIFIER UN FICHIER</button></div></div>
+      <div id="scShield" class="stList"></div>
+      <span class="label">Autorisations de NeoDex</span><div id="scPerms" class="stList"></div>
+      <div class="hint">NeoDex ne demande jamais les droits administrateur : un navigateur ne doit pas les avoir. Les autorisations des sites sont dans Sites et données.</div>
+      <span class="label">Quarantaine</span><div id="scQuar" class="stList"></div>
+      <span class="label">Mises à jour</span><div id="scParts" class="stList"></div>
+      <span class="label">Journal</span><div id="scLog" class="stList"></div>
+    </div></div>
+    <div id="viewerApp" class="appView"><div class="appWrap vwWrap">
+      <div class="agHead"><span class="label">Visionneuse</span><span class="hint" id="vwInfo"></span><div class="agNav"><button class="btn px" id="vwPrev" title="Précédente (←)" style="display:none">◀</button><button class="btn px" id="vwNext" title="Suivante (→)" style="display:none">▶</button><button class="btn px" id="vwWin" style="display:none" title="Avec le programme habituel de Windows">OUVRIR AVEC WINDOWS</button><button class="btn px" id="vwWith" style="display:none" title="Choisir un programme">OUVRIR AVEC…</button><button class="btn px" id="vwDir" style="display:none">DOSSIER</button><button class="btn main px" id="vwPick">OUVRIR UN FICHIER</button></div></div>
+      <div id="vwBody" class="vwBody"></div>
+    </div></div>
+    <div id="soundApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Son</span></div>
+      <div class="sysCard px"><span class="label">Sortie audio</span><select class="f" id="auDevice"></select><div id="auMaster"></div></div>
+      <div class="sysCard px"><span class="label">Par programme</span><div id="auList"></div></div>
+    </div></div>
+    <div id="vaultApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Coffre-fort</span></div>
+      <div id="vtCreate" class="sysCard px vtForm"><span class="label">Créer ton coffre</span><canvas id="vtChest2" class="vtChest" width="32" height="28"></canvas>
+        <div class="hint">Choisis un mot de passe d'au moins 8 caractères. Il n'est enregistré nulle part : <b>si tu l'oublies, les fichiers du coffre sont perdus</b>, personne ne peut les récupérer.</div>
+        <input class="f" type="password" id="vtPw1" placeholder="Mot de passe"><input class="f" type="password" id="vtPw2" placeholder="Le même, encore une fois"><button class="btn main px" id="vtCreateBtn">Créer le coffre</button></div>
+      <div id="vtUnlock" class="sysCard px vtForm"><span class="label">Coffre verrouillé</span><canvas id="vtChest" class="vtChest" width="32" height="28"></canvas><input class="f" type="password" id="vtPw" placeholder="Mot de passe"><button class="btn main px" id="vtUnlockBtn">Ouvrir</button></div>
+      <div id="vtMain">
+        <div class="row"><button class="btn main px" id="vtAddBtn">Ajouter des fichiers…</button><label class="check"><input type="checkbox" id="vtBin"> Mettre les originaux à la corbeille</label><button class="btn px" id="vtLock" style="margin-left:auto">Verrouiller</button></div>
+        <div class="sysCard px"><div id="vtList"></div></div>
+        <div class="sysCard px vtPw" id="vtPwCard"></div>
+        <div class="sysCard px vtPw" id="vtTotpCard"></div>
+        <div class="hint">Chiffrement AES-256. Le coffre se verrouille tout seul après 10 minutes sans l'utiliser, et les copies ouvertes sont alors effacées. Il reste sur ce PC : il n'est pas synchronisé.</div>
+      </div>
+    </div></div>
+    <div id="statsApp" class="appView"><div class="appWrap">
+      <div class="agHead"><span class="label">Stats</span>
+        <div class="agNav" id="stRange"><button class="btn px" data-d="1">AUJOURD'HUI</button><button class="btn px" data-d="7">7 JOURS</button><button class="btn px" data-d="30">30 JOURS</button></div></div>
+      <div class="sysGrid" id="stTiles"></div>
+      <div class="sysCard px"><span class="label" id="stChartLbl">Temps d'écran par jour</span><div id="stChart" class="colChart"></div></div>
+      <div class="stCols">
+        <div class="sysCard px"><span class="label">Sites et applis</span><div id="stSites"></div></div>
+        <div class="sysCard px"><span class="label">Raccourcis les plus lancés</span><div id="stLaunch"></div></div>
+      </div>
+      <div class="hint" id="stNote">Le temps compte quand NeoDex est au premier plan et que tu es actif (souris ou clavier dans les 5 dernières minutes, ou une vidéo qui joue).</div>
+    </div></div>
+  </div>
+</div>
+<main><div class="wrap">
+  <header>
+    <h1><span class="neo">Neo</span><span class="dyme">Dex</span></h1>
+    <div id="weather"></div>
+    <div id="clock"><div id="time"></div><div id="date" class="label"></div></div>
+  </header>
+  <div id="todayBar"></div>
+
+  <div class="toolbar">
+    <label id="searchWrap" class="px">
+      <svg width="18" height="18" viewBox="0 0 9 9" shape-rendering="crispEdges" fill="#8f7bb8"><path d="M2 0h3v1H2zM1 1h1v1H1zM5 1h1v1H5zM0 2h1v3H0zM6 2h1v3H6zM1 5h1v1H1zM5 5h1v1H5zM2 6h3v1H2zM6 6h1v1H6zM7 7h1v1H7zM8 8h1v1H8z"/></svg>
+      <input id="search" placeholder="Rechercher une appli ou un site…" autocomplete="off" spellcheck="false">
+      <kbd>ENTRÉE</kbd>
+    </label>
+    <button class="btn px" id="sortBtn" title="Trier les catégories et les raccourcis">Trier</button>
+    <button class="btn px" id="layoutBtn" title="Déplacer, agrandir ou masquer les blocs de l'accueil et les widgets">Disposer</button>
+    <button class="btn main px" id="addBtn"><span class="plus">+</span>Ajouter</button>
+  </div>
+  <div id="sortPop" class="tbPop px"></div>
+  <div id="layoutPop" class="tbPop px"></div>
+
+  <div id="homeBlocks"><!-- les blocs de l'accueil, dans l'ordre et à la taille choisis (homeblocks.js) -->
+  <section class="panel px" id="homeWidgets" data-block="widgets" hidden>
+    <div class="groupHead"><span class="label">Widgets</span><span class="count" id="wCount"></span></div>
+    <div class="grid nbWidgets" id="wGrid"></div>
+  </section>
+
+  <section class="panel px" id="homeLinks" data-block="shortcuts">
+    <div id="tabs"></div>
+    <div id="groups"></div>
+  </section>
+
+  <section class="panel px" id="agenda" data-block="agenda">
+    <div class="agHead">
+      <span class="label">Agenda</span><span id="agRange"></span>
+      <div class="agNav"><button class="btn px" id="agPrev" title="Semaine précédente">&lt;</button><button class="btn px" id="agToday">AUJOURD'HUI</button><button class="btn px" id="agNext" title="Semaine suivante">&gt;</button></div>
+      <button class="btn px" id="agImport" title="Ajoute les événements d'un fichier agenda (.ics) aux tiens, sans rien enlever">Importer un agenda</button><input type="file" id="agIcs" accept=".ics,text/calendar" hidden>
+      <button class="btn main px" id="agAdd"><span class="plus">+</span>Événement</button>
+    </div>
+    <div id="agGrid"></div>
+  </section>
+  </div>
+
+
+  <footer>
+    <span><kbd>CLIC</kbd>lancer</span>
+    <span><kbd>CLIC DROIT</kbd>modifier</span>
+    <span><kbd>GLISSER</kbd>réorganiser · déposer sur un onglet</span>
+    <span><kbd>DOUBLE-CLIC</kbd>renommer un onglet</span>
+    <span><kbd>ÉCHAP</kbd>effacer la recherche</span>
+  </footer>
+</div></main>
+
+<div id="modal">
+  <div class="win px">
+    <div class="winHead"><h2 id="mTitle">NOUVEAU RACCOURCI</h2><button class="x" id="mClose" aria-label="Fermer">X</button></div>
+    <div class="body">
+      <div class="field"><span class="label">Nom</span><input class="f" id="fName" placeholder="ex : osu!"></div>
+      <div class="field"><span class="label">Cible</span><input class="f" id="fTarget" placeholder="https://…  ·  C:\…\jeu.exe  ·  steam://…">
+        <div class="row">
+          <button class="btn px" id="pickFile">Parcourir un fichier…</button>
+          <button class="btn px" id="pickFolder">Parcourir un dossier…</button>
+        </div>
+      </div>
+      <div class="field"><span class="label">Icône</span>
+        <div class="row"><div id="fIconPrev" class="iconPrev"></div>
+          <button class="btn px" id="pickIcon">Choisir une image…</button>
+          <button class="btn ghost px" id="resetIcon">Icône automatique</button></div></div>
+      <div class="field"><span class="label">Catégorie</span><input class="f" id="fCat" list="catList" placeholder="ex : Jeux, Travail, Musique… (vide = Général)"><datalist id="catList"></datalist>
+        <div class="row"><button class="btn px" id="mUncat"></button></div></div>
+      <div class="hint">Un site, une appli (.exe ou raccourci .lnk), un fichier, un dossier ou un lien spécial (steam://, discord://…).</div>
+    </div>
+    <div class="winFoot">
+      <button class="btn del px" id="mDel">Supprimer</button>      <button class="btn ghost px" id="mCancel" style="margin-left:auto">Annuler</button>
+      <button class="btn main px" id="mSave">Enregistrer</button>
+    </div>
+  </div>
+</div>
+<div id="quitModal">
+  <div class="win px" style="width:min(560px,94vw)">
+    <div class="winHead"><h2>FERMER NEODEX ?</h2><button class="x" id="qCancelX" aria-label="Annuler">X</button></div>
+    <div class="body"><div class="hint">En arrière-plan, NeoDex reste près de l'horloge : un clic sur son icône ou Ctrl+Alt+N le rouvre instantanément.</div></div>
+    <div class="winFoot">
+      <button class="btn del px" id="qQuit">Quitter</button>
+      <button class="btn ghost px" id="qCancel" style="margin-left:auto">Annuler</button>
+      <button class="btn main px" id="qHide">Garder en arrière-plan</button>
+    </div>
+  </div>
+</div>
+<div id="askModal">
+  <div class="win px">
+    <div class="winHead"><h2 id="askTitle"></h2><button class="x" id="askX" aria-label="Annuler">X</button></div>
+    <div class="body"><input class="f" id="askInput" spellcheck="false"><div class="hint" id="askHint"></div></div>
+    <div class="winFoot"><button class="btn ghost px" id="askCancel" style="margin-left:auto">Annuler</button><button class="btn main px" id="askOk">Valider</button></div>
+  </div>
+</div>
+<div id="histModal">
+  <div class="win px" style="width:min(760px,94vw)">
+    <div class="winHead"><h2>HISTORIQUE</h2><button class="x" id="hClose" aria-label="Fermer">X</button></div>
+    <div class="body">
+      <input class="f" id="hSearch" placeholder="Rechercher dans l'historique…" spellcheck="false">
+      <div id="histList"></div>
+    </div>
+    <div class="winFoot"><button class="btn del px" id="hClear">Effacer tout l'historique</button></div>
+  </div>
+</div>
+<div id="setModal">
+  <div class="win px" style="width:min(560px,92vw)">
+    <div class="winHead"><h2>PARAMÈTRES</h2><button class="x" id="setClose" aria-label="Fermer">X</button></div>
+    <div class="body">
+      <div class="setSec"><span class="label">Navigateur</span>
+        <div class="field"><span class="label">Moteur de recherche</span>
+          <select class="f" id="setSearch"><option value="google">Google</option><option value="duckduckgo">DuckDuckGo</option><option value="bing">Bing</option><option value="qwant">Qwant</option><option value="brave">Brave Search</option></select></div>
+        <label class="check"><input type="checkbox" id="setAntiTrack"> Anti-pistage : les sites tiers (pubs, réseaux sociaux) ne reçoivent pas leurs cookies</label>
+        <div class="hint">Le bloqueur de pubs est un plugin : « Bloqueur de pubs » dans NeoStore.</div>
+      </div>
+      <div class="setSec" id="setExt"><span class="label">Extensions Chrome</span></div>
+      <div class="setSec"><span class="label">Apparence</span>
+        <div class="field"><span class="label">Langue</span><select class="f" id="setLang" translate="no" style="max-width:260px"><option value="">Automatique (celle de Windows)</option><option value="fr">Français</option><option value="en">English</option></select><span class="hint">NeoDex redémarre l'affichage dans la langue choisie. Les plugins suivent.</span></div>
+        <div class="field"><span class="label">Décor de l'accueil</span><span class="hint">L'étoile met un décor dans tes favoris. Passe la souris sur un décor pour le voir bouger.</span><div id="setScene" class="setBg"></div>
+          <div class="row"><button class="btn px" id="setWall">EN FOND D'ÉCRAN WINDOWS</button><button class="btn px" id="setContemplate">CONTEMPLER (F9)</button><span class="hint">Contempler cache tout sauf le décor ; une touche ou un clic le fait revenir.</span></div></div>
+        <div class="field"><span class="label">Couleurs</span><div id="setBg" class="setBg"></div></div>
+        <div class="field"><span class="label">Couleurs des pages web</span><div id="setWebColors" class="setBg"></div><span class="hint">Forcé sur tous les sites (à recharger). Gmail et Discord gardent leur habillage NeoDex.</span></div>
+        <label class="check"><input type="checkbox" id="setGmail"> Gmail aux couleurs de NeoDex (onglet Gmail à recharger)</label>
+        <label class="check"><input type="checkbox" id="setDiscord"> Discord aux couleurs de NeoDex (Discord à recharger)</label>
+        <label class="check"><input type="checkbox" id="setCursor"> Curseur de souris en pixel art, avec un petit effet au clic</label>
+        <label class="check"><input type="checkbox" id="setPip"> Une vidéo qui joue continue en mini-lecteur dans un coin quand tu changes d'onglet</label>
+        <div class="row"><button class="btn px" id="setUiReset">RESTAURER L'INTERFACE PAR DÉFAUT</button><span class="hint">Couleurs, décor, polices, curseur, sons et barre : tes données et tes thèmes perso restent.</span></div>
+      </div>
+      <div class="setSec"><span class="label">Sons</span>
+        <label class="check"><input type="checkbox" id="setSounds"> Sons de l'interface : clics, ouverture et fermeture d'onglets, lancements, notifications</label>
+        <div class="row"><span class="hint">Volume</span><input type="range" id="setVol" min="0.1" max="1" step="0.1" style="flex:1;accent-color:var(--magenta)"><button class="btn px" id="setSoundTest">Tester</button></div>
+        <label class="check"><input type="checkbox" id="setTypeSounds"> Petit son à chaque touche quand tu écris dans NeoDex</label>
+      </div>
+      <div class="setSec"><span class="label">Synchronisation entre PC</span>
+        <div class="hint">NeoDex range tout dans un seul fichier, « NeoDex-synchro.neodex », enregistré en permanence : raccourcis, agenda, animes, notes, budget, icônes, paramètres, historique et temps d'écran. Mets-le dans un dossier OneDrive, Google Drive ou Dropbox et choisis ce même dossier sur chaque PC : un changement fait sur un PC apparaît tout seul sur les autres en quelques secondes.</div>
+        <div class="hint" id="setSyncState"></div>
+        <div class="row"><button class="btn px" id="setSyncPick">Choisir le dossier…</button><button class="btn del px" id="setSyncStop">Arrêter la synchro</button></div>
+      </div>
+      <div class="setSec"><span class="label">Démarrage et fenêtre</span>
+        <label class="check"><input type="checkbox" id="setLogin"> Lancer NeoDex au démarrage de Windows</label>
+        <label class="check"><input type="checkbox" id="setFull"> Ouvrir en plein écran (F11 pour basculer)</label>
+        <label class="check"><input type="checkbox" id="setRestore"> Rouvrir les onglets de la dernière fois</label>
+        <div class="field"><span class="label">Ville pour la météo</span>
+          <div class="row"><input class="f" id="setCity" placeholder="ex : Lyon" style="flex:1"><button class="btn px" id="setCityOk">Valider</button></div></div>
+        <label class="check"><input type="checkbox" id="setPlugAuto"> Mettre à jour les plugins tout seuls (seulement les plugins approuvés, et jamais une mise à jour qui demande une nouvelle autorisation)</label>
+        <label class="check"><input type="checkbox" id="setBigText"> Texte plus grand (toute la fenêtre de NeoDex un cran plus grande, plus facile à lire)</label>
+        <label class="check"><input type="checkbox" id="setTray"> La croix garde NeoDex ouvert près de l'horloge (clic droit sur l'icône pour quitter)</label>
+        <label class="check"><input type="checkbox" id="setHotkey"> Ctrl+Alt+N affiche ou cache NeoDex depuis n'importe où</label>
+      </div>
+      <div class="setSec"><span class="label">Données</span>
+        <div class="hint">Sauvegarde dans un fichier tes raccourcis, ton agenda, tes animes et ces paramètres (les images d'icônes personnalisées ne sont pas incluses).</div>
+        <div class="row"><button class="btn px" id="setExport">Exporter mes données…</button><button class="btn px" id="setImport">Importer une sauvegarde…</button></div>
+        <div class="hint">Supprime les cookies, connexions et le cache des sites ouverts dans NeoDex. Tes raccourcis, ton agenda et tes animes ne sont pas touchés.</div>
+        <div class="row"><button class="btn del px" id="setClear">Effacer les données de navigation</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="evModal">
+  <div class="win px">
+    <div class="winHead"><h2 id="evTitle">NOUVEL ÉVÉNEMENT</h2><button class="x" id="evClose" aria-label="Fermer">X</button></div>
+    <div class="body">
+      <div id="evKind"><button class="tab px" data-k="event">Événement</button><button class="tab px" data-k="cours">Cours</button><button class="tab px" data-k="birthday">Anniversaire</button><button class="tab px" data-k="task">Tâche</button></div>
+      <div class="field"><span class="label">Titre</span><input class="f" id="evName" placeholder="ex : Maths, Soirée, Léa, TP à rendre…"></div>
+      <div class="row2">
+        <div class="field"><span class="label" id="evDateLbl">Date</span><input class="f" type="date" id="evDate"></div>
+        <div class="field" id="evRepeatF"><span class="label">Répétition</span><select class="f" id="evRepeat"><option value="none">Une fois</option><option value="weekly">Chaque semaine</option><option value="yearly">Chaque année</option></select></div>
+        <div class="field" id="evDueF"><span class="label">Avant</span><input class="f" type="time" id="evDue"></div>
+      </div>
+      <label class="check" id="evAllDayL"><input type="checkbox" id="evAllDay"> Toute la journée</label>
+      <label class="check" id="evDoneL"><input type="checkbox" id="evDone"> Terminée</label>
+      <div class="row2" id="evTimes">
+        <div class="field"><span class="label">Début</span><input class="f" type="time" id="evStart" step="900"></div>
+        <div class="field"><span class="label">Fin</span><input class="f" type="time" id="evEnd" step="900"></div>
+      </div>
+      <div class="field" id="evUntilF"><span class="label">Jusqu'au (facultatif)</span><input class="f" type="date" id="evUntil"></div>
+      <div class="field" id="evPlaceF"><span class="label">Lieu</span><input class="f" id="evPlace" placeholder="ex : Salle B204"></div>
+      <div class="field"><span class="label">Couleur</span><div id="evColors"></div></div>
+    </div>
+    <div class="winFoot">
+      <button class="btn del px" id="evDel">Supprimer</button>
+      <button class="btn ghost px" id="evCancel" style="margin-left:auto">Annuler</button>
+      <button class="btn main px" id="evSave">Enregistrer</button>
+    </div>
+  </div>
+</div>
+<div id="fm">
+  <div class="win fmWin px">
+    <div class="winHead"><h2 id="fmTitle">CHOISIR UN FICHIER</h2><button class="x" id="fmClose" aria-label="Fermer">X</button></div>
+    <div class="fmBar">
+      <button class="btn px" id="fmUp" title="Dossier parent (Retour arrière)">↑</button>
+      <input class="f" id="fmPath" spellcheck="false" title="Tape un chemin puis Entrée">
+      <input class="f" id="fmFilter" placeholder="Filtrer…" spellcheck="false">
+    </div>
+    <div class="fmMain">
+      <nav id="fmPlaces"></nav>
+      <div id="fmList" tabindex="-1"></div>
+    </div>
+    <div class="winFoot"><span id="fmSel" class="hint"></span>
+      <button class="btn ghost px" id="fmCancel" style="margin-left:auto">Annuler</button>
+      <button class="btn main px" id="fmOk">Choisir</button></div>
+  </div>
+</div>
+<div id="siteBar" class="px"></div>
+<div id="shareModal" class="shModal"><div class="shBox px"><div class="shHead"><b id="shTitle"></b><span id="shTabs" class="row"></span></div><div id="shGrid" class="shGrid"></div>
+  <div class="shFoot"><label class="check"><input type="checkbox" id="shAudio"> Partager aussi le son de l'ordinateur</label><button class="btn px" id="shCancel">ANNULER</button><button class="btn main px" id="shGo">PARTAGER</button></div></div></div>
+<div id="miniBox" class="px" title="Glisser : déplacer · Clic : pause / lecture · Double-clic : revenir à l'onglet · Molette : volume">
+  <div class="mbTop"><span id="mbTitle"></span>
+    <button class="mbBtn" id="mbBack" title="Revenir à l'onglet de la vidéo" data-pix="ext"></button>
+    <button class="mbBtn" id="miniClose" title="Fermer (arrête la vidéo)" data-pix="close"></button></div>
+  <div class="mbBar">
+    <div id="mbSeek" title="Aller à ce moment"><i></i></div>
+    <div class="mbCtl">
+      <button class="mbBtn" id="mbRew" title="Reculer de 10 s" data-pix="rew"></button>
+      <button class="mbBtn" id="mbPlay" title="Pause / lecture" data-pix="pause"></button>
+      <button class="mbBtn" id="mbFwd" title="Avancer de 10 s" data-pix="ffw"></button>
+      <button class="mbBtn" id="mbNext" title="Vidéo suivante" data-pix="next"></button>
+      <button class="mbBtn" id="mbMute" title="Couper / remettre le son" data-pix="sound"></button>
+      <span id="mbTime"></span><span id="mbVol"></span>
+    </div>
+  </div>
+  <div id="mbResize" title="Redimensionner"></div>
+</div>
+<div id="exMenu" class="px"></div>
+<div id="toast" class="px"></div>
+
+<script>
+// NeoBase s'appelle NeoDex : une fois, les identifiants des plugins (neobase.* -> neodex.*) et les adresses neodyme: de ce navigateur suivent (widgets…)
+try { if (!localStorage.getItem('neodexIds')) {
+  for (const k of Object.keys(localStorage)) { const v = localStorage.getItem(k), nk = k.replace(/neodyme/g, 'neodex'), nv = v.replace(/\bneobase\.(?!cartes\b|catacombes\b)(?=[a-z])/g, 'neodex.').replace(/\bneodyme:/g, 'neodex:'); if (nk !== k) localStorage.removeItem(k); if (nk !== k || nv !== v) localStorage.setItem(nk, nv); }
+  localStorage.setItem('neodexIds', '1');
+} } catch {}
+const TOKEN = '__TOKEN__';
+const $ = id => document.getElementById(id);
+const api = (p, body) => fetch('/api/' + p, {
+  method: body === undefined ? 'GET' : 'POST', headers: {'X-Token': TOKEN},
+  body: body === undefined ? undefined : JSON.stringify(body)
+}).then(async r => { const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j; });
+
+</script>
+<script src="sky.js?mwlvbcqa"></script>
+<script src="home.js?mwlvbcqa"></script>
+<script src="agenda.js?mwlvbcqa"></script>
+<script src="interface.js?mwlvbcqa"></script>
+<script src="notes-app.js?mwlvbcqa"></script>
+<script src="stats-app.js?mwlvbcqa"></script>
+<script src="retro.js?mwlvbcqa"></script>
+<script src="files-app.js?mwlvbcqa"></script>
+<script src="browser.js?mwlvbcqa"></script>
+<script src="find.js?mwlvbcqa"></script>
+<script src="tabs2.js?mwlvbcqa"></script>
+<script src="dock.js?mwlvbcqa"></script>
+<script src="tour.js?mwlvbcqa"></script>
+<script src="look.js?mwlvbcqa"></script>
+<script src="stats2.js?mwlvbcqa"></script>
+<script src="sites.js?mwlvbcqa"></script>
+<script src="vault2.js?mwlvbcqa"></script>
+<script src="security.js?mwlvbcqa"></script>
+<script src="viewer.js?mwlvbcqa"></script>
+<script src="dialogs.js?mwlvbcqa"></script>
+<script>
+// NeoStore (store.js, store-art.js: 50 Ko) is fetched the first time it opens
+const needStore = () => loadScript('store-art').then(() => loadScript('store')).then(() => nsaInit());
+tbPop.append(tbItem('NeoStore', 'installer des plugins', () => newTab('neodex:store')));
+</script>
+<script src="about.js?mwlvbcqa"></script>
+<script src="perms.js?mwlvbcqa"></script>
+<script src="notifs.js?mwlvbcqa"></script>
+<script src="old-ids.js?mwlvbcqa"></script>
+<script src="plugins.js?mwlvbcqa"></script>
+<script src="homeblocks.js?mwlvbcqa"></script>
+<script src="taskbar-host.js?mwlvbcqa"></script>
+<script src="share.js?mwlvbcqa"></script>
+<script src="fgestion.js?mwlvbcqa"></script>
+<script>
+// the command palette (palette.js) is fetched the first time Ctrl+K is pressed
+const palNeed = () => loadScript('palette').then(() => palOpen(), e => toast(e.message, true));
+addEventListener('keydown', e => { if (e.ctrlKey && !e.shiftKey && !e.altKey && e.code === 'KeyK') { e.preventDefault(); palNeed(); } }, true);
+window.neo?.onKey(k => { if (k === 'Ctrl+k') palNeed(); });  // the key pressed while a website or a plugin has the focus
+tbPop.append(tbItem('Palette de commandes', 'Ctrl+K', palNeed));
+</script>
+<script src="omnibox.js?mwlvbcqa"></script>
+<script>$('bSettings').addEventListener('click', () => loadScript('extensions').then(() => extRender()));  // Paramètres › Extensions Chrome, fetched on first opening</script>
+<script src="translate.js?mwlvbcqa"></script>
+<script src="crash.js?mwlvbcqa"></script>
+<script src="a11y.js?mwlvbcqa"></script>
+<!-- NeoMusic (MuPlayer rebuilt in NeoDex) -->
+</body>
+</html>

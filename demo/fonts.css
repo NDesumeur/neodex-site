@@ -1,0 +1,20 @@
+/* the pixel fonts, served by NeoDex itself (latin characters): no request to Google Fonts at startup */
+@font-face{font-family:'DotGothic16';src:url(fonts/gf-dotgothic16.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Handjet';src:url(fonts/gf-handjet.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Jersey 10';src:url(fonts/gf-jersey10.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pixelify Sans';src:url(fonts/gf-pixelifysans.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Pixelify Sans';src:url(fonts/gf-pixelifysans.woff2) format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Pixelify Sans';src:url(fonts/gf-pixelifysans.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Press Start 2P';src:url(fonts/gf-pressstart2p.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Silkscreen';src:url(fonts/gf-silkscreen.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Tiny5';src:url(fonts/gf-tiny5.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'VT323';src:url(fonts/gf-vt323.woff2) format('woff2');font-weight:400;font-display:swap}
+/* the title fonts of the colour themes (styles.css), scaled to read like Press Start 2P at the same size; the taskbar uses them too */
+@font-face{font-family:'T VT323';src:url(fonts/gf-vt323.woff2) format('woff2');size-adjust:215%}
+@font-face{font-family:'X VT323';src:url(fonts/gf-vt323.woff2) format('woff2');size-adjust:122%}
+@font-face{font-family:'T Tiny5';src:url(fonts/gf-tiny5.woff2) format('woff2');size-adjust:130%}
+@font-face{font-family:'T Jersey';src:url(fonts/gf-jersey10.woff2) format('woff2');size-adjust:165%}
+@font-face{font-family:'T DotGothic';src:url(fonts/gf-dotgothic16.woff2) format('woff2');size-adjust:112%}
+@font-face{font-family:'T Silkscreen';src:url(fonts/gf-silkscreen.woff2) format('woff2');size-adjust:118%}
+@font-face{font-family:'T Pixelify';src:url(fonts/gf-pixelifysans.woff2) format('woff2');size-adjust:135%}
+@font-face{font-family:'T Handjet';src:url(fonts/gf-handjet.woff2) format('woff2');size-adjust:165%}

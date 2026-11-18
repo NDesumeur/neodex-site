@@ -19,6 +19,7 @@
     document.querySelectorAll('[data-t]').forEach(e => { if (!FR.has(e)) FR.set(e, e.innerHTML); e.innerHTML = (lang === 'en' && EN[e.dataset.t]) || FR.get(e); });
     document.querySelectorAll('[data-count]').forEach(e => e.textContent = apps.length);
     $('q').placeholder = UI[lang].qPh;
+    document.querySelectorAll('.pubVid').forEach(v => { const f = 'img/neodex-demo-' + lang; if (!v.src.endsWith(f + '.mp4')) { v.poster = f + '.jpg'; v.src = f + '.mp4'; } });   // une vidéo par langue
     dlInfo(); news(); chips(); sysChips(); draw(); themes(); stages(); invTell(invCur); route(false);
   }
   $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };

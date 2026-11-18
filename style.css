@@ -76,7 +76,7 @@ section{padding:80px 0;border-top:4px solid var(--bg2)}
 .talk h3{font-size:15px;color:var(--gold);margin-bottom:8px}
 .talk small{color:var(--pink);font:11px Start,monospace}
 .talk p{margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.talk.big{margin-top:0}
+.talk.big{margin-top:0;grid-template-columns:1fr}
 .talk.big p{display:block;margin:0 0 12px;font-size:26px}
 .talk.big p:last-child{margin:0}
 .talk.mini{grid-template-columns:1fr;min-height:0}
@@ -99,7 +99,7 @@ section{padding:80px 0;border-top:4px solid var(--bg2)}
 .level ul{list-style:none;margin:0;padding:0}
 .level li{padding-left:28px;position:relative}
 .level li:before{content:"+";position:absolute;left:4px;color:var(--pink)}
-.level .pic{border-left:4px solid var(--white);background:#000 center/cover;min-height:340px}
+.level .pic{border-left:4px solid var(--white);background:#0a0e1f center/cover;min-height:340px;image-rendering:pixelated}
 
 /* ---------- l'inventaire (accueil) ---------- */
 .inv{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px;padding:16px}

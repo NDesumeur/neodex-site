@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><script src="i18n.js"></script><title>NeoDex · menu</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+/* the colours are NeoDex's theme ones (sent by the main window); these are the default theme's */
+:root{--bg0:#0b031c;--line:#2a1d52;--line2:#3a2a6e;--magenta:#e01ec8;--pink:#ff5ad9;--violet:#8a5cf0;--lilac:#d9c6ff;--muted:#8f7bb8;--shell:#f3eaff;--pkr:255,90,217;--text:'Pixelify Sans',Consolas,monospace}
+html,body{margin:0;background:transparent;overflow:hidden;font-family:var(--text);user-select:none}
+#m{display:inline-flex;flex-direction:column;box-sizing:border-box;min-width:230px;max-width:440px;max-height:100vh;overflow-y:auto;scrollbar-width:none;padding:6px;margin:0 6px 6px 0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),color-mix(in srgb,var(--line) 40%,var(--bg0));box-shadow:inset 0 0 0 2px var(--line2),inset 0 2px 0 2px var(--magenta),6px 6px 0 rgba(0,0,0,.55)}
+button{all:unset;display:block;box-sizing:border-box;padding:7px 12px;color:var(--shell);font-size:16px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;flex:none}
+button.on{background:rgba(var(--pkr),.2);color:#fff;box-shadow:inset 3px 0 0 var(--pink)}
+button:disabled{color:var(--muted);opacity:.55;cursor:default}
+hr{border:0;border-top:2px solid var(--line2);margin:5px 4px;width:auto;flex:none}
+</style></head><body><div id="m"></div>
+<script>
+const m = document.getElementById('m'), items = () => [...m.querySelectorAll('button:not(:disabled)')];
+const light = b => { m.querySelector('.on')?.classList.remove('on'); b?.classList.add('on'); b?.scrollIntoView({block: 'nearest'}); };
+neo.onTbTheme(t => { for (const [k, c] of Object.entries(t)) document.documentElement.style.setProperty(k, c); });
+neo.onMenuShow(async list => {
+  m.replaceChildren(...list.map(i => {
+    if (i.sep) return document.createElement('hr');
+    const b = document.createElement('button'); b.textContent = b.title = i.label; b.disabled = i.off;
+    b.onclick = () => neo.menuPick(i.id); b.onmouseenter = () => light(b);
+    return b;
+  }));
+  await document.fonts.ready;  // the size must be measured with the real font
+  const r = m.getBoundingClientRect();
+  neo.menuSize({width: r.width + 6, height: m.scrollHeight + 6});
+});
+addEventListener('keydown', e => {
+  const all = items(), i = all.indexOf(m.querySelector('.on'));
+  if (e.key === 'Escape') neo.menuPick(-1);
+  else if (e.key === 'ArrowDown') light(all[(i + 1) % all.length]);
+  else if (e.key === 'ArrowUp') light(all[(i - 1 + all.length) % all.length]);
+  else if (e.key === 'Enter') m.querySelector('.on')?.click();
+});
+addEventListener('blur', () => light(null));
+</script>
+</body></html>
