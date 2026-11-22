@@ -104,7 +104,7 @@
   const fam = c => c.startsWith('Jeux') ? 'Jeux' : c;   // les genres de jeux sont réunis sous « Jeux » dans les étiquettes
   const famLabel = c => c === 'Tout' ? UI[lang].all : c === 'Jeux' ? UI[lang].games : lang === 'en' ? (apps.find(a => a.c === c) || {}).ce || c : c;
   const count = c => apps.filter(x => fam(x.c) === c).length;
-  const cats = ['Tout', ...[...new Set(apps.map(a => fam(a.c)))].sort((a, b) => count(b) - count(a))];
+  const cats = ['Tout', 'Jeux', 'Thèmes', 'Décors'].filter(c => c === 'Tout' || count(c));   // seulement ces étiquettes : les applis restent dans « Tout » et la recherche
   const ico = c => 'img/store/' + (icons[c] || icons[fam(c)] || icons.Autre);
   const short = d => { let t = d.split(/(?<=[.!?])\s/)[0]; if (t.length > 110) t = t.slice(0, t.lastIndexOf(' ', 107)) + '…'; return t; };
   let cat = 'Tout';
