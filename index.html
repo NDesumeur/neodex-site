@@ -14,7 +14,7 @@
 <body>
 <!--
   Le site de NeoDex, style « Borne » : l'écran d'une borne d'arcade.
-  - Une seule page HTML. Chaque « écran » est une <div class="view" id="v-…"> ; site.js n'en montre qu'un à la fois, selon l'adresse (#store, #decors…).
+  - Une seule page HTML. Chaque « écran » est une <div class="view" id="v-…"> ; site.js n'en montre qu'un à la fois, selon l'adresse (#store, #nouveautes…).
   - Le texte français est ici. L'anglais est dans i18n.js : un élément marqué data-t="clé" prend EN[clé] quand on passe en anglais.
   - data-count : remplacé par le nombre d'applis de apps.json.  data-dl : lien remplacé par celui du dernier installateur.
   - Les titres en police d'arcade (Press Start 2P) sont écrits sans accents : cette police n'a pas les majuscules accentuées.
@@ -26,7 +26,6 @@
   <nav id="nav" aria-label="Pages du site">
     <a href="#accueil" data-v="accueil" data-t="nHome">ACCUEIL</a>
     <a href="#store" data-v="store">NEOSTORE</a>
-    <a href="#decors" data-v="decors" data-t="nDecors">DECORS</a>
     <a href="#nouveautes" data-v="nouveautes" data-t="nNews">NOUVEAUTES</a>
     <a href="#questions" data-v="questions" data-t="nFaq">AIDE</a>
     <a href="#createurs" data-v="createurs" data-t="nDev">CREER</a>
@@ -48,8 +47,6 @@
     <li><a class="sel" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl data-t="mNew">NOUVELLE PARTIE (TELECHARGER)</a></li>
     <li><a href="demo/" target="_blank" rel="noopener" data-t="mDemo">TESTER EN LIGNE</a></li>
     <li><a href="#niveaux" data-jump="niveaux" data-t="mMap">CARTE DES NIVEAUX</a></li>
-    <li><a href="#store" data-t="mInv">INVENTAIRE (NEOSTORE)</a></li>
-    <li><a href="#scores" data-jump="scores" data-t="mScores">SCORES</a></li>
   </ul>
   <p class="keys"><span data-t="hKeys">↑ ↓ pour choisir · Entrée pour valider</span> · <span class="dlInfo"></span></p>
 </div></div>
@@ -110,28 +107,6 @@
   </div>
 </div></section>
 
-<section id="inventaire"><div class="wrap">
-  <div class="head"><h2 data-t="iTitle">INVENTAIRE</h2><small><span data-count>160</span> <span data-t="iSub">OBJETS · TOUS GRATUITS</span></small></div>
-  <div class="frame"><div class="inv" id="inv"></div></div>
-  <div class="frame talk"><img id="tkImg" src="img/apps/music.png" alt="" width="96" height="96"><div><small id="tkCat">…</small><h3 id="tkName" data-t="iName">Passe sur un objet</h3><p id="tkText" data-t="iText">Chaque case est une appli du magasin. Clique dessus pour voir sa fiche.</p></div></div>
-  <p class="center"><a class="btn" href="#store" data-t="iAll">▶ TOUT L'INVENTAIRE</a></p>
-</div></section>
-
-<section id="scores"><div class="wrap">
-  <div class="head"><h2 data-t="sTitle">MEILLEURS SCORES</h2><small data-t="sSub">NEODEX EN CHIFFRES</small></div>
-  <table class="frame scores"><tbody>
-    <tr><td>1</td><td data-t="s1">Applis et jeux dans NeoStore</td><td data-count>160</td></tr>
-    <tr><td>2</td><td data-t="s2">Thèmes, chacun avec ses polices et son décor</td><td>25</td></tr>
-    <tr><td>3</td><td data-t="s3">Décors animés tirés au hasard</td><td id="decCount2">20</td></tr>
-    <tr><td>4</td><td data-t="s4">Publicités affichées</td><td>0</td></tr>
-    <tr><td>5</td><td data-t="s5">Comptes à créer</td><td>0</td></tr>
-    <tr><td>6</td><td data-t="s6">Données envoyées à un serveur NeoDex</td><td>0</td></tr>
-  </tbody></table>
-  <div class="head gap"><h2 data-t="tTitle">CHOISIS TA COULEUR</h2><small data-t="tSub">25 THEMES</small></div>
-  <div class="pal" id="pal"></div>
-  <div class="frame talk mini"><div><h3 id="thName">Classique</h3><p id="thText"></p></div></div>
-</div></section>
-
 <section id="demo"><div class="wrap">
   <div class="head"><h2 data-t="vTitle">MODE DEMO</h2><small>0:34</small></div>
   <div class="frame"><video class="pubVid" src="img/neodex-demo-fr.mp4" poster="img/neodex-demo-fr.jpg" controls preload="none" playsinline width="1280" height="720"></video></div>
@@ -160,16 +135,6 @@
   <div id="sys" class="chips" role="group" aria-label="Système"></div>
   <div id="chips" class="chips"></div>
   <div id="apps" class="apps"></div>
-</div></section>
-</div>
-
-<!-- ============ Décors ============ -->
-<div class="view" id="v-decors">
-<section><div class="wrap">
-  <div class="head"><h2 data-t="dTitle2">CHOIX DU DECOR</h2><small><span id="decCount">20</span> <span data-t="dSub">DECORS</span></small></div>
-  <p class="lead" data-t="dLead2">À chaque lancement, NeoDex tire un décor au hasard. Clique sur un nom pour le voir.</p>
-  <div class="frame stage"><div class="far" id="stFar"></div><div class="near" id="stNear"></div><span id="stName"></span></div>
-  <div id="decTabs" class="stages"></div>
 </div></section>
 </div>
 

@@ -80,8 +80,8 @@ const EN = {
 const UI = {
   fr: { sys: 'Tous les systèmes', runs: 'Marche sur', qPh: 'Cherche une appli…', all: 'Tout', games: 'Jeux', apps: n => n + (n > 1 ? ' applis' : ' appli'), none: 'Aucune appli ne correspond.', version: 'Version', perms: 'Ce qu’elle peut faire',
     risk: { faible: 'faible', moyen: 'moyen', 'élevé': 'élevé' }, noShot: 'Pas encore de capture.', getIt: 'L’installer depuis NeoStore, dans NeoDex', newsErr: 'Impossible de lire les versions pour l’instant.', size: 'Mo', ver: 'version',
-    where: { store: 'NeoStore', decors: 'Décors', nouveautes: 'Nouveautés', questions: 'Aide', createurs: 'Créateurs', legal: 'Confidentialité' }, date: 'fr-FR' },
+    where: { store: 'NeoStore', nouveautes: 'Nouveautés', questions: 'Aide', createurs: 'Créateurs', legal: 'Confidentialité' }, date: 'fr-FR' },
   en: { sys: 'All systems', runs: 'Runs on', qPh: 'Search for an app…', all: 'All', games: 'Games', apps: n => n + (n > 1 ? ' apps' : ' app'), none: 'No app matches.', version: 'Version', perms: 'What it can do',
     risk: { faible: 'low', moyen: 'medium', 'élevé': 'high' }, noShot: 'No screenshot yet.', getIt: 'Install it from NeoStore, inside NeoDex', newsErr: 'Cannot read the versions right now.', size: 'MB', ver: 'version',
-    where: { store: 'NeoStore', decors: 'Scenes', nouveautes: 'News', questions: 'Help', createurs: 'Creators', legal: 'Privacy' }, date: 'en-GB' },
+    where: { store: 'NeoStore', nouveautes: 'News', questions: 'Help', createurs: 'Creators', legal: 'Privacy' }, date: 'en-GB' },
 };

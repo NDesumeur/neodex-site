@@ -1,14 +1,28 @@
 // Le site de NeoDex, style « Borne ». Tout le texte fixe est dans index.html (français) et i18n.js (anglais) ;
 // ce fichier s'occupe de ce qui bouge : la langue, le choix de l'écran, le menu au clavier, la carte des niveaux,
-// l'inventaire, les thèmes, les décors, les versions lues sur GitHub, NeoStore et la fiche d'une appli.
+// les décors, les versions lues sur GitHub, NeoStore et la fiche d'une appli.
 (async () => {
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const ascii = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/’/g, "'").toUpperCase();   // la police d'arcade n'a pas les majuscules accentuées
-  const HIDE = ['bestiaire', 'cartes', 'catacombes'];   // pas mis en avant sur l'accueil (ils restent dans NeoStore)
 
   // ---------- les données : les applis, les icônes des catégories, les décors ----------
-  const [apps, icons, decors] = await Promise.all(['apps.json', 'img/store/icons.json', 'img/decors/decors.json'].map(u => fetch(u).then(r => r.json())));
+  const [apps, icons] = await Promise.all(['apps.json', 'img/store/icons.json'].map(u => fetch(u).then(r => r.json())));
+  // le catalogue NeoStore tel qu'il est maintenant (refait chaque heure sur GitHub) : versions, descriptions et nouvelles applis sans republier le site.
+  // apps.json reste la base (captures, autorisations, systèmes) et sert seul si GitHub ne répond pas (4 s au plus)
+  try {
+    const cat = await fetch('https://raw.githubusercontent.com/NDesumeur/neodex-store-catalog/main/store.json', { cache: 'no-cache', signal: AbortSignal.timeout(4000) }).then(r => r.json());
+    const bySlug = new Map(apps.map(a => [a.s, a])), ceOf = new Map(apps.map(a => [a.c, a.ce]));
+    for (const p of cat.plugins || []) {
+      const m = /^NDesumeur\/neodex-plugin-([\w-]+)$/.exec(p.repo || ''); if (!m || !p.approved) continue;
+      const fresh = { n: p.name, ne: p.en?.name || p.name, d: p.description, de: p.en?.description || '', v: p.version };
+      const a = bySlug.get(m[1]);
+      if (a) Object.assign(a, Object.fromEntries(Object.entries(fresh).filter(([, v]) => v)));
+      else apps.push({ s: m[1], ...fresh, c: p.category || 'Autre', ce: ceOf.get(p.category) || p.category || 'Other', pm: [], shot: '', pf: ['windows'],
+        ic: 'https://raw.githubusercontent.com/' + p.repo + '/HEAD/icon.png' });   // une appli toute neuve : son icône vient de son dépôt
+    }
+  } catch {}
+  const iconOf = a => a.ic || 'img/apps/' + a.s + '.png';
 
   // ---------- la langue ----------
   let lang = 'fr'; try { lang = localStorage.neoSiteLang || ((navigator.language || 'fr').startsWith('fr') ? 'fr' : 'en'); } catch {}
@@ -20,12 +34,12 @@
     document.querySelectorAll('[data-count]').forEach(e => e.textContent = apps.length);
     $('q').placeholder = UI[lang].qPh;
     document.querySelectorAll('.pubVid').forEach(v => { const f = 'img/neodex-demo-' + lang; if (!v.src.endsWith(f + '.mp4')) { v.poster = f + '.jpg'; v.src = f + '.mp4'; } });   // une vidéo par langue
-    dlInfo(); news(); chips(); sysChips(); draw(); themes(); stages(); invTell(invCur); route(false);
+    dlInfo(); news(); chips(); sysChips(); draw(); route(false);
   }
   $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };
 
-  // ---------- les écrans : un à la fois, selon l'adresse (#store…). Une autre ancre (#niveaux, #scores) est un endroit de l'accueil. ----------
-  const VIEWS = ['accueil', 'store', 'decors', 'nouveautes', 'questions', 'createurs', 'legal'];
+  // ---------- les écrans : un à la fois, selon l'adresse (#store…). Une autre ancre (#niveaux) est un endroit de l'accueil. ----------
+  const VIEWS = ['accueil', 'store', 'nouveautes', 'questions', 'createurs', 'legal'];
   function route(move = true) {
     const h = location.hash.slice(1), v = VIEWS.includes(h) ? h : 'accueil';
     document.querySelectorAll('.view').forEach(e => e.classList.toggle('on', e.id === 'v-' + v));
@@ -58,70 +72,6 @@
   tabs.forEach((b, i) => { b.tabIndex = 0; b.onclick = () => level(i); b.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { level(i); e.preventDefault(); } }; });
   level(0);
 
-  // ---------- l'inventaire de l'accueil : une case par appli ; la boîte du dessous décrit celle qu'on survole ; un clic ouvre sa fiche ----------
-  let invCur = null;
-  function invTell(a) {   // textContent partout : rien de ce qui vient des données n'est lu comme du HTML
-    invCur = a; if (!a) return;
-    const t = L(a); $('tkImg').src = `img/apps/${a.s}.png`; $('tkName').textContent = t.n; $('tkCat').textContent = ascii(t.c); $('tkText').textContent = t.d;
-  }
-  for (const a of apps.filter(a => !HIDE.includes(a.s)).slice(0, 84)) {
-    const b = document.createElement('button'); b.type = 'button'; b.tabIndex = 0; b.title = a.n; b.setAttribute('aria-label', a.n);
-    b.innerHTML = `<img src="img/apps/${a.s}.png" alt="" loading="lazy" width="48" height="48">`;
-    b.onmouseenter = b.onfocus = () => { $('inv').querySelector('.on')?.classList.remove('on'); b.classList.add('on'); invTell(a); };
-    b.onclick = () => sheet(a); b.onkeydown = e => { if (e.key === 'Enter') sheet(a); };
-    $('inv').append(b);
-  }
-
-  // ---------- les 25 thèmes de NeoDex (NeoDyme/web/interface.js, table PAL) : nom, nom anglais, couleur, description, description anglaise ----------
-  const THEMES = [
-    ['Classique', 'Classic', '#e01ec8', 'Le violet et le rose du logo : le NeoDex d’origine.', 'The purple and pink of the logo: the original NeoDex.'],
-    ['Terminal', 'Terminal', '#33ff66', 'Écran à phosphore vert : une seule police de console, du texte qui luit.', 'A green phosphor screen: one console font, glowing text.'],
-    ['Console de poche', 'Handheld', '#9bbc0f', 'Les verts d’un écran de console portable, de gros pixels et une trame de points.', 'The greens of a handheld console screen, big pixels and a dot grid.'],
-    ['Synthwave', 'Synthwave', '#ff3fa4', 'Coucher de soleil rétro : dégradés rose et orange, titres chromés.', 'A retro sunset: pink and orange gradients, chrome titles.'],
-    ['Grimoire', 'Spellbook', '#e0a940', 'Les boîtes de dialogue d’un jeu de rôle : double cadre doré sur parchemin sombre.', 'Role-playing game dialogue boxes: a double gold frame on dark parchment.'],
-    ['Verre dépoli', 'Frosted glass', '#7aa8ff', 'Moderne : panneaux translucides et flous, coins arrondis.', 'Modern: blurred see-through panels, rounded corners.'],
-    ['Plan d’architecte', 'Blueprint', '#cfe6ff', 'Papier bleu quadrillé, traits fins en pointillés, tout en capitales.', 'Blue grid paper, thin dotted lines, all in capitals.'],
-    ['Manga', 'Manga', '#ffffff', 'Noir et blanc, traits épais, ombres franches et trame de points.', 'Black and white, thick lines, hard shadows and dot shading.'],
-    ['Sakura', 'Sakura', '#ff9ec7', 'Pastel doux, rose et vert tendre, coins ronds.', 'Soft pastel, pink and light green, round corners.'],
-    ['Abysses', 'Abyss', '#21d4fd', 'Fond marin : bleus profonds et lueurs bioluminescentes.', 'The sea floor: deep blues and glowing sea life.'],
-    ['Cyberpunk', 'Cyberpunk', '#fcee0a', 'Néon jaune et cyan sur béton nocturne : coins coupés, bandes de danger.', 'Yellow and cyan neon on night concrete: cut corners, hazard stripes.'],
-    ['Forêt enchantée', 'Enchanted forest', '#b6e36b', 'Mousse et bois : cadres en bois, lueurs de lucioles.', 'Moss and wood: wooden frames, firefly lights.'],
-    ['Borne d’arcade', 'Arcade cabinet', '#ff3b30', 'Une salle d’arcade : rouge, jaune et bleu francs, gros contours noirs.', 'An arcade hall: bold red, yellow and blue, thick black outlines.'],
-    ['Tableau noir', 'Blackboard', '#f4f1e8', 'Un vrai tableau noir d’école : traits à la craie, cadre en bois.', 'A real school blackboard: chalk lines, a wooden frame.'],
-    ['Vaporwave 95', 'Vaporwave 95', '#ff71ce', 'Un vieux bureau d’ordinateur en pastel : fenêtres en relief.', 'An old computer desktop in pastel: raised windows.'],
-    ['Volcan', 'Volcano', '#ff5a1f', 'Obsidienne et lave : cadres qui rougeoient, titre en fusion.', 'Obsidian and lava: glowing frames, a molten title.'],
-    ['Givre', 'Frost', '#bdf2ff', 'Tout est gelé : panneaux de glace, givre dans les coins.', 'Everything is frozen: ice panels, frost in the corners.'],
-    ['Vieux film', 'Old film', '#e8c48a', 'Une pellicule des années 20 : sépia, rayures et grain.', 'A 1920s film reel: sepia, scratches and grain.'],
-    ['Hologramme', 'Hologram', '#f7a8ff', 'Des reflets irisés qui changent de couleur.', 'Shimmering reflections that change colour.'],
-    ['Cockpit', 'Cockpit', '#3ff5ff', 'L’affichage tête haute d’un vaisseau : lignes fines cyan, alertes orange.', 'A spaceship head-up display: thin cyan lines, orange alerts.'],
-    ['Jardin fleuri', 'Flower garden', '#7ed957', 'Une prairie au bas de l’écran, des lianes le long des barres.', 'A meadow at the bottom of the screen, vines along the bars.'],
-    ['Neige', 'Snow', '#cfe8ff', 'Un soir d’hiver : la neige tombe et s’entasse sur les panneaux.', 'A winter evening: snow falls and piles up on the panels.'],
-    ['Aurore boréale', 'Northern lights', '#5cffb0', 'Une nuit polaire : des voiles verts et violets dans le ciel.', 'A polar night: green and purple veils in the sky.'],
-    ['Steampunk', 'Steampunk', '#d9a441', 'Laiton, cuivre et rivets : des engrenages aux coins des panneaux.', 'Brass, copper and rivets: gears at the panel corners.'],
-    ['Bonbons', 'Candy', '#ff7eb6', 'Une confiserie : rayures de sucre d’orge, couleurs acidulées.', 'A sweet shop: candy cane stripes, tangy colours.']];
-  let thCur = 0;
-  function thShow(i) {   // le thème choisi : son bouton allumé, son nom et sa description dessous
-    thCur = i; const e = lang === 'en';
-    [...$('pal').children].forEach((b, k) => b.classList.toggle('on', k === i));
-    $('thName').textContent = THEMES[i][e ? 1 : 0]; $('thName').style.color = THEMES[i][2]; $('thText').textContent = THEMES[i][e ? 4 : 3];
-  }
-  function themes() {
-    $('pal').innerHTML = THEMES.map(([n, ne, a], i) => `<button type="button" style="--a:${a}" data-i="${i}">${esc(ascii(lang === 'en' ? ne : n))}</button>`).join('');
-    thShow(thCur);
-  }
-  $('pal').onclick = $('pal').onmouseover = $('pal').onfocusin = e => { const b = e.target.closest('button'); if (b && +b.dataset.i !== thCur) thShow(+b.dataset.i); };
-
-  // ---------- les décors : les vrais décors de NeoDex (deux calques : loin, près), un grand écran et une vignette par décor ----------
-  const DEC_EN = { Espace: 'Space', 'Ville néon': 'Neon city', 'Forêt': 'Forest', 'Crépuscule': 'Dusk', 'Mont Fuji': 'Mount Fuji', Automne: 'Autumn', 'Aurore boréale': 'Northern lights', Cerisiers: 'Cherry blossoms', 'Château': 'Castle',
-    'Nuit étoilée': 'Starry night', Lanternes: 'Lanterns', Bambouseraie: 'Bamboo grove', Galion: 'Galleon', Banquise: 'Ice floe', Marais: 'Marsh', 'Récif de corail': 'Coral reef', Cristaux: 'Crystals', Lilas: 'Lilacs' };
-  const dKeys = Object.keys(decors), dName = k => lang === 'en' ? DEC_EN[decors[k].name] || decors[k].name : decors[k].name;
-  let dCur = dKeys[0]; try { if (decors[localStorage.neoSiteDecor]) dCur = localStorage.neoSiteDecor; } catch {}
-  function stages() {
-    $('decTabs').innerHTML = dKeys.map(k => `<button type="button" data-k="${k}" class="${k === dCur ? 'on' : ''}"><span style="background-image:url(img/decors/${k}-near.png),url(img/decors/${k}-far.png)"></span>${esc(ascii(dName(k)))}</button>`).join('');
-    $('stFar').style.backgroundImage = `url(img/decors/${dCur}-far.png)`; $('stNear').style.backgroundImage = `url(img/decors/${dCur}-near.png)`; $('stName').textContent = ascii(dName(dCur));
-    $('decCount').textContent = $('decCount2').textContent = dKeys.length;
-  }
-  $('decTabs').onclick = e => { const b = e.target.closest('button'); if (!b) return; dCur = b.dataset.k; try { localStorage.neoSiteDecor = dCur; } catch {} stages(); };
 
   // ---------- la dernière version et les notes de version, lues sur GitHub à chaque visite ----------
   let rels = null;
@@ -169,7 +119,7 @@
   function draw() {
     const q = norm($('q').value.trim());
     const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!sys || (a.pf || []).includes(sys)) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
-    $('apps').innerHTML = list.map(a => { const t = L(a); return `<button type="button" class="app" data-s="${a.s}"><img src="img/apps/${a.s}.png" alt="" loading="lazy" width="56" height="56"><b>${esc(t.n)}</b><small>${esc(ascii(t.c))}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
+    $('apps').innerHTML = list.map(a => { const t = L(a); return `<button type="button" class="app" data-s="${a.s}"><img src="${esc(iconOf(a))}" alt="" loading="lazy" width="56" height="56"><b>${esc(t.n)}</b><small>${esc(ascii(t.c))}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
       || `<p>${UI[lang].none}</p>`;
     $('shown').textContent = ascii(UI[lang].apps(list.length));
   }
@@ -179,7 +129,7 @@
   // ---------- la fiche d'une appli : description complète, capture, autorisations et version ----------
   function sheet(a) {
     const t = L(a), u = UI[lang];
-    $('sheetBody').innerHTML = `<div class="shHead"><img src="img/apps/${a.s}.png" alt=""><div><h2>${esc(t.n)}</h2><small>${esc(ascii(t.c))}</small></div></div>`
+    $('sheetBody').innerHTML = `<div class="shHead"><img src="${esc(iconOf(a))}" alt=""><div><h2>${esc(t.n)}</h2><small>${esc(ascii(t.c))}</small></div></div>`
       + (a.shot ? `<img class="shShot" src="img/shots/${a.s}.${a.shot}" alt="">` : '')
       + `<p class="shDesc">${esc(t.d)}</p><p class="shLabel">${esc(ascii(u.perms))}</p><ul class="shPerms">`
       + (a.pm || []).map(p => `<li><span class="risk ${esc(p.r)}">${esc(ascii(u.risk[p.r] || p.r))}</span><b>${esc(lang === 'en' ? p.le : p.l)}</b><p>${esc(lang === 'en' ? p.se : p.s)}</p></li>`).join('')
