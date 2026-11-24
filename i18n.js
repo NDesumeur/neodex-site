@@ -2,7 +2,10 @@
 // Les textes en capitales sans accents sont ceux affichés en police d'arcade.
 const EN = {
   // --- le menu du haut et l'écran de titre ---
-  nHome: 'HOME', nDecors: 'SCENES', nNews: 'NEWS', nFaq: 'HELP', nDev: 'CREATE', nDl: 'DOWNLOAD',
+  nHome: 'HOME', nGuide: 'GUIDE', gTitle: 'GUIDE', gSub: 'ALL OF NEODEX ON ONE PAGE', apiTitle: 'API GUIDE', apiSub: 'FOR CREATORS', cApi: 'API guide',
+  q8: 'How do I sync my phone or another PC?', a8: 'In NeoDex: Settings › Sync between devices › Create a sync code. Type this code in NeoDex on your other PC or in the Android app: links, notes, calendar, settings and app data follow. Everything is encrypted on your device; keep the code to yourself.',
+  q9: 'How do I play with a friend?', a9: 'With sync on, you get a friend code (Settings › Friends, or the Friends widget on the home page). Add each other with your codes, then start a remote game in a game: the Invite button next to your friend sends them the invitation.',
+  q10: 'Where can I learn everything NeoDex does?', a10: 'In the <a href="#guide">guide</a>: the home page, the browser, NeoStore, sync, friends, the taskbar, your data and the shortcuts. And in NeoDex, Ctrl + K then "tour" replays the guided tour.', nDecors: 'SCENES', nNews: 'NEWS', nFaq: 'HELP', nDev: 'CREATE', nDl: 'DOWNLOAD',
   hTag: 'A browser with a real home page, and apps around it.',
   hPitch: 'It\'s free, with no ads and no account to create.',
   mNew: 'NEW GAME (DOWNLOAD)', mDemo: 'TRY IT ONLINE', mMap: 'LEVEL MAP', mInv: 'INVENTORY (NEOSTORE)', mScores: 'SCORES',
@@ -11,20 +14,19 @@ const EN = {
   wTitle: 'WHAT IS NEODEX?', wSub: 'IN A NUTSHELL',
   w1: 'I started out wanting a home page that felt like mine. It turned into NeoDex: a tabbed browser with my sites, my calendar and small apps, all in one window.',
   w2: 'When you open it, you land on your shortcuts and widgets, with a different scene each time. A site opens in a tab, an app opens next to it.',
-  w3: 'Everything is hand-drawn, from the cursor to the scenes. If you want something calmer, there are themes for that.',
   // --- la carte des niveaux ---
   lTitle: 'LEVEL MAP', lSub: '6 LEVELS',
-  l1n: 'HOME', l2n: 'WEB', l3n: 'STORE', l4n: 'STYLE', l5n: 'SECRET', l6n: 'BONUS',
+  l1n: 'HOME', l2n: 'WEB', l3n: 'STORE', l4n: 'SYNC', l5n: 'PRIVACY', l6n: 'BONUS',
   l1t: 'Level 1: your home page', l1p: 'This is what you see first: your sites and apps as tiles, arranged the way you like.',
-  l1a: 'Groups to sort your tiles', l1b: 'The week\'s calendar in view', l1c: 'Widgets: Pomodoro, quick note, countdown, weather',
+  l1a: 'Groups to sort your tiles', l1b: 'The week\'s calendar in view', l1c: 'Widgets: Pomodoro, quick note, countdown, weather, friends, and the apps\' own',
   l2t: 'Level 2: the browser', l2p: 'A regular browser with tabs. Ctrl + K searches everywhere at once: your tabs, sites, apps and settings.',
   l2a: 'Two pages side by side', l2b: 'Private tabs', l2c: 'Page translation and a mini video player', l2d: 'Chrome extensions',
   l3t: 'Level 3: NeoStore', l3p: 'The app store. Everything in it is free: click, it installs, and the app shows up on your home page.',
   l3a: 'Music, office apps, tools', l3b: 'Arcade, puzzle and card games', l3c: 'Every app is reviewed and signed before it gets there',
-  l4t: 'Level 4: themes', l4p: '25 themes, and not just colours: each one has its own fonts, frames and scene.',
-  l4a: 'A random pick from your favourite themes', l4b: 'Click sounds to choose from', l4c: 'Several cursor shapes',
-  l5t: 'Level 5: privacy', l5p: 'There\'s no NeoDex account and no server of mine behind it. What you do stays on your PC.',
-  l5b: 'An encrypted password manager and file vault', l5c: 'Sync goes through your own cloud, encrypted',
+  l4t: 'Level 4: sync', l4p: 'One sync code, and your PCs and your phone share the same links, notes, calendar and app data. No account, no password.',
+  l4a: 'Everything is encrypted on your device before it leaves', l4b: 'The Android app picks up where you left off on the PC', l4c: 'A friend code to play together remotely',
+  l5t: 'Level 5: privacy and the server', l5p: 'There is no NeoDex account. The NeoDex server is only used for sync and friends, and it only receives encrypted files it cannot read.',
+  l5a: 'No ads, no trackers, no statistics on what you do', l5b: 'An encrypted password manager and file vault', l5c: 'Without sync, nothing leaves your PC',
   l6t: 'Bonus level: make your own', l6p: 'Every app in the store is a plugin, and you can make your own.',
   l6a: 'The Plugin Studio, no code to write', l6b: 'Or with code: three files on GitHub are enough', l6c: 'NeoStore spots it by itself',
   // --- l'inventaire, les scores, les thèmes, la démo, la fin ---
@@ -34,7 +36,7 @@ const EN = {
   s4: 'Ads shown', s5: 'Accounts to create', s6: 'Data sent to a NeoDex server',
   tTitle: 'PICK YOUR COLOUR', tSub: '25 THEMES', vTitle: 'DEMO MODE',
   eTitle: 'READY, PLAYER 1?', eSub: 'Three steps and you\'re in.',
-  e1: 'Download <code>NeoDex-Setup.exe</code>.', e2: 'Run it. Windows will probably show a warning: click "More info", then "Run anyway".', e3: 'Pick a theme, add your sites and have a look around NeoStore.',
+  e1: 'Download <code>NeoDex-Setup.exe</code>.', e2: 'Run it. Windows will probably show a warning: click "More info", then "Run anyway".', e3: 'Add your sites, create your sync code if you have a phone, and have a look around NeoStore.',
   eAlso: 'Also:', eFor: 'Windows 10 and 11 · free',
   // --- les autres écrans ---
   stLead: 'Every app and game in the store. They are free and install in one click from NeoDex. Click an app to see its page.',
@@ -45,7 +47,7 @@ const EN = {
   nwLead: 'The latest versions. NeoDex updates itself: a banner lets you know when a new one is out.', loading: 'Loading…', allVersions: 'All versions',
   // --- aide ---
   q1: 'Is it free?', a1: 'Yes, NeoDex and every app in the store are free. There are no ads.',
-  q2: 'Where does my data go?', a2: 'On your PC, in the <code>%APPDATA%\\NeoDex</code> folder. It only leaves it if you turn on sync: it then goes through your own OneDrive, Google Drive or Dropbox, encrypted with your password. Each app only sees what its permissions allow.',
+  q2: 'Where does my data go?', a2: 'On your PC, in the <code>%APPDATA%\\NeoDex</code> folder. It only leaves it if you create a sync code: it then goes through the NeoDex server, encrypted on your device with a key made from your code. The server cannot read it. Each app only sees what its permissions allow.',
   q3: 'How do I uninstall NeoDex?', a3: 'In Windows: Settings › Apps › Installed apps › NeoDex › Uninstall. Your data stays in <code>%APPDATA%\\NeoDex</code> in case you come back; delete that folder to erase everything.',
   q4: 'Does it work on Mac or Linux?', a4: 'NeoDex is made for Windows 10 and 11. There\'s also a Linux version (AppImage) and an Android app (APK): the links are at the bottom of the home page. On Android you need to allow installing apps from outside the Play Store. No Mac version. In NeoStore, every app shows which systems it runs on.',
   q5: 'Why does Windows show a warning?', a5: 'The installer has no paid Microsoft certificate, so Windows warns you as a precaution. Click “More info”, then “Run anyway”. Updates, on the other hand, are signed and checked by NeoDex before they are installed.',
@@ -63,12 +65,12 @@ const EN = {
   // --- confidentialité et mentions légales ---
   lgSite: 'This site',
   lgS1: 'This site uses no cookies, ads or analytics. It only remembers your language and favourite scene, in your browser. The “Try it online” demo keeps what you do there in your browser: nothing is sent.',
-  lgS2: 'Like any site, the host (GitHub) receives your IP address to send you the pages. To show the latest NeoDex version, the page also asks GitHub. The font is served by the site itself: nothing goes to Google.',
+  lgS2: 'Like any site, the host (GitHub) receives your IP address to send you the pages. To show the NeoStore apps, the page also reads the catalogue on GitHub. The font is served by the site itself: nothing goes to Google.',
   lgApp: 'The NeoDex app',
-  lgA1: 'No account, no NeoDex server, no statistics or telemetry. Your data stays on your PC, in <code>%APPDATA%&#92;NeoDex</code>.',
-  lgA2: 'Sync only turns on if you choose it, to your own cloud folder (OneDrive, Google Drive…). With a password, it is encrypted before it leaves.',
-  lgA3: 'NeoDex only contacts: GitHub (updates, NeoStore, removed apps), Ghostery (ad blocker lists), Open-Meteo (weather for the city you pick), Have I Been Pwned (to check a password: only 5 characters of its hash leave, never the password), Google Translate (only when you translate a page), Twitch (your live channels), Cloudflare WARP or Tor (only with the VPN on), and of course the sites you open.',
-  lgA4: 'If it crashes, nothing is sent on its own: NeoDex offers to let you open a report on GitHub yourself. Every NeoStore app declares what it can access, and the Permissions screen shows the sites it contacts.',
+  lgA1: 'No account, no ads, no trackers. Your data stays on your PC, in <code>%APPDATA%&#92;NeoDex</code>, as long as you don\'t use sync.',
+  lgA2: 'Sync only turns on if you create a sync code. It goes through the NeoDex server (at Cloudflare): everything is encrypted on your device before it leaves, and the server only knows a fingerprint of your code, not the code. It also sees which NeoDex version is sending, to count the versions in use. Friends go through the same server: your friend name and your friends list.',
+  lgA3: 'NeoDex only contacts: its server (only with sync or friends), GitHub (updates, NeoStore, removed apps), Ghostery (ad blocker lists), Open-Meteo (weather for the city you pick), Have I Been Pwned (to check a password: only 5 characters of its hash leave, never the password), Google Translate (only when you translate a page), Twitch (your live channels), Cloudflare WARP or Tor (only with the VPN on), and of course the sites you open.',
+  lgA4: 'If it crashes, nothing is sent on its own: NeoDex offers to let you open a report on GitHub yourself. If you tick it (Settings › Data), an anonymous report is sent when a plugin crashes: the plugin name, its version and the error, nothing about you. Every NeoStore app declares what it can access, and the Permissions screen shows the sites it contacts.',
   lgA5: 'To erase everything, delete the <code>%APPDATA%&#92;NeoDex</code> folder or uninstall NeoDex. A question? <a href="https://github.com/NDesumeur/neodex-releases/issues">Write on GitHub</a>.',
   lgLegal: 'Legal notice',
   lgL1: 'Publisher: Nolan Desumeur (NDesumeur), independent developer, non-professional. Contact: <a href="https://github.com/NDesumeur/neodex-releases/issues">GitHub</a>.',
@@ -79,9 +81,9 @@ const EN = {
 // les textes écrits par le script (boutique, fiche, nouveautés), dans les deux langues
 const UI = {
   fr: { sys: 'Tous les systèmes', runs: 'Marche sur', qPh: 'Cherche une appli…', all: 'Tout', games: 'Jeux', apps: n => n + (n > 1 ? ' applis' : ' appli'), none: 'Aucune appli ne correspond.', version: 'Version', perms: 'Ce qu’elle peut faire',
-    risk: { faible: 'faible', moyen: 'moyen', 'élevé': 'élevé' }, noShot: 'Pas encore de capture.', getIt: 'L’installer depuis NeoStore, dans NeoDex', newsErr: 'Impossible de lire les versions pour l’instant.', size: 'Mo', ver: 'version',
-    where: { store: 'NeoStore', nouveautes: 'Nouveautés', questions: 'Aide', createurs: 'Créateurs', legal: 'Confidentialité' }, date: 'fr-FR' },
+    risk: { faible: 'faible', moyen: 'moyen', 'élevé': 'élevé' }, zones: { apps: 'Applications', games: 'Jeux', ext: 'Extensions', themes: 'Thèmes et décors' }, getIt: 'L’installer depuis NeoStore, dans NeoDex', newsErr: 'Impossible de lire les versions pour l’instant.', size: 'Mo', ver: 'version',
+    where: { store: 'NeoStore', nouveautes: 'Nouveautés', guide: 'Guide', questions: 'Aide', createurs: 'Créateurs', api: 'Guide de l’API', legal: 'Confidentialité' }, date: 'fr-FR' },
   en: { sys: 'All systems', runs: 'Runs on', qPh: 'Search for an app…', all: 'All', games: 'Games', apps: n => n + (n > 1 ? ' apps' : ' app'), none: 'No app matches.', version: 'Version', perms: 'What it can do',
-    risk: { faible: 'low', moyen: 'medium', 'élevé': 'high' }, noShot: 'No screenshot yet.', getIt: 'Install it from NeoStore, inside NeoDex', newsErr: 'Cannot read the versions right now.', size: 'MB', ver: 'version',
-    where: { store: 'NeoStore', nouveautes: 'News', questions: 'Help', createurs: 'Creators', legal: 'Privacy' }, date: 'en-GB' },
+    risk: { faible: 'low', moyen: 'medium', 'élevé': 'high' }, zones: { apps: 'Apps', games: 'Games', ext: 'Extensions', themes: 'Themes and scenes' }, getIt: 'Install it from NeoStore, inside NeoDex', newsErr: 'Cannot read the versions right now.', size: 'MB', ver: 'version',
+    where: { store: 'NeoStore', nouveautes: 'News', guide: 'Guide', questions: 'Help', createurs: 'Creators', api: 'API guide', legal: 'Privacy' }, date: 'en-GB' },
 };

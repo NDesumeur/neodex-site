@@ -39,15 +39,16 @@
   $('lang').onclick = () => { lang = lang === 'fr' ? 'en' : 'fr'; try { localStorage.neoSiteLang = lang; } catch {} applyLang(); };
 
   // ---------- les écrans : un à la fois, selon l'adresse (#store…). Une autre ancre (#niveaux) est un endroit de l'accueil. ----------
-  const VIEWS = ['accueil', 'store', 'nouveautes', 'questions', 'createurs', 'legal'];
+  const VIEWS = ['accueil', 'store', 'nouveautes', 'guide', 'questions', 'createurs', 'api', 'legal'];
   function route(move = true) {
-    const h = location.hash.slice(1), v = VIEWS.includes(h) ? h : 'accueil';
+    // une ancre dans un écran (#g-sync dans le guide) montre cet écran-là
+    const h = location.hash.slice(1), inView = !VIEWS.includes(h) && h && $(h)?.closest('.view'), v = VIEWS.includes(h) ? h : inView ? inView.id.slice(2) : 'accueil';
     document.querySelectorAll('.view').forEach(e => e.classList.toggle('on', e.id === 'v-' + v));
     document.querySelectorAll('#nav a').forEach(e => e.classList.toggle('on', e.dataset.v === v));
     document.title = v === 'accueil' ? 'NeoDex' : 'NeoDex · ' + UI[lang].where[v];
     if (!move) return;
     const spot = !VIEWS.includes(h) && h && $(h);
-    if (spot) spot.scrollIntoView(); else scrollTo({ top: 0, behavior: 'instant' });
+    if (spot) setTimeout(() => spot.scrollIntoView(), 30); else scrollTo({ top: 0, behavior: 'instant' });   // un peu après : le défilement du navigateur vers l'ancre annulait le nôtre
   }
   addEventListener('hashchange', () => route());
 
@@ -96,20 +97,22 @@
       return `<article class="rel frame${i ? '' : ' latest'}"><h3>NEODEX ${esc(r.tag_name.replace(/^v/, ''))}<span>${esc(ascii(d))}</span></h3>${lines ? `<ul>${lines}</ul>` : ''}</article>`;
     }).join('');
   }
-  fetch('https://api.github.com/repos/NDesumeur/neodex-releases/releases?per_page=8', { headers: { Accept: 'application/vnd.github+json' } })
-    .then(r => r.ok ? r.json() : Promise.reject(r.status)).then(l => l.filter(r => !r.draft && !r.prerelease)).catch(() => [])
+  // versions.json : écrit à chaque sortie (outils-publication/versions-site.js) ; l'API de GitHub n'est qu'un secours (60 lectures par heure et par adresse)
+  const relList = u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.json() : Promise.reject(r.status)).then(l => l.filter(r => !r.draft && !r.prerelease)).then(l => l.length ? l : Promise.reject(0));
+  relList('versions.json').catch(() => relList('https://api.github.com/repos/NDesumeur/neodex-releases/releases?per_page=8')).catch(() => [])
     .then(l => { rels = l; dlInfo(); news(); });
 
-  // ---------- NeoStore : recherche, filtre par système, filtre par catégorie ----------
-  const fam = c => c.startsWith('Jeux') ? 'Jeux' : c;   // les genres de jeux sont réunis sous « Jeux » dans les étiquettes
-  const famLabel = c => c === 'Tout' ? UI[lang].all : c === 'Jeux' ? UI[lang].games : lang === 'en' ? (apps.find(a => a.c === c) || {}).ce || c : c;
-  const count = c => apps.filter(x => fam(x.c) === c).length;
-  const cats = ['Tout', 'Jeux', 'Thèmes', 'Décors'].filter(c => c === 'Tout' || count(c));   // seulement ces étiquettes : les applis restent dans « Tout » et la recherche
-  const ico = c => 'img/store/' + (icons[c] || icons[fam(c)] || icons.Autre);
+  // ---------- NeoStore : recherche, filtre par système, les quatre rayons de NeoStore dans NeoDex (web/store.js, sxZone) ----------
+  const zone = a => a.c === 'Thèmes' || a.c === 'Décors' ? 'themes' : ['adblock', 'vpn'].includes(a.s) || a.c === 'Extensions' ? 'ext' : /^(Jeux|NeoDle)/.test(a.c || '') ? 'games' : 'apps';
+  const ZONE_ICON = { apps: 'Outils', games: 'Jeux', ext: 'Internet', themes: 'Création' };
+  const famLabel = z => UI[lang].zones[z];
+  const cats = ['Tout', 'apps', 'games', 'ext', 'themes'].filter(z => z === 'Tout' || apps.some(a => zone(a) === z));
+  const ico = z => 'img/store/' + (icons[ZONE_ICON[z]] || icons.Autre);
+  const catName = a => { const c = L(a).c || ''; return c.replace(/^(Jeux|Games) · /, ''); };   // « Jeux · Arcade » s'affiche « Arcade », comme dans NeoDex
   const short = d => { let t = d.split(/(?<=[.!?])\s/)[0]; if (t.length > 110) t = t.slice(0, t.lastIndexOf(' ', 107)) + '…'; return t; };
   let cat = 'Tout';
   function chips() {
-    $('chips').innerHTML = cats.map(c => `<button type="button" class="chip${c === cat ? ' on' : ''}" data-c="${esc(c)}" aria-pressed="${c === cat}">${c === 'Tout' ? '' : `<img src="${ico(c)}" alt="">`}${esc(ascii(famLabel(c)))}</button>`).join('');
+    $('chips').innerHTML = cats.map(c => `<button type="button" class="chip${c === cat ? ' on' : ''}" data-c="${esc(c)}" aria-pressed="${c === cat}">${c === 'Tout' ? '' : `<img src="${ico(c)}" alt="">`}${esc(ascii(c === 'Tout' ? UI[lang].all : famLabel(c)))}</button>`).join('');
   }
   $('chips').onclick = e => { const b = e.target.closest('.chip'); if (b) { cat = b.dataset.c; chips(); draw(); } };
   const PF = { windows: 'Windows', android: 'Android', linux: 'Linux' }; let sys = '';   // les systèmes où marche une appli (lus dans son plugin.json)
@@ -118,19 +121,18 @@
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   function draw() {
     const q = norm($('q').value.trim());
-    const list = apps.filter(a => (cat === 'Tout' || fam(a.c) === cat) && (!sys || (a.pf || []).includes(sys)) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
-    $('apps').innerHTML = list.map(a => { const t = L(a); return `<button type="button" class="app" data-s="${a.s}"><img src="${esc(iconOf(a))}" alt="" loading="lazy" width="56" height="56"><b>${esc(t.n)}</b><small>${esc(ascii(t.c))}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
+    const list = apps.filter(a => (cat === 'Tout' || zone(a) === cat) && (!sys || (a.pf || []).includes(sys)) && (!q || norm([a.n, a.ne, a.c, a.ce, a.d, a.de].join(' ')).includes(q)));
+    $('apps').innerHTML = list.map(a => { const t = L(a); return `<button type="button" class="app" data-s="${a.s}"><img src="${esc(iconOf(a))}" alt="" loading="lazy" width="56" height="56"><b>${esc(t.n)}</b><small>${esc(ascii(catName(a)))}</small><p>${esc(short(t.d))}</p></button>`; }).join('')
       || `<p>${UI[lang].none}</p>`;
     $('shown').textContent = ascii(UI[lang].apps(list.length));
   }
   $('q').addEventListener('input', draw);
   $('apps').onclick = e => { const b = e.target.closest('.app'); if (b) sheet(apps.find(a => a.s === b.dataset.s)); };
 
-  // ---------- la fiche d'une appli : description complète, capture, autorisations et version ----------
+  // ---------- la fiche d'une appli, comme dans NeoStore : grande icône, description complète, autorisations et version ----------
   function sheet(a) {
     const t = L(a), u = UI[lang];
-    $('sheetBody').innerHTML = `<div class="shHead"><img src="${esc(iconOf(a))}" alt=""><div><h2>${esc(t.n)}</h2><small>${esc(ascii(t.c))}</small></div></div>`
-      + (a.shot ? `<img class="shShot" src="img/shots/${a.s}.${a.shot}" alt="">` : '')
+    $('sheetBody').innerHTML = `<div class="shHead"><img src="${esc(iconOf(a))}" alt=""><div><h2>${esc(t.n)}</h2><small>${esc(ascii(catName(a)))}</small></div></div>`
       + `<p class="shDesc">${esc(t.d)}</p><p class="shLabel">${esc(ascii(u.perms))}</p><ul class="shPerms">`
       + (a.pm || []).map(p => `<li><span class="risk ${esc(p.r)}">${esc(ascii(u.risk[p.r] || p.r))}</span><b>${esc(lang === 'en' ? p.le : p.l)}</b><p>${esc(lang === 'en' ? p.se : p.s)}</p></li>`).join('')
       + `</ul><div class="shMeta"><span>${esc(ascii(u.version))} ${esc(a.v)}</span><span>${esc(ascii(u.runs))} ${(a.pf || []).map(k => ascii(PF[k] || k)).join(' · ')}</span><span>${esc(ascii(u.getIt))}</span></div>`;

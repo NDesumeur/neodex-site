@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NeoDex</title>
-<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows. Plus de 160 applis et jeux gratuits, 25 thèmes, sans publicité et sans compte.">
+<meta name="description" content="NeoDex : page d'accueil, navigateur et bureau d'applis pour Windows. Plus de 160 applis et jeux gratuits, synchro chiffrée avec le téléphone, sans publicité et sans compte.">
 <meta property="og:title" content="NeoDex">
 <meta property="og:description" content="Accueil, navigateur et applis : un seul écran. Gratuit, sans publicité, sans compte.">
 <meta property="og:image" content="img/logo.png">
 <link rel="icon" href="img/favicon.png">
-<link rel="stylesheet" href="style.css?v=4.0.3">
+<link rel="stylesheet" href="style.css?v=4.1.0">
 </head>
 <body>
 <!--
@@ -27,6 +27,7 @@
     <a href="#accueil" data-v="accueil" data-t="nHome">ACCUEIL</a>
     <a href="#store" data-v="store">NEOSTORE</a>
     <a href="#nouveautes" data-v="nouveautes" data-t="nNews">NOUVEAUTES</a>
+    <a href="#guide" data-v="guide" data-t="nGuide">GUIDE</a>
     <a href="#questions" data-v="questions" data-t="nFaq">AIDE</a>
     <a href="#createurs" data-v="createurs" data-t="nDev">CREER</a>
     <a class="navDc" href="https://discord.gg/ACXMKWhJqE" target="_blank" rel="noopener">DISCORD</a>
@@ -57,7 +58,6 @@
   <div class="frame talk big"><div>
     <p data-t="w1">Au départ, je voulais juste une page d'accueil qui me ressemble. C'est devenu NeoDex : un navigateur à onglets avec mes sites, mon agenda et des petites applis, dans une seule fenêtre.</p>
     <p data-t="w2">Quand tu l'ouvres, tu tombes sur tes raccourcis et tes widgets, avec un décor différent à chaque fois. Un site s'ouvre dans un onglet, une appli s'ouvre à côté.</p>
-    <p data-t="w3">Tout est dessiné à la main, du curseur aux décors. Si tu préfères plus sobre, il y a des thèmes pour ça.</p>
   </div></div>
 </div></section>
 
@@ -67,8 +67,8 @@
     <button role="tab" type="button"><i>1</i><span data-t="l1n">ACCUEIL</span></button>
     <button role="tab" type="button"><i>2</i><span data-t="l2n">WEB</span></button>
     <button role="tab" type="button"><i>3</i><span data-t="l3n">STORE</span></button>
-    <button role="tab" type="button"><i>4</i><span data-t="l4n">STYLE</span></button>
-    <button role="tab" type="button"><i>5</i><span data-t="l5n">SECRET</span></button>
+    <button role="tab" type="button"><i>4</i><span data-t="l4n">SYNCHRO</span></button>
+    <button role="tab" type="button"><i>5</i><span data-t="l5n">VIE PRIVEE</span></button>
     <button role="tab" type="button"><i>★</i><span data-t="l6n">BONUS</span></button>
   </div>
   <div class="frame level">
@@ -76,7 +76,7 @@
       <article data-img="img/niveaux/accueil.png">
         <h3 data-t="l1t">Niveau 1 : ton accueil</h3>
         <p data-t="l1p">C'est ce que tu vois en premier : tes sites et tes applis en tuiles, rangés comme tu veux.</p>
-        <ul><li data-t="l1a">Des groupes pour ranger les tuiles</li><li data-t="l1b">L'agenda de la semaine sous les yeux</li><li data-t="l1c">Widgets : Pomodoro, note rapide, compte à rebours, météo</li></ul>
+        <ul><li data-t="l1a">Des groupes pour ranger les tuiles</li><li data-t="l1b">L'agenda de la semaine sous les yeux</li><li data-t="l1c">Widgets : Pomodoro, note rapide, compte à rebours, météo, amis, et ceux des applis</li></ul>
       </article>
       <article data-img="img/niveaux/navigateur.png">
         <h3 data-t="l2t">Niveau 2 : le navigateur</h3>
@@ -88,15 +88,15 @@
         <p data-t="l3p">Le magasin d'applis. Tout y est gratuit : tu cliques, ça s'installe, et l'appli apparaît sur ton accueil.</p>
         <ul><li data-t="l3a">De la musique, de la bureautique, des outils</li><li data-t="l3b">Des jeux d'arcade, de réflexion et de cartes</li><li data-t="l3c">Chaque appli est relue et signée avant d'arriver</li></ul>
       </article>
-      <article data-img="img/niveaux/style.png">
-        <h3 data-t="l4t">Niveau 4 : les thèmes</h3>
-        <p data-t="l4p">25 thèmes, et pas seulement des couleurs : chacun a ses polices, ses cadres et son décor.</p>
-        <ul><li data-t="l4a">Un thème tiré au hasard parmi tes favoris</li><li data-t="l4b">Des sons de clic au choix</li><li data-t="l4c">Plusieurs formes de curseur</li></ul>
+      <article data-img="img/niveaux/synchro.png">
+        <h3 data-t="l4t">Niveau 4 : la synchro</h3>
+        <p data-t="l4p">Un code de synchro, et tes PC et ton téléphone partagent les mêmes liens, notes, agenda et données d'applis. Pas de compte, pas de mot de passe.</p>
+        <ul><li data-t="l4a">Tout est chiffré sur ton appareil avant de partir</li><li data-t="l4b">L'appli Android reprend où tu en étais sur le PC</li><li data-t="l4c">Un code d'ami pour jouer ensemble à distance</li></ul>
       </article>
       <article data-img="img/niveaux/secret.png">
-        <h3 data-t="l5t">Niveau 5 : la vie privée</h3>
-        <p data-t="l5p">Il n'y a pas de compte NeoDex ni de serveur à moi derrière. Ce que tu fais reste sur ton PC.</p>
-        <ul><li data-t="l5b">Un gestionnaire de mots de passe et un coffre-fort chiffrés</li><li data-t="l5c">La synchro passe par ton propre cloud, chiffrée</li></ul>
+        <h3 data-t="l5t">Niveau 5 : la vie privée et le serveur</h3>
+        <p data-t="l5p">Il n'y a pas de compte NeoDex. Le serveur de NeoDex ne sert qu'à la synchro et aux amis, et il ne reçoit que des fichiers chiffrés qu'il ne peut pas lire.</p>
+        <ul><li data-t="l5a">Pas de pub, pas de pisteur, pas de statistiques sur ce que tu fais</li><li data-t="l5b">Un gestionnaire de mots de passe et un coffre-fort chiffrés</li><li data-t="l5c">Sans synchro, rien ne part de ton PC</li></ul>
       </article>
       <article data-img="img/niveaux/bonus.png">
         <h3 data-t="l6t">Niveau bonus : crée la tienne</h3>
@@ -120,7 +120,7 @@
   <ol class="steps">
     <li class="frame" data-t="e1">Télécharge <code>NeoDex-Setup.exe</code>.</li>
     <li class="frame" data-t="e2">Lance-le. Windows va sûrement afficher un avertissement : clique sur « Informations complémentaires », puis « Exécuter quand même ».</li>
-    <li class="frame" data-t="e3">Choisis un thème, ajoute tes sites et va faire un tour dans NeoStore.</li>
+    <li class="frame" data-t="e3">Ajoute tes sites, crée ton code de synchro si tu as un téléphone, et va faire un tour dans NeoStore.</li>
   </ol>
   <a class="start" href="https://github.com/NDesumeur/neodex-releases/releases/latest" data-dl>▶ PRESS START</a>
   <p class="keys"><span data-t="eFor">Windows 10 et 11 · gratuit</span> · <span class="dlInfo"></span></p>
@@ -156,11 +156,14 @@
   <div class="head"><h2 data-t="qTitle2">AIDE</h2><small data-t="qSub">QUESTIONS FREQUENTES</small></div>
   <div class="faq">
     <details class="frame"><summary data-t="q1">Est-ce gratuit ?</summary><p data-t="a1">Oui, NeoDex et toutes les applis du magasin sont gratuits. Il n'y a pas de pub.</p></details>
-    <details class="frame"><summary data-t="q2">Mes données vont où ?</summary><p data-t="a2">Sur ton PC, dans le dossier <code>%APPDATA%\NeoDex</code>. Elles n'en sortent que si tu actives la synchro : elles passent alors par ton propre OneDrive, Google Drive ou Dropbox, chiffrées avec ton mot de passe. Chaque appli ne voit que ce que ses autorisations lui permettent.</p></details>
+    <details class="frame"><summary data-t="q2">Mes données vont où ?</summary><p data-t="a2">Sur ton PC, dans le dossier <code>%APPDATA%\NeoDex</code>. Elles n'en sortent que si tu crées un code de synchro : elles passent alors par le serveur de NeoDex, chiffrées sur ton appareil avec une clé tirée de ton code. Le serveur ne peut pas les lire. Chaque appli ne voit que ce que ses autorisations lui permettent.</p></details>
     <details class="frame"><summary data-t="q3">Comment désinstaller NeoDex ?</summary><p data-t="a3">Dans Windows : Paramètres › Applications › Applications installées › NeoDex › Désinstaller. Tes données restent dans <code>%APPDATA%\NeoDex</code> au cas où tu reviendrais ; supprime ce dossier pour tout effacer.</p></details>
     <details class="frame"><summary data-t="q4">Ça marche sur Mac ou Linux ?</summary><p data-t="a4">NeoDex est fait pour Windows 10 et 11. Il existe aussi une version Linux (AppImage) et une appli Android (APK) : les liens sont en bas de la page d'accueil. Sur Android, il faut autoriser l'installation d'applis qui ne viennent pas du Play Store. Pas de version Mac. Dans NeoStore, chaque appli indique sur quels systèmes elle marche.</p></details>
     <details class="frame"><summary data-t="q5">Pourquoi Windows affiche un avertissement ?</summary><p data-t="a5">L'installateur n'a pas de certificat payant de Microsoft, alors Windows prévient par précaution. Clique sur « Informations complémentaires », puis « Exécuter quand même ». Les mises à jour, elles, sont signées et vérifiées par NeoDex avant d'être installées.</p></details>
     <details class="frame"><summary data-t="q6">Les applis de NeoStore sont-elles sûres ?</summary><p data-t="a6">Les applis du catalogue officiel sont examinées puis signées : NeoDex refuse une archive modifiée. Une appli non vérifiée reste installable, mais NeoStore te prévient avant. Chaque appli dit ce qu'elle peut faire, et tu peux retirer une autorisation à tout moment.</p></details>
+    <details class="frame"><summary data-t="q8">Comment synchroniser mon téléphone ou un autre PC ?</summary><p data-t="a8">Dans NeoDex : Paramètres › Synchronisation entre appareils › Créer un code de synchro. Tape ce code dans NeoDex sur ton autre PC ou dans l'appli Android : liens, notes, agenda, réglages et données des applis suivent. Tout est chiffré sur ton appareil ; garde le code pour toi.</p></details>
+    <details class="frame"><summary data-t="q9">Comment jouer avec un ami ?</summary><p data-t="a9">Avec la synchro, tu as un code d'ami (Paramètres › Amis, ou le widget Amis de l'accueil). Ajoutez-vous avec vos codes, puis lance une partie à distance dans un jeu : le bouton Inviter à côté de ton ami lui envoie l'invitation.</p></details>
+    <details class="frame"><summary data-t="q10">Où apprendre tout ce que fait NeoDex ?</summary><p data-t="a10">Dans le <a href="#guide">guide</a> : l'accueil, le navigateur, NeoStore, la synchro, les amis, la barre des tâches, tes données et les raccourcis. Et dans NeoDex, Ctrl + K puis « visite » relance la visite guidée.</p></details>
     <details class="frame"><summary data-t="q7">Comment se font les mises à jour ?</summary><p data-t="a7">NeoDex regarde s'il y a une nouvelle version et te propose de l'installer. Les applis du magasin font pareil.</p></details>
   </div>
 </div></section>
@@ -186,7 +189,802 @@
   ctx.view.textContent = 'Bonjour !';
   const notes = (await ctx.folder.read('notes')) || {};
 }</code></pre>
-  <p class="center"><a class="btn" href="https://github.com/NDesumeur/neodex-sdk" data-t="cSdk">Le SDK et sa documentation</a> <a class="btn ghost" href="https://github.com/NDesumeur/neodex-sdk/blob/main/docs/PUBLIER.md" data-t="cGuide">Guide pas à pas</a></p>
+  <p class="center"><a class="btn" href="https://github.com/NDesumeur/neodex-sdk" data-t="cSdk">Le SDK et sa documentation</a> <a class="btn" href="#api" data-t="cApi">Guide de l'API</a> <a class="btn ghost" href="https://github.com/NDesumeur/neodex-sdk/blob/main/docs/PUBLIER.md" data-t="cGuide">Guide pas à pas</a></p>
+</div></section>
+</div>
+
+<!-- ============ Guide de NeoDex (français dans .lfr, anglais dans .len : site.js montre celui de la langue) ============ -->
+<div class="view" id="v-guide">
+<section><div class="wrap">
+  <div class="head"><h2 data-t="gTitle">GUIDE</h2><small data-t="gSub">TOUT NEODEX EN UNE PAGE</small></div>
+  <nav class="frame toc lfr" aria-label="Sommaire du guide"><a href="#g-accueil" data-jump="g-accueil">L'accueil</a> · <a href="#g-web" data-jump="g-web">Le navigateur</a> · <a href="#g-store" data-jump="g-store">NeoStore</a> · <a href="#g-sync" data-jump="g-sync">La synchro</a> · <a href="#g-amis" data-jump="g-amis">Les amis</a> · <a href="#g-tel" data-jump="g-tel">Le téléphone</a> · <a href="#g-barre" data-jump="g-barre">La barre des tâches</a> · <a href="#g-secu" data-jump="g-secu">Mots de passe et sécurité</a> · <a href="#g-donnees" data-jump="g-donnees">Tes données</a> · <a href="#g-touches" data-jump="g-touches">Raccourcis</a></nav>
+  <nav class="frame toc len" aria-label="Guide contents"><a href="#eg-accueil" data-jump="eg-accueil">Home</a> · <a href="#eg-web" data-jump="eg-web">The browser</a> · <a href="#eg-store" data-jump="eg-store">NeoStore</a> · <a href="#eg-sync" data-jump="eg-sync">Sync</a> · <a href="#eg-amis" data-jump="eg-amis">Friends</a> · <a href="#eg-tel" data-jump="eg-tel">The phone</a> · <a href="#eg-barre" data-jump="eg-barre">The taskbar</a> · <a href="#eg-secu" data-jump="eg-secu">Passwords and security</a> · <a href="#eg-donnees" data-jump="eg-donnees">Your data</a> · <a href="#eg-touches" data-jump="eg-touches">Shortcuts</a></nav>
+
+  <div class="frame prose guide lfr">
+  <p><b>Le seul raccourci à retenir : Ctrl + K.</b> Tape ce que tu cherches (un site, une appli, un réglage, « mots de passe », « traduire »…) puis Entrée. Ça marche partout dans NeoDex, même sur un site. Tu peux revoir la visite guidée quand tu veux : MENU › VISITE GUIDÉE.</p>
+
+  <h3 id="g-accueil">L'accueil</h3>
+  <p>C'est l'écran qui s'ouvre au lancement. Tes sites et tes applis y sont en tuiles, rangées dans des groupes. Fais glisser une tuile pour la déplacer ; un clic droit sur une tuile la renomme, la change de groupe ou la retire.</p>
+  <ul>
+    <li><b>Ajouter</b> : un site (son adresse), une appli de NeoStore ou un programme du PC.</li>
+    <li><b>Disposer</b> : l'ordre et la taille de chaque bloc (raccourcis, agenda, widgets), et les widgets à montrer, chacun en taille S, M ou L.</li>
+    <li><b>Les widgets</b> : Pomodoro, note rapide, compte à rebours, météo de la semaine, amis, et ceux des applis (NeoMusic montre le morceau en cours).</li>
+    <li><b>La recherche</b> : tape directement sur l'accueil, NeoDex cherche dans tes raccourcis, tes applis et sur le web.</li>
+    <li><b>Le décor</b> change à chaque lancement. Paramètres › Apparence choisit le décor, sa couleur et le thème ; d'autres thèmes et décors s'installent depuis NeoStore.</li>
+  </ul>
+
+  <h3 id="g-web">Le navigateur</h3>
+  <p>Un site s'ouvre dans un onglet, à côté de tes applis. NeoDex utilise le moteur de Chrome : les sites marchent comme d'habitude.</p>
+  <ul>
+    <li><b>Vue scindée</b> (Ctrl + Maj + S) : deux pages côte à côte.</li>
+    <li><b>Onglet privé</b> (Ctrl + Maj + N) : rien n'est gardé une fois fermé.</li>
+    <li><b>Traduire la page</b>, <b>rechercher dans la page</b> (Ctrl + F), l'historique et les téléchargements sont dans le MENU, groupe NAVIGUER.</li>
+    <li><b>Mini-lecteur</b> : une vidéo continue dans un coin quand tu changes d'onglet.</li>
+    <li><b>Extensions Chrome</b> : Paramètres › Extensions Chrome, avec le lien de l'extension sur le Chrome Web Store.</li>
+    <li>NeoDex peut devenir ton <b>navigateur par défaut</b> (Paramètres › Démarrage et fenêtre).</li>
+  </ul>
+
+  <h3 id="g-store">NeoStore</h3>
+  <p>Le magasin d'applis, dans NeoDex. Tout y est gratuit. Il a quatre rayons : <b>Applications</b>, <b>Jeux</b>, <b>Extensions</b> (ce qui agit sur les sites : bloqueur de pub, VPN) et <b>Thèmes et décors</b>.</p>
+  <ul>
+    <li><b>Installer</b> : un clic, et l'appli arrive sur ton accueil. Un thème ou un décor se met avec le bouton <b>Activer</b>.</li>
+    <li><b>Approuvé</b> veut dire que l'appli a été relue et signée : NeoDex refuse une archive modifiée. Une appli <b>non vérifiée</b> reste installable, mais NeoStore te prévient.</li>
+    <li><b>Les autorisations</b> : chaque appli dit ce qu'elle peut faire (ses données, Internet, tes fichiers…). Tu les vois et les retires dans MENU › AUTORISATIONS.</li>
+    <li><b>Mises à jour</b> : NeoStore les propose tout seul. Si une nouvelle version te déplaît, sa fiche propose <b>Revenir à</b> la version d'avant.</li>
+  </ul>
+
+  <h3 id="g-sync">La synchro</h3>
+  <p>Paramètres › Synchronisation entre appareils › <b>Créer un code de synchro</b>. Tape ce code sur tes autres PC et sur ton téléphone : ils partagent alors tes liens, notes, agenda, réglages et les données des applis qui voyagent (la progression des jeux, par exemple).</p>
+  <ul>
+    <li>Pas de compte, pas de mot de passe : le code suffit. <b>Garde-le pour toi</b>, c'est la clé de tes données.</li>
+    <li>Tout est chiffré sur ton appareil avant de partir. Le serveur de NeoDex ne garde que des fichiers chiffrés et l'empreinte de ton code : il ne peut rien lire.</li>
+    <li>Chaque appli dit sur sa fiche ce qu'elle synchronise : sa progression, une partie de ses données, ou rien.</li>
+    <li>Quand deux appareils ont changé la même chose, fgestion te montre les deux versions pour choisir.</li>
+  </ul>
+
+  <h3 id="g-amis">Les amis</h3>
+  <p>Avec une synchro, tu as un <b>code d'ami</b> (Paramètres › Amis, ou MENU › AMIS, ou le widget Amis de l'accueil).</p>
+  <ul>
+    <li>Donne ton code à un ami ; il l'entre dans « Ajouter un ami » et tu acceptes sa demande.</li>
+    <li>Pendant une partie à distance dans un jeu, le bouton <b>Inviter</b> envoie l'invitation à ton ami : s'il a NeoDex ouvert, il rejoint la partie d'un clic.</li>
+    <li>Relier ton Discord est facultatif : il garde le même code d'ami si tu changes de code de synchro.</li>
+  </ul>
+
+  <h3 id="g-tel">Le téléphone</h3>
+  <p>NeoDex existe en appli Android (le lien est en bas de la page d'accueil du site). Entre ton code de synchro : tu retrouves tes liens, ton agenda et tes applis. Les applis s'installent depuis NeoStore sur le téléphone aussi ; le rayon « À jouer d'un seul doigt » regroupe les jeux faits pour le toucher.</p>
+
+  <h3 id="g-barre">La barre des tâches</h3>
+  <p>NeoDex peut afficher sa propre barre des tâches par-dessus celle de Windows (MENU › BARRE DES TÂCHES) : tes programmes ouverts, tes applis épinglées, l'heure et les notifications, aux couleurs de ton thème. Elle prend exactement la place de la barre Windows, même sur un portable avec un zoom d'écran. Le MENU › AFFICHAGE règle aussi la barre latérale et la barre d'applis.</p>
+
+  <h3 id="g-secu">Mots de passe et sécurité</h3>
+  <ul>
+    <li>Le <b>Coffre-fort</b> garde tes mots de passe chiffrés, les remplit tout seul sur les sites, crée un mot de passe solide quand tu t'inscris et affiche tes codes de double authentification.</li>
+    <li>Il vérifie si un mot de passe a fuité : seuls 5 caractères de son empreinte partent, jamais le mot de passe.</li>
+    <li>MENU › SITES ET DONNÉES montre ce que chaque site garde (cookies, autorisations) et l'efface.</li>
+    <li>Le <b>Bloqueur de pub</b> et le <b>VPN</b> sont des extensions à installer depuis NeoStore.</li>
+  </ul>
+
+  <h3 id="g-donnees">Tes données</h3>
+  <ul>
+    <li>Elles sont sur ton PC, dans <code>%APPDATA%\NeoDex</code>, et sauvegardées toutes seules.</li>
+    <li><b>fgestion</b> (dans tes applis) montre la place prise sur le disque, libère de la place (cache des pages, données d'applis désinstallées) et garde l'historique des versions de tes données. Il peut en copier les sauvegardes dans un dossier ou sur une clé USB.</li>
+    <li>Paramètres › Données : exporter ou importer tout NeoDex, et cocher (ou non) le rapport anonyme quand une appli plante.</li>
+  </ul>
+
+  <h3 id="g-touches">Raccourcis</h3>
+  <table class="keys">
+    <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>Tout chercher, tout ouvrir (palette de commandes)</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>T</kbd> / <kbd>W</kbd></td><td>Nouvel onglet / fermer l'onglet</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Tab</kbd></td><td>Onglet suivant (avec <kbd>Maj</kbd> : précédent)</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>L</kbd></td><td>Aller dans la barre d'adresse</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>Chercher dans la page</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>H</kbd></td><td>Historique</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>S</kbd></td><td>Vue scindée</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>N</kbd></td><td>Onglet privé</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>B</kbd></td><td>Barre latérale</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>F</kbd></td><td>Fenêtre de recherche, même NeoDex caché</td></tr>
+    <tr><td><kbd>Échap</kbd></td><td>Fermer un menu ou une fenêtre</td></tr>
+  </table>
+  </div>
+
+  <div class="frame prose guide len">
+  <p><b>The one shortcut to remember: Ctrl + K.</b> Type what you are looking for (a site, an app, a setting, "passwords", "translate"…) then Enter. It works everywhere in NeoDex, even on a website. You can replay the guided tour any time: MENU › GUIDED TOUR.</p>
+
+  <h3 id="eg-accueil">Home</h3>
+  <p>This is the screen you get at launch. Your sites and apps are tiles, sorted into groups. Drag a tile to move it; right-click a tile to rename it, change its group or remove it.</p>
+  <ul>
+    <li><b>Add</b>: a site (its address), a NeoStore app or a program from your PC.</li>
+    <li><b>Arrange</b>: the order and size of each block (shortcuts, calendar, widgets), and which widgets to show, each in size S, M or L.</li>
+    <li><b>Widgets</b>: Pomodoro, quick note, countdown, weekly weather, friends, and the apps' own (NeoMusic shows the song playing).</li>
+    <li><b>Search</b>: just type on the home page, NeoDex looks in your shortcuts, your apps and on the web.</li>
+    <li><b>The scene</b> changes at every launch. Settings › Appearance picks the scene, its colour and the theme; more themes and scenes install from NeoStore.</li>
+  </ul>
+
+  <h3 id="eg-web">The browser</h3>
+  <p>A site opens in a tab, next to your apps. NeoDex uses Chrome's engine: sites work as usual.</p>
+  <ul>
+    <li><b>Split view</b> (Ctrl + Shift + S): two pages side by side.</li>
+    <li><b>Private tab</b> (Ctrl + Shift + N): nothing is kept once it is closed.</li>
+    <li><b>Translate the page</b>, <b>find in page</b> (Ctrl + F), history and downloads are in the MENU, BROWSE group.</li>
+    <li><b>Mini player</b>: a video keeps playing in a corner when you switch tabs.</li>
+    <li><b>Chrome extensions</b>: Settings › Chrome extensions, with the extension's link on the Chrome Web Store.</li>
+    <li>NeoDex can become your <b>default browser</b> (Settings › Startup and window).</li>
+  </ul>
+
+  <h3 id="eg-store">NeoStore</h3>
+  <p>The app store, inside NeoDex. Everything is free. It has four shelves: <b>Apps</b>, <b>Games</b>, <b>Extensions</b> (what acts on websites: ad blocker, VPN) and <b>Themes and scenes</b>.</p>
+  <ul>
+    <li><b>Install</b>: one click and the app shows up on your home page. A theme or a scene is put on with the <b>Activate</b> button.</li>
+    <li><b>Approved</b> means the app was reviewed and signed: NeoDex refuses a modified archive. An <b>unverified</b> app can still be installed, but NeoStore warns you.</li>
+    <li><b>Permissions</b>: each app says what it can do (its data, the Internet, your files…). See and remove them in MENU › PERMISSIONS.</li>
+    <li><b>Updates</b>: NeoStore offers them by itself. If you don't like a new version, its page offers <b>Go back to</b> the previous one.</li>
+  </ul>
+
+  <h3 id="eg-sync">Sync</h3>
+  <p>Settings › Sync between devices › <b>Create a sync code</b>. Type this code on your other PCs and on your phone: they then share your links, notes, calendar, settings and the data of the apps that travel (game progress, for example).</p>
+  <ul>
+    <li>No account, no password: the code is enough. <b>Keep it to yourself</b>, it is the key to your data.</li>
+    <li>Everything is encrypted on your device before it leaves. The NeoDex server only keeps encrypted files and a fingerprint of your code: it cannot read anything.</li>
+    <li>Each app says on its page what it syncs: its progress, part of its data, or nothing.</li>
+    <li>When two devices changed the same thing, fgestion shows you both versions so you can choose.</li>
+  </ul>
+
+  <h3 id="eg-amis">Friends</h3>
+  <p>With sync, you get a <b>friend code</b> (Settings › Friends, MENU › FRIENDS, or the Friends widget on the home page).</p>
+  <ul>
+    <li>Give your code to a friend; they enter it in "Add a friend" and you accept their request.</li>
+    <li>During a remote game, the <b>Invite</b> button sends the invitation to your friend: if NeoDex is open, they join the game in one click.</li>
+    <li>Linking your Discord is optional: it keeps the same friend code if you change sync code.</li>
+  </ul>
+
+  <h3 id="eg-tel">The phone</h3>
+  <p>NeoDex also comes as an Android app (the link is at the bottom of the site's home page). Enter your sync code: you get your links, your calendar and your apps back. Apps install from NeoStore on the phone too; the "One-finger games" shelf gathers the games made for touch.</p>
+
+  <h3 id="eg-barre">The taskbar</h3>
+  <p>NeoDex can show its own taskbar over the Windows one (MENU › TASKBAR): your open programs, pinned apps, the clock and notifications, in your theme's colours. It takes exactly the space of the Windows taskbar, even on a laptop with screen scaling. MENU › DISPLAY also sets the sidebar and the app bar.</p>
+
+  <h3 id="eg-secu">Passwords and security</h3>
+  <ul>
+    <li>The <b>Vault</b> keeps your passwords encrypted, fills them in on sites, creates a strong password when you sign up and shows your two-factor codes.</li>
+    <li>It checks whether a password has leaked: only 5 characters of its hash leave, never the password.</li>
+    <li>MENU › SITES AND DATA shows what each site keeps (cookies, permissions) and clears it.</li>
+    <li>The <b>Ad blocker</b> and the <b>VPN</b> are extensions to install from NeoStore.</li>
+  </ul>
+
+  <h3 id="eg-donnees">Your data</h3>
+  <ul>
+    <li>It is on your PC, in <code>%APPDATA%\NeoDex</code>, and backed up by itself.</li>
+    <li><b>fgestion</b> (in your apps) shows disk usage, frees up space (page cache, data of uninstalled apps) and keeps the version history of your data. It can copy the backups to a folder or a USB stick.</li>
+    <li>Settings › Data: export or import all of NeoDex, and tick (or not) the anonymous report when an app crashes.</li>
+  </ul>
+
+  <h3 id="eg-touches">Shortcuts</h3>
+  <table class="keys">
+    <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>Search and open anything (command palette)</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>T</kbd> / <kbd>W</kbd></td><td>New tab / close the tab</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Tab</kbd></td><td>Next tab (with <kbd>Shift</kbd>: previous)</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>L</kbd></td><td>Go to the address bar</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td><td>Find in page</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>H</kbd></td><td>History</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></td><td>Split view</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd></td><td>Private tab</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd></td><td>Sidebar</td></tr>
+    <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></td><td>Search window, even with NeoDex hidden</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Close a menu or a window</td></tr>
+  </table>
+  </div>
+</div></section>
+</div>
+
+<!-- ============ Guide de l'API des plugins ============ -->
+<div class="view" id="v-api">
+<section><div class="wrap">
+  <div class="head"><h2 data-t="apiTitle">GUIDE DE L'API</h2><small data-t="apiSub">POUR LES CREATEURS</small></div>
+  <nav class="frame toc lfr" aria-label="Sommaire de l'API"><a href="#a-base" data-jump="a-base">Un plugin</a> · <a href="#a-exemple" data-jump="a-exemple">Exemple complet</a> · <a href="#a-manifeste" data-jump="a-manifeste">plugin.json</a> · <a href="#a-ctx" data-jump="a-ctx">ctx</a> · <a href="#a-donnees" data-jump="a-donnees">Les données</a> · <a href="#a-widget" data-jump="a-widget">Le widget</a> · <a href="#a-room" data-jump="a-room">Parties à distance</a> · <a href="#a-perms" data-jump="a-perms">Autorisations</a> · <a href="#a-main" data-jump="a-main">Volet système</a> · <a href="#a-style" data-jump="a-style">Style</a> · <a href="#a-trad" data-jump="a-trad">Traduction</a> · <a href="#a-tel" data-jump="a-tel">Téléphone</a> · <a href="#a-themes" data-jump="a-themes">Thèmes</a> · <a href="#a-tester" data-jump="a-tester">Tester</a> · <a href="#a-publier" data-jump="a-publier">Publier</a> · <a href="#a-approbation" data-jump="a-approbation">Approbation</a> · <a href="#a-limites" data-jump="a-limites">Limites</a></nav>
+  <nav class="frame toc len" aria-label="API contents"><a href="#ea-base" data-jump="ea-base">A plugin</a> · <a href="#ea-exemple" data-jump="ea-exemple">Complete example</a> · <a href="#ea-manifeste" data-jump="ea-manifeste">plugin.json</a> · <a href="#ea-ctx" data-jump="ea-ctx">ctx</a> · <a href="#ea-donnees" data-jump="ea-donnees">Data</a> · <a href="#ea-widget" data-jump="ea-widget">The widget</a> · <a href="#ea-room" data-jump="ea-room">Remote games</a> · <a href="#ea-perms" data-jump="ea-perms">Permissions</a> · <a href="#ea-main" data-jump="ea-main">System side</a> · <a href="#ea-style" data-jump="ea-style">Style</a> · <a href="#ea-trad" data-jump="ea-trad">Translation</a> · <a href="#ea-tel" data-jump="ea-tel">Phone</a> · <a href="#ea-themes" data-jump="ea-themes">Themes</a> · <a href="#ea-tester" data-jump="ea-tester">Testing</a> · <a href="#ea-publier" data-jump="ea-publier">Publish</a> · <a href="#ea-approbation" data-jump="ea-approbation">Approval</a> · <a href="#ea-limites" data-jump="ea-limites">Limits</a></nav>
+
+  <div class="frame prose guide lfr">
+  <h3 id="a-base">Un plugin</h3>
+  <p>Chaque appli de NeoStore est un plugin : un dépôt GitHub public avec le sujet <code>neodex-plugin</code>. Il contient au minimum <code>plugin.json</code>, <code>index.js</code> et <code>icon.png</code>. NeoDex appelle la fonction exportée par <code>index.js</code> avec un contexte <code>ctx</code> ; le plugin n'a accès qu'à ce contexte.</p>
+<pre class="code"><code>export default async function (ctx) {
+  const box = ctx.el('div', 'card', 'Bonjour !');
+  ctx.view.append(box);
+  const notes = (await ctx.folder.read('notes')) || { liste: [] };
+  ctx.onOpen(() => box.focus?.());
+}</code></pre>
+  <p>Un plugin tourne dans un <b>bac à sable</b> (une iframe dans son propre processus) : il ne voit ni NeoDex, ni les autres plugins, ni le PC. Il reçoit quand même le style de NeoDex (polices, couleurs du thème, classes <code>btn</code>, <code>card</code>, <code>f</code>…). Ce que le bac à sable interdit passe par NeoDex, qui vérifie l'autorisation à chaque appel : un appel refusé échoue avec une erreur qui commence par <code>PERMISSION_DENIED</code>.</p>
+  <p>Les sortes de plugins (<code>type</code>) : <b>app</b> (une vue dans un onglet), <b>mod</b> (une extension signée qui modifie NeoDex, chargée au démarrage) et <b>theme</b> (seulement des thèmes, sans code).</p>
+
+  <h3 id="a-exemple">Un exemple complet : Mes notes</h3>
+  <p>Une petite appli de notes, avec son widget sur l'accueil, sa traduction et ses données synchronisées. Quatre fichiers à la racine du dépôt :</p>
+<pre class="code"><code>// plugin.json
+{
+  "id": "tonpseudo.notes", "name": "Mes notes", "version": "1.0.0",
+  "author": "TonPseudo", "description": "Des notes rapides, synchronisées.",
+  "icon": "icon.png", "entry": "index.js", "view": "mesnotes",
+  "type": "app", "category": "Outils", "sdk": "2.1.0", "neobase": "&gt;=4.2.0",
+  "compatibility": ["windows", "android", "linux"], "mobile": true,
+  "widget": true, "syncMode": "fusion",
+  "commands": [{ "id": "nouvelle", "title": "Nouvelle note" }],
+  "permissions": ["storage", "widget"]
+}</code></pre>
+<pre class="code"><code>// index.js
+export default async function (ctx) {
+  const t = ctx.t;                                         // l'anglais quand NeoDex est en anglais
+  const data = (await ctx.folder.read('notes')) || { liste: [] };
+  const champ = ctx.el('input', 'f'); champ.placeholder = t('Une idée…');
+  const ajouter = ctx.el('button', 'btn px', t('Ajouter'));
+  const liste = ctx.el('ul');
+  ctx.view.append(champ, ajouter, liste);
+
+  const enregistrer = async () =&gt; { await ctx.folder.write('notes', data); dessiner(); };
+  function dessiner() {
+    liste.replaceChildren(...data.liste.map(n =&gt; {
+      const li = ctx.el('li', '', n.texte), x = ctx.el('button', 'btn px', '×');
+      x.onclick = () =&gt; { data.liste = data.liste.filter(m =&gt; m.id !== n.id); enregistrer(); };
+      li.append(' ', x); return li;
+    }));
+    ctx.widget.set({ title: t('Mes notes'), lines: data.liste.slice(0, 4).map(n =&gt; n.texte),
+      actions: [{ label: t('Nouvelle note'), command: 'nouvelle' }] });   // la carte de l'accueil
+  }
+  ajouter.onclick = () =&gt; {
+    const texte = champ.value.trim(); if (!texte) return;
+    data.liste.unshift({ id: Date.now().toString(36), texte });          // un id : deux appareils qui ajoutent chacun une note gardent les deux
+    champ.value = ''; enregistrer();
+  };
+  ctx.commands.on('nouvelle', () =&gt; champ.focus());        // le bouton du widget et la palette Ctrl + K
+  dessiner();
+}</code></pre>
+<pre class="code"><code>// locales/en.json
+{ "Mes notes": "My notes", "Des notes rapides, synchronisées.": "Quick notes, synced.",
+  "Une idée…": "An idea…", "Ajouter": "Add", "Nouvelle note": "New note" }</code></pre>
+  <p>Plus <code>icon.png</code> (carrée, en pixel art si possible, 64 × 64 ou plus) et les deux README.</p>
+
+  <h3 id="a-manifeste">plugin.json</h3>
+<pre class="code"><code>{
+  "id": "tonpseudo.bonjour", "name": "Bonjour", "version": "1.0.0",
+  "author": "TonPseudo", "description": "Un plugin d'exemple.",
+  "icon": "icon.png", "entry": "index.js", "view": "bonjour",
+  "type": "app", "category": "Outils", "sdk": "2.1.0", "neobase": ">=4.2.0",
+  "compatibility": ["windows", "android", "linux"],
+  "permissions": ["storage"]
+}</code></pre>
+  <table class="api">
+    <tr><td><code>id</code></td><td>unique, en minuscules, style <code>auteur.nom</code> ; ne change jamais</td></tr>
+    <tr><td><code>version</code></td><td>semver ; monte-la à chaque Release</td></tr>
+    <tr><td><code>compatibility</code></td><td>obligatoire : <code>windows</code>, <code>android</code>, <code>linux</code></td></tr>
+    <tr><td><code>neodex</code></td><td>version de NeoDex demandée (<code>"&gt;=3.4.0"</code>) quand tu utilises une nouveauté</td></tr>
+    <tr><td><code>commands</code></td><td>ses commandes, dans la palette Ctrl + K : <code>[{ "id", "title", "keys", "global", "background" }]</code></td></tr>
+    <tr><td><code>opens</code> / <code>accepts</code></td><td>« ouvrir avec » (<code>[".pdf"]</code>) / ce qu'on peut lui partager (<code>["text", "url"]</code>)</td></tr>
+    <tr><td><code>widget</code></td><td><code>"widget.js"</code> : son widget dessiné par lui ; <code>true</code> : un widget en données dessiné par NeoDex</td></tr>
+    <tr><td><code>syncMode</code></td><td><code>"aucune"</code>, <code>"progression"</code> (défaut des jeux) ou <code>"fusion"</code> ; <code>syncInfo</code> l'explique sur la fiche</td></tr>
+    <tr><td><code>dependencies</code></td><td>autres plugins requis : <code>{ "neodex.autre": "&gt;=1.2.0" }</code></td></tr>
+    <tr><td><code>exposes</code> / <code>uses</code></td><td>partager ses données (<code>{ "storage": "read" }</code>) / lire celles d'un autre</td></tr>
+    <tr><td><code>main</code>, <code>autoload</code></td><td>son volet système Node, et le chargement au démarrage (signés seulement)</td></tr>
+  </table>
+
+  <h3 id="a-ctx">Ce que contient ctx</h3>
+  <table class="api">
+    <tr><td><code>ctx.id</code>, <code>ctx.version</code>, <code>ctx.view</code></td><td>son identité, et l'élément HTML à remplir</td></tr>
+    <tr><td><code>ctx.el(tag, classe, texte)</code></td><td>créer un élément</td></tr>
+    <tr><td><code>ctx.t(phrase, {variables})</code></td><td>la phrase en anglais quand NeoDex est en anglais (<code>locales/en.json</code>) ; le texte de la page est traduit tout seul</td></tr>
+    <tr><td><code>ctx.onOpen(f)</code>, <code>ctx.onClose(f)</code></td><td>à l'ouverture et à la fermeture de son onglet</td></tr>
+    <tr><td><code>ctx.ui.toast(msg)</code>, <code>ctx.ui.newTab(url)</code></td><td>un message éphémère, ouvrir un onglet</td></tr>
+    <tr><td><code>ctx.host</code></td><td>les outils de NeoDex : <code>confirm(msg)</code>, <code>box({title, text, buttons})</code>, <code>sfx</code>, <code>pixIcon</code>, <code>tabLabel(texte)</code>, <code>pref(nom)</code>, <code>hooks({audio, playing, onClose, onTabChange})</code></td></tr>
+    <tr><td><code>ctx.commands.on(id, f)</code></td><td>répondre à ses commandes (palette, raccourcis, boutons du widget)</td></tr>
+    <tr><td><code>ctx.net(url, opts)</code></td><td>Internet, seulement les domaines déclarés (<code>network:exemple.org</code>) ; 10 Mo au plus, <code>{binary: true}</code> pour un fichier (60 Mo)</td></tr>
+    <tr><td><code>ctx.permission(nom, raison)</code></td><td>demander une autorisation au moment d'en avoir besoin ; renvoie <code>true</code> ou <code>false</code></td></tr>
+    <tr><td><code>ctx.notifications.send({title, body, open})</code></td><td>une notification (autorisation <code>notifications</code>)</td></tr>
+    <tr><td><code>ctx.search.provide(f)</code></td><td>ses résultats dans la recherche de l'accueil (<code>search</code>)</td></tr>
+    <tr><td><code>ctx.background.every(min, f)</code></td><td>une tâche de fond, onglet fermé (<code>background</code>)</td></tr>
+    <tr><td><code>ctx.share(d)</code>, <code>ctx.onShare(f)</code>, <code>ctx.onFiles(f)</code></td><td>partager, recevoir un partage, recevoir les fichiers ouverts avec lui</td></tr>
+    <tr><td><code>ctx.focus({minutes, block})</code></td><td>le mode concentration (<code>focus</code>)</td></tr>
+    <tr><td><code>ctx.neo.&lt;fonction&gt;</code></td><td>les fonctions du PC, chacune derrière son autorisation (<code>documents</code>, <code>screen</code>, <code>music</code>, <code>system:info</code>…)</td></tr>
+  </table>
+
+  <h4>ctx.host en détail</h4>
+  <table class="api">
+    <tr><td><code>confirm(message)</code></td><td>la boîte de confirmation de NeoDex ; renvoie une promesse <code>true</code> ou <code>false</code></td></tr>
+    <tr><td><code>box({title, text, buttons, danger})</code></td><td>une boîte avec tes boutons ; renvoie le numéro du bouton choisi</td></tr>
+    <tr><td><code>toast(msg, erreur)</code>, <code>sfx(nom)</code></td><td>un message éphémère, un petit son de NeoDex</td></tr>
+    <tr><td><code>tabLabel(texte, titre)</code></td><td>le texte de ton onglet (des messages non lus, un minuteur…)</td></tr>
+    <tr><td><code>pref(nom)</code>, <code>settings()</code></td><td>un réglage de NeoDex, ou tous, en lecture seule</td></tr>
+    <tr><td><code>hooks({audio, mute, playing, onClose, onTabChange})</code></td><td>dire à NeoDex que ton plugin joue du son (haut-parleur sur l'onglet), et réagir quand l'onglet se ferme ou qu'on en change</td></tr>
+    <tr><td><code>win('focus' | 'fs')</code></td><td>mettre NeoDex au premier plan, ou en plein écran</td></tr>
+    <tr><td><code>pixIcon(lignes)</code>, <code>PIX</code></td><td>dessiner une icône pixel art, et les icônes de NeoDex</td></tr>
+    <tr><td><code>addStyle(css)</code></td><td>(accès complet) ajouter ton style à la page, retiré quand le plugin s'arrête</td></tr>
+    <tr><td><code>menuItem(nom, infobulle, f)</code></td><td>(accès complet) une entrée dans le MENU de NeoDex</td></tr>
+    <tr><td><code>agenda.sync(nom, [événements])</code></td><td>(autorisation <code>agenda</code>) remplace tes événements dans l'emploi du temps : <code>{ id, title, date: 'AAAA-MM-JJ', start, end, allDay, color, place }</code>, avec des <code>id</code> stables</td></tr>
+  </table>
+  <h4>Les commandes</h4>
+  <p>Chaque commande de <code>commands</code> apparaît dans la palette Ctrl + K et dans la recherche de l'accueil ; <code>ctx.commands.on(id, f)</code> y répond.</p>
+  <ul>
+    <li><code>"keys": "Ctrl+Alt+F"</code> : un raccourci clavier ; avec <code>"global": true</code> (autorisation <code>shortcuts</code>), il marche même NeoDex en arrière-plan.</li>
+    <li><code>"background": true</code> : la commande tourne sans ouvrir ton onglet (pratique pour les boutons du widget).</li>
+    <li><code>"page": "product"</code> (NeoDex 3.4.2) : un bouton dans la barre d'adresse sur les fiches produit ; <code>f</code> reçoit <code>{ url, title, meta }</code>. Jamais dans un onglet privé.</li>
+  </ul>
+
+  <h3 id="a-donnees">Les données</h3>
+  <p>Chaque plugin a son dossier de données. Ce que tu y écris est sauvegardé, gardé dans l'historique de fgestion et synchronisé entre les appareils de l'utilisateur, sans rien faire de plus (autorisation <code>storage</code>).</p>
+  <table class="api">
+    <tr><td><code>ctx.folder.read(nom)</code> / <code>.write(nom, json)</code> / <code>.remove(nom)</code> / <code>.list()</code></td><td>des documents JSON (8 Mo au plus chacun)</td></tr>
+    <tr><td><code>ctx.folder.readFile(nom)</code> / <code>.writeFile(nom, base64)</code></td><td>des fichiers : images, sons… (15 Mo au plus)</td></tr>
+    <tr><td><code>ctx.storage.get()</code> / <code>.set(d)</code></td><td>raccourci pour le document <code>storage</code></td></tr>
+    <tr><td><code>ctx.data.get(id)</code> / <code>.set(id, d)</code></td><td>les données qu'un autre plugin partage (<code>data:&lt;id&gt;:read</code> / <code>:write</code>)</td></tr>
+    <tr><td><code>ctx.backup.list()</code> / <code>.restore(nom)</code></td><td>les sauvegardes de son dossier</td></tr>
+  </table>
+  <p>Mets des listes d'objets avec un <code>id</code> : deux appareils qui ajoutent chacun une ligne gardent les deux. Pour des compteurs ou des caches, déclare <code>"sync": { "doc": { "auto": ["stats.*"], "union": ["historique"] } }</code>.</p>
+
+  <h4>Ce que fait la synchro</h4>
+  <p>Chaque document part dans la synchro de l'utilisateur, chiffré. Quand deux appareils ont changé le même champ, NeoDex garde les deux versions et l'utilisateur choisit dans fgestion. <code>syncMode</code> change ce comportement pour tout le plugin :</p>
+  <ul>
+    <li><code>"fusion"</code> (défaut des applis) : les ajouts et suppressions des deux côtés sont gardés ;</li>
+    <li><code>"progression"</code> (défaut des jeux) : le meilleur score ou l'appareil le plus récent gagne ;</li>
+    <li><code>"aucune"</code> : rien ne part (un réglage propre à un PC, par exemple).</li>
+  </ul>
+<pre class="code"><code>"sync": { "bibliotheque": { "auto": ["session", "stats.*"], "union": ["stats.historique"] } }</code></pre>
+  <p>Dans le document <code>bibliotheque</code> : <code>session</code> et chaque champ de <code>stats</code> prennent la valeur la plus récente sans rien demander ; <code>stats.historique</code>, une liste qui ne fait que grandir, garde l'union des deux appareils.</p>
+
+  <h3 id="a-widget">Le widget</h3>
+  <p>Avec <code>"widget": true</code>, <code>ctx.widget.set({ title, lines, bar, img, actions })</code> remplit une carte dessinée par NeoDex (4 lignes, 3 boutons qui lancent tes <code>commands</code>). Avec <code>"widget": "widget.js"</code>, ton widget dessine ce qu'il veut dans sa propre iframe :</p>
+<pre class="code"><code>// widget.js
+export default function (ctx) {
+  ctx.widget.onData(d =&gt; { document.body.textContent = d.titre; });
+  ctx.widget.onSize(s =&gt; { /* 's', 'm' ou 'l', choisi avec « Disposer » */ });
+  document.body.onclick = () =&gt; ctx.widget.command('lecture');
+}
+// index.js : ctx.widget.set({ data: { titre: 'Morceau en cours' } })</code></pre>
+
+  <h4>Le widget en données</h4>
+  <table class="api">
+    <tr><td><code>title</code>, <code>text</code></td><td>un titre et une phrase</td></tr>
+    <tr><td><code>lines: ['…', '…']</code></td><td>jusqu'à 4 lignes</td></tr>
+    <tr><td><code>bar: 0.6</code></td><td>une jauge de 0 à 1</td></tr>
+    <tr><td><code>img: 'data:image/png;base64,…'</code></td><td>une petite image (200 Ko au plus)</td></tr>
+    <tr><td><code>actions: [{ label, command }]</code></td><td>jusqu'à 3 boutons, chacun lance une de tes <code>commands</code></td></tr>
+  </table>
+  <p>Avec <code>widget.js</code>, <code>ctx.widget.set({ data })</code> envoie ce que tu veux (200 Ko au plus) ; les dernières données sont gardées, le widget les a même plugin fermé. L'utilisateur coupe, déplace et redimensionne ton widget avec « Disposer » : dessine-le pour les trois tailles.</p>
+
+  <h3 id="a-room">Les parties à distance</h3>
+  <p>Avec l'autorisation <code>rooms</code>, deux à huit joueurs jouent ensemble par un code de 6 lettres. Le serveur NeoDex relaie seulement les messages, entre les joueurs du même jeu (16 Ko par message). Pendant une partie, les amis de l'utilisateur peuvent être invités d'un clic.</p>
+<pre class="code"><code>const r = await ctx.room.create('Jean');      // { code, id, host, joueurs }
+// l'autre joueur : await ctx.room.join(code, 'Claire')
+ctx.room.on(m =&gt; { if (m.t === 'msg') jouer(m.from, m.data); });
+ctx.room.send({ coup: 'e4' });
+ctx.room.leave();</code></pre>
+
+  <h3 id="a-perms">Les autorisations</h3>
+  <p>Un plugin ne reçoit que ce qu'il déclare <b>et</b> que l'utilisateur accorde ; il peut tout retirer dans Autorisations. Demande le minimum : un plugin qui en réclame trop est refusé à l'examen.</p>
+  <table class="api perms">
+    <tr><td><code>storage</code><br><span class="risk faible">faible</span></td><td>Peut garder ses propres données (sauvegardées et synchronisées par NeoDex). Sans plafond pour un plugin signé, 1 Go pour un plugin non vérifié.</td></tr>
+    <tr><td><code>files</code><br><span class="risk faible">faible</span></td><td>Peut lire les fichiers livrés avec le plugin (images, sons…), et rien d'autre sur ton PC.</td></tr>
+    <tr><td><code>notifications</code><br><span class="risk faible">faible</span></td><td>Peut t'envoyer des notifications dans le centre de notifications de NeoDex.</td></tr>
+    <tr><td><code>focus</code><br><span class="risk faible">faible</span></td><td>Peut mettre les notifications en silence et bloquer les sites que tu as choisis pendant une séance de concentration (4 heures au plus).</td></tr>
+    <tr><td><code>network:&lt;domaine&gt;</code><br><span class="risk faible">faible</span></td><td>Peut contacter ce domaine, et aucun autre site.</td></tr>
+    <tr><td><code>network</code><br><span class="risk moyen">moyen</span></td><td>Peut contacter n'importe quel site Internet.</td></tr>
+    <tr><td><code>clipboard</code><br><span class="risk moyen">moyen</span></td><td>Peut lire et écrire ce que tu as copié.</td></tr>
+    <tr><td><code>data:&lt;plugin&gt;:read</code><br><span class="risk moyen">moyen</span></td><td>Peut lire les données que l'autre plugin partage.</td></tr>
+    <tr><td><code>data:&lt;plugin&gt;:write</code><br><span class="risk élevé">élevé</span></td><td>Peut modifier les données que l'autre plugin partage.</td></tr>
+    <tr><td><code>system:exec:&lt;programme&gt;</code><br><span class="risk élevé">élevé</span></td><td>Peut lancer le programme choisi sur ton PC. Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>documents</code><br><span class="risk élevé">élevé</span></td><td>Peut ouvrir et enregistrer des fichiers sur ton PC : ceux que tu choisis dans une fenêtre, ou ceux qu'il a déjà ouverts.</td></tr>
+    <tr><td><code>screen</code><br><span class="risk élevé">élevé</span></td><td>Peut prendre une capture de ton écran.</td></tr>
+    <tr><td><code>rooms</code><br><span class="risk faible">faible</span></td><td>Peut ouvrir une partie à plusieurs par un code, sur le serveur NeoDex : il n'échange que les messages du jeu avec les autres joueurs de la partie.</td></tr>
+    <tr><td><code>camera</code><br><span class="risk moyen">moyen</span></td><td>Peut ouvrir l'appareil photo pour lire un QR code : il reçoit seulement le texte lu, jamais l'image (téléphone).</td></tr>
+    <tr><td><code>music</code><br><span class="risk moyen">moyen</span></td><td>Peut lire et ajouter des morceaux dans ta bibliothèque de musique.</td></tr>
+    <tr><td><code>agenda</code><br><span class="risk faible">faible</span></td><td>Peut ajouter ses propres événements à l'emploi du temps de NeoDex.</td></tr>
+    <tr><td><code>taskbar</code><br><span class="risk faible">faible</span></td><td>Peut afficher un compagnon animé sur la barre des tâches.</td></tr>
+    <tr><td><code>widget</code><br><span class="risk faible">faible</span></td><td>Peut afficher un petit aperçu en direct sur ton accueil (tu peux le couper ou le déplacer avec « Disposer »).</td></tr>
+    <tr><td><code>background</code><br><span class="risk moyen">moyen</span></td><td>Peut tourner sans être ouvert, dès le démarrage de NeoDex.</td></tr>
+    <tr><td><code>search</code><br><span class="risk moyen">moyen</span></td><td>Voit ce que tu tapes dans la recherche de l'accueil, pour te proposer ses résultats.</td></tr>
+    <tr><td><code>shortcuts</code><br><span class="risk moyen">moyen</span></td><td>Peut réagir à ses raccourcis clavier même quand NeoDex n'est pas au premier plan.</td></tr>
+    <tr><td><code>system:info</code><br><span class="risk moyen">moyen</span></td><td>Peut voir le processeur, la mémoire et les programmes ouverts sur ton PC.</td></tr>
+    <tr><td><code>system:processes</code><br><span class="risk élevé">élevé</span></td><td>Peut forcer l'arrêt des programmes ouverts sur ton PC. Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>system:startup</code><br><span class="risk élevé">élevé</span></td><td>Peut choisir les programmes lancés au démarrage de Windows. Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>system:terminal</code><br><span class="risk élevé">élevé</span></td><td>Peut lancer des commandes dans un terminal de ton PC. Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>system:update</code><br><span class="risk élevé">élevé</span></td><td>Peut chercher et installer les mises à jour de NeoDex et de ses plugins. Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>system:main</code><br><span class="risk élevé">élevé</span></td><td>A un volet qui tourne sur ton PC, hors du bac à sable (Node et Electron). Très sensible : accordé seulement aux plugins signés.</td></tr>
+    <tr><td><code>full</code><br><span class="risk élevé">élevé</span></td><td>Peut tout faire dans NeoDex, comme une appli intégrée : lire tes onglets, tes réglages et les données des autres plugins.</td></tr>
+  </table>
+  <p>Un appel sans l'autorisation échoue avec <code>PERMISSION_DENIED</code> : attrape l'erreur et explique à l'utilisateur, ou demande l'autorisation avec <code>ctx.permission(nom, raison)</code> au moment où il en a besoin.</p>
+  <p>Une mise à jour qui demande plus d'autorisations attend l'accord de l'utilisateur ; d'ici là, l'ancienne version reste en place.</p>
+
+  <h3 id="a-main">Le volet système (main.js)</h3>
+  <p>Un plugin signé qui a besoin de Node met ce code dans <code>main.js</code> (champ <code>main</code>, autorisation <code>system:main</code>). La page l'appelle avec <code>ctx.neo.pluginMain(id, canal, …)</code> et reçoit ses événements avec <code>ctx.neo.onPluginMain(f)</code>.</p>
+<pre class="code"><code>module.exports = api =&gt; {
+  api.ipcMain.handle('mon:salut', async (_, nom) =&gt; 'Salut ' + nom);
+  api.emit('mon:evenement', { x: 1 });
+  return () =&gt; { /* tout débrancher quand le plugin s'arrête */ };
+};</code></pre>
+  <p>Les extensions du navigateur y trouvent aussi <code>api.webSessions(f)</code> (les sessions des sites : proxy, règles réseau) et <code>api.blocker({off, isAd})</code> (le filtre des pages).</p>
+
+  <h3 id="a-style">Le style</h3>
+  <p>Ton plugin reçoit le style de NeoDex et suit le thème choisi par l'utilisateur. Sers-toi de ses classes et de ses variables plutôt que de couleurs fixes :</p>
+  <table class="api">
+    <tr><td>classes</td><td><code>btn</code> (bouton), <code>px</code> (bord pixel), <code>main</code> (bouton principal), <code>del</code> (bouton qui supprime), <code>f</code> (champ), <code>card</code>, <code>label</code>, <code>hint</code> (texte discret), <code>tab</code></td></tr>
+    <tr><td>couleurs</td><td><code>--magenta</code> (accent), <code>--lilac</code>, <code>--shell</code> (texte), <code>--muted</code>, <code>--win</code> (fond des fenêtres), <code>--bg0</code>, <code>--line</code>, <code>--line2</code> ; <code>--pkr</code> donne l'accent en R, G, B : <code>rgba(var(--pkr), .3)</code></td></tr>
+    <tr><td>polices</td><td><code>--text</code> (le texte), <code>--title</code> (les titres)</td></tr>
+  </table>
+  <p>Ta vue est <code>#plug_&lt;id avec des _ à la place des points&gt;</code>. Pense à l'écran étroit (le téléphone, une fenêtre coupée en deux) et arrête les animations avec <code>@media (prefers-reduced-motion: reduce)</code>.</p>
+
+  <h3 id="a-trad">La traduction</h3>
+  <p>NeoDex est en français et en anglais ; un plugin officiel doit être traduit en entier. <code>locales/en.json</code> associe chaque phrase française à son anglais :</p>
+<pre class="code"><code>{ "Nouvelle partie": "New game", "Il reste {n} jours": "{n} days left" }</code></pre>
+  <ul>
+    <li>Le texte écrit dans la page (boutons, titres, paragraphes) est traduit tout seul.</li>
+    <li>Le texte construit en JavaScript ou dessiné dans un canvas passe par <code>ctx.t('Il reste {n} jours', { n: 3 })</code> : une seule entrée pour toute la phrase, la variable est mise après.</li>
+    <li>Le nom et la description de <code>plugin.json</code> se traduisent aussi dans <code>en.json</code>.</li>
+    <li><code>node tools/i18n.js missing &lt;dossier&gt;</code> (dans le SDK) liste ce qui manque.</li>
+  </ul>
+
+  <h3 id="a-tel">Le téléphone</h3>
+  <ul>
+    <li>Mets <code>"android"</code> dans <code>compatibility</code> et <code>"mobile": true</code> : ton plugin s'installe aussi dans l'appli Android. NeoDex refuse de l'installer sur un système qu'il n'annonce pas.</li>
+    <li>Sur téléphone, tout se fait au doigt : des boutons d'au moins 44 px, pas de survol, pas de raccourci clavier obligatoire. <code>matchMedia('(pointer: coarse)').matches</code> dit si l'écran est tactile.</li>
+    <li>La page fait toute la largeur de l'écran : teste vers 400 px de large.</li>
+    <li>Les données sont les mêmes que sur le PC (la synchro) : un jeu reprend où l'utilisateur s'était arrêté.</li>
+    <li>Un plugin qui a un volet système (<code>main</code>) ne marche pas sur Android.</li>
+  </ul>
+
+  <h3 id="a-themes">Les thèmes et décors</h3>
+  <p>Un plugin de <code>type</code> <code>theme</code> n'a pas de code : <code>"themes": [{ "id", "name", "hue", "sat", "accent", "light", "third", "style" }]</code> (12 au plus). Il peut apporter un fichier <code>css</code> (le décor, les cadres) et un <code>taskbar</code> (la barre des tâches). Ces fichiers sont nettoyés : rien n'est chargé d'Internet, les images et polices vont dedans en <code>data:</code>, 400 000 caractères au plus. Dans NeoStore, il se range dans Thèmes et décors et s'active d'un clic.</p>
+
+  <h3 id="a-tester">Tester ton plugin</h3>
+  <ol>
+    <li>Publie une première Release (même en <code>0.1.0</code>) : ton plugin apparaît dans NeoStore, rayon « À découvrir », marqué « non vérifié ». C'est normal tant qu'il n'est pas approuvé.</li>
+    <li>Installe-le depuis NeoStore. Pour chaque changement, monte la version, publie une nouvelle Release et mets-le à jour depuis sa fiche.</li>
+    <li>Vérifie qu'il s'ouvre, se ferme, se rouvre avec ses données, et se désinstalle sans erreur.</li>
+    <li>Passe NeoDex en anglais (Paramètres › Apparence › Langue) : tout doit être traduit.</li>
+    <li>Réduis la fenêtre (vers 420 px de large) et, s'il annonce <code>android</code>, essaie-le dans l'appli Android.</li>
+    <li>Coupe une autorisation dans MENU › AUTORISATIONS : ton plugin doit le dire proprement, sans planter.</li>
+  </ol>
+  <p>Pour voir les erreurs, entoure les appels qui peuvent échouer (<code>ctx.net</code>, <code>ctx.folder</code>…) d'un <code>try { … } catch (e) { ctx.ui.toast(e.message, true); }</code>. Dans le SDK, <code>node tools/sheet-check.js &lt;dossier&gt;</code> vérifie que ta fiche dit vrai : les touches de la section « Commandes » du README sont lues par le code, le nombre de niveaux annoncé est le bon, et <code>syncMode</code> correspond à ce que le plugin garde.</p>
+
+  <h3 id="a-publier">Publier</h3>
+  <ol>
+    <li>Monte <code>version</code> dans <code>plugin.json</code>.</li>
+    <li>Traduis tout le texte dans <code>locales/en.json</code> ; écris <code>README.md</code> et <code>README.en.md</code>.</li>
+    <li>Crée l'archive <code>&lt;id&gt;-&lt;version&gt;.zip</code> (plugin.json et index.js à la racine) et publie une Release GitHub <code>v1.0.0</code> avec elle.</li>
+    <li>Pour le catalogue officiel, fais approuver ton plugin : il reçoit une attestation signée (ed25519). Sans elle, il reste installable mais « non vérifié ».</li>
+  </ol>
+  <p>Ajoute un <code>preview.gif</code> à la racine du dépôt : NeoStore le montre en haut de la fiche de ton plugin.</p>
+  <h3 id="a-approbation">L'approbation</h3>
+  <p>Un plugin <b>approuvé</b> s'installe sans avertissement, porte « ✓ approuvé » dans NeoStore et peut demander l'accès complet. Pour le demander :</p>
+  <ol>
+    <li>Publie ton plugin (dépôt public, sujet <code>neodex-plugin</code>, Release avec l'archive).</li>
+    <li>Ouvre une <i>issue</i> « Proposer un plugin » dans le <a href="https://github.com/NDesumeur/neodex-store-catalog">dépôt du catalogue</a>, avec le lien de ton dépôt et la raison de chaque autorisation.</li>
+    <li>Suis les étiquettes de l'issue : <code>reçue</code>, <code>en cours d'examen</code>, puis <code>approuvée</code> ou <code>refusée</code> (avec la raison).</li>
+  </ol>
+  <table class="api">
+    <tr><td>Code</td><td>rien de caché ni d'obscurci, pas de code chargé depuis Internet, pas de données envoyées à un tiers sans que l'utilisateur le sache</td></tr>
+    <tr><td>Autorisations</td><td>le minimum, chacune justifiée ; <code>full</code> seulement s'il n'y a pas d'autre moyen</td></tr>
+    <tr><td>Données</td><td>rangées dans <code>ctx.folder</code>, rien d'écrit ailleurs</td></tr>
+    <tr><td>Dépendances</td><td>déclarées dans <code>dependencies</code>, elles aussi approuvées</td></tr>
+    <tr><td>Contenu</td><td>tu as les droits des images, textes et polices ; licences jointes</td></tr>
+    <tr><td>Comportement</td><td>s'installe, s'ouvre, se ferme et se désinstalle sans erreur, sans ralentir NeoDex</td></tr>
+    <tr><td>Fiche</td><td><code>compatibility</code> déclaré, anglais complet, <code>README.md</code> et <code>README.en.md</code>, <code>sheet-check</code> qui passe</td></tr>
+  </table>
+  <p>L'attestation ne vaut que pour une version : chaque nouvelle version est examinée de nouveau (plus vite si peu de fichiers ont changé). En cas de problème de sécurité, un plugin peut être retiré du catalogue : NeoDex le refuse alors, même signé.</p>
+
+  <h3 id="a-limites">Les limites</h3>
+  <table class="api">
+    <tr><td>document</td><td>8 Mo</td></tr>
+    <tr><td>fichier du dossier</td><td>15 Mo</td></tr>
+    <tr><td>dossier d'un plugin non vérifié</td><td>1 Go</td></tr>
+    <tr><td>nom de document ou de fichier</td><td>80 caractères</td></tr>
+    <tr><td>ctx.net</td><td>10 Mo (60 Mo avec binary)</td></tr>
+    <tr><td>données du widget, image du widget</td><td>200 Ko</td></tr>
+    <tr><td>widget en données</td><td>4 lignes, 3 boutons</td></tr>
+    <tr><td>partie à distance</td><td>8 joueurs, 16 Ko par message</td></tr>
+    <tr><td>résultats de recherche</td><td>8</td></tr>
+    <tr><td>mode concentration</td><td>4 heures</td></tr>
+    <tr><td>thèmes par plugin</td><td>12</td></tr>
+    <tr><td>CSS d'un thème</td><td>400 000 caractères</td></tr>
+    <tr><td>syncInfo</td><td>300 caractères</td></tr>
+  </table>
+
+  </div>
+
+  <div class="frame prose guide len">
+  <h3 id="ea-base">A plugin</h3>
+  <p>Every NeoStore app is a plugin: a public GitHub repository with the <code>neodex-plugin</code> topic. It holds at least <code>plugin.json</code>, <code>index.js</code> and <code>icon.png</code>. NeoDex calls the function exported by <code>index.js</code> with a context <code>ctx</code>; the plugin can only reach this context.</p>
+<pre class="code"><code>export default async function (ctx) {
+  const box = ctx.el('div', 'card', 'Hello!');
+  ctx.view.append(box);
+  const notes = (await ctx.folder.read('notes')) || { list: [] };
+  ctx.onOpen(() => box.focus?.());
+}</code></pre>
+  <p>A plugin runs in a <b>sandbox</b> (an iframe in its own process): it sees neither NeoDex, nor the other plugins, nor the PC. It still gets NeoDex's style (fonts, theme colours, the <code>btn</code>, <code>card</code>, <code>f</code> classes…). What the sandbox forbids goes through NeoDex, which checks the permission on every call: a refused call fails with an error starting with <code>PERMISSION_DENIED</code>.</p>
+  <p>Kinds of plugins (<code>type</code>): <b>app</b> (a view in a tab), <b>mod</b> (a signed extension that changes NeoDex, loaded at startup) and <b>theme</b> (themes only, no code).</p>
+
+  <h3 id="ea-exemple">A complete example: My notes</h3>
+  <p>A small notes app, with its home page widget, its translation and its synced data. Four files at the root of the repository:</p>
+<pre class="code"><code>// plugin.json
+{
+  "id": "tonpseudo.notes", "name": "Mes notes", "version": "1.0.0",
+  "author": "TonPseudo", "description": "Des notes rapides, synchronisées.",
+  "icon": "icon.png", "entry": "index.js", "view": "mesnotes",
+  "type": "app", "category": "Outils", "sdk": "2.1.0", "neobase": "&gt;=4.2.0",
+  "compatibility": ["windows", "android", "linux"], "mobile": true,
+  "widget": true, "syncMode": "fusion",
+  "commands": [{ "id": "nouvelle", "title": "Nouvelle note" }],
+  "permissions": ["storage", "widget"]
+}</code></pre>
+<pre class="code"><code>// index.js
+export default async function (ctx) {
+  const t = ctx.t;                                         // English when NeoDex is in English
+  const data = (await ctx.folder.read('notes')) || { liste: [] };
+  const champ = ctx.el('input', 'f'); champ.placeholder = t('Une idée…');
+  const ajouter = ctx.el('button', 'btn px', t('Ajouter'));
+  const liste = ctx.el('ul');
+  ctx.view.append(champ, ajouter, liste);
+
+  const enregistrer = async () =&gt; { await ctx.folder.write('notes', data); dessiner(); };
+  function dessiner() {
+    liste.replaceChildren(...data.liste.map(n =&gt; {
+      const li = ctx.el('li', '', n.texte), x = ctx.el('button', 'btn px', '×');
+      x.onclick = () =&gt; { data.liste = data.liste.filter(m =&gt; m.id !== n.id); enregistrer(); };
+      li.append(' ', x); return li;
+    }));
+    ctx.widget.set({ title: t('Mes notes'), lines: data.liste.slice(0, 4).map(n =&gt; n.texte),
+      actions: [{ label: t('Nouvelle note'), command: 'nouvelle' }] });   // the home page card
+  }
+  ajouter.onclick = () =&gt; {
+    const texte = champ.value.trim(); if (!texte) return;
+    data.liste.unshift({ id: Date.now().toString(36), texte });          // an id: two devices that each add a note keep both
+    champ.value = ''; enregistrer();
+  };
+  ctx.commands.on('nouvelle', () =&gt; champ.focus());        // the widget button and the Ctrl + K palette
+  dessiner();
+}</code></pre>
+<pre class="code"><code>// locales/en.json
+{ "Mes notes": "My notes", "Des notes rapides, synchronisées.": "Quick notes, synced.",
+  "Une idée…": "An idea…", "Ajouter": "Add", "Nouvelle note": "New note" }</code></pre>
+  <p>Plus <code>icon.png</code> (square, pixel art if you can, 64 × 64 or more) and the two READMEs.</p>
+
+  <h3 id="ea-manifeste">plugin.json</h3>
+<pre class="code"><code>{
+  "id": "yourname.hello", "name": "Hello", "version": "1.0.0",
+  "author": "YourName", "description": "An example plugin.",
+  "icon": "icon.png", "entry": "index.js", "view": "hello",
+  "type": "app", "category": "Outils", "sdk": "2.1.0", "neobase": ">=4.2.0",
+  "compatibility": ["windows", "android", "linux"],
+  "permissions": ["storage"]
+}</code></pre>
+  <table class="api">
+    <tr><td><code>id</code></td><td>unique, lowercase, <code>author.name</code> style; never changes</td></tr>
+    <tr><td><code>version</code></td><td>semver; raise it for every Release</td></tr>
+    <tr><td><code>compatibility</code></td><td>required: <code>windows</code>, <code>android</code>, <code>linux</code></td></tr>
+    <tr><td><code>neodex</code></td><td>required NeoDex version (<code>"&gt;=3.4.0"</code>) when you use something new</td></tr>
+    <tr><td><code>commands</code></td><td>its commands, in the Ctrl + K palette: <code>[{ "id", "title", "keys", "global", "background" }]</code></td></tr>
+    <tr><td><code>opens</code> / <code>accepts</code></td><td>"open with" (<code>[".pdf"]</code>) / what can be shared to it (<code>["text", "url"]</code>)</td></tr>
+    <tr><td><code>widget</code></td><td><code>"widget.js"</code>: its own drawn widget; <code>true</code>: a data widget drawn by NeoDex</td></tr>
+    <tr><td><code>syncMode</code></td><td><code>"aucune"</code> (none), <code>"progression"</code> (games' default) or <code>"fusion"</code> (merge); <code>syncInfo</code> explains it on the page</td></tr>
+    <tr><td><code>dependencies</code></td><td>other required plugins: <code>{ "neodex.other": "&gt;=1.2.0" }</code></td></tr>
+    <tr><td><code>exposes</code> / <code>uses</code></td><td>share its data (<code>{ "storage": "read" }</code>) / read another's</td></tr>
+    <tr><td><code>main</code>, <code>autoload</code></td><td>its Node system side, and loading at startup (signed only)</td></tr>
+  </table>
+
+  <h3 id="ea-ctx">What ctx holds</h3>
+  <table class="api">
+    <tr><td><code>ctx.id</code>, <code>ctx.version</code>, <code>ctx.view</code></td><td>its identity, and the HTML element to fill</td></tr>
+    <tr><td><code>ctx.el(tag, class, text)</code></td><td>create an element</td></tr>
+    <tr><td><code>ctx.t(phrase, {variables})</code></td><td>the English phrase when NeoDex is in English (<code>locales/en.json</code>); text in the page is translated by itself</td></tr>
+    <tr><td><code>ctx.onOpen(f)</code>, <code>ctx.onClose(f)</code></td><td>when its tab opens and closes</td></tr>
+    <tr><td><code>ctx.ui.toast(msg)</code>, <code>ctx.ui.newTab(url)</code></td><td>a short message, open a tab</td></tr>
+    <tr><td><code>ctx.host</code></td><td>NeoDex's tools: <code>confirm(msg)</code>, <code>box({title, text, buttons})</code>, <code>sfx</code>, <code>pixIcon</code>, <code>tabLabel(text)</code>, <code>pref(name)</code>, <code>hooks({audio, playing, onClose, onTabChange})</code></td></tr>
+    <tr><td><code>ctx.commands.on(id, f)</code></td><td>answer its commands (palette, shortcuts, widget buttons)</td></tr>
+    <tr><td><code>ctx.net(url, opts)</code></td><td>the Internet, only declared domains (<code>network:example.org</code>); 10 MB max, <code>{binary: true}</code> for a file (60 MB)</td></tr>
+    <tr><td><code>ctx.permission(name, reason)</code></td><td>ask for a permission when you need it; returns <code>true</code> or <code>false</code></td></tr>
+    <tr><td><code>ctx.notifications.send({title, body, open})</code></td><td>a notification (<code>notifications</code> permission)</td></tr>
+    <tr><td><code>ctx.search.provide(f)</code></td><td>its results in the home page search (<code>search</code>)</td></tr>
+    <tr><td><code>ctx.background.every(min, f)</code></td><td>a background task, tab closed (<code>background</code>)</td></tr>
+    <tr><td><code>ctx.share(d)</code>, <code>ctx.onShare(f)</code>, <code>ctx.onFiles(f)</code></td><td>share, receive a share, receive the files opened with it</td></tr>
+    <tr><td><code>ctx.focus({minutes, block})</code></td><td>focus mode (<code>focus</code>)</td></tr>
+    <tr><td><code>ctx.neo.&lt;function&gt;</code></td><td>PC functions, each behind its permission (<code>documents</code>, <code>screen</code>, <code>music</code>, <code>system:info</code>…)</td></tr>
+  </table>
+
+  <h4>ctx.host in detail</h4>
+  <table class="api">
+    <tr><td><code>confirm(message)</code></td><td>NeoDex's confirmation box; returns a promise of <code>true</code> or <code>false</code></td></tr>
+    <tr><td><code>box({title, text, buttons, danger})</code></td><td>a box with your buttons; returns the number of the chosen button</td></tr>
+    <tr><td><code>toast(msg, error)</code>, <code>sfx(name)</code></td><td>a short message, a little NeoDex sound</td></tr>
+    <tr><td><code>tabLabel(text, title)</code></td><td>the text of your tab (unread messages, a timer…)</td></tr>
+    <tr><td><code>pref(name)</code>, <code>settings()</code></td><td>one NeoDex setting, or all of them, read only</td></tr>
+    <tr><td><code>hooks({audio, mute, playing, onClose, onTabChange})</code></td><td>tell NeoDex your plugin plays sound (speaker on the tab), and react when the tab closes or the user switches tabs</td></tr>
+    <tr><td><code>win('focus' | 'fs')</code></td><td>bring NeoDex to the front, or full screen</td></tr>
+    <tr><td><code>pixIcon(rows)</code>, <code>PIX</code></td><td>draw a pixel art icon, and NeoDex's icons</td></tr>
+    <tr><td><code>addStyle(css)</code></td><td>(full access) add your style to the page, removed when the plugin stops</td></tr>
+    <tr><td><code>menuItem(name, tooltip, f)</code></td><td>(full access) an entry in NeoDex's MENU</td></tr>
+    <tr><td><code>agenda.sync(name, [events])</code></td><td>(<code>agenda</code> permission) replaces your events in the calendar: <code>{ id, title, date: 'YYYY-MM-DD', start, end, allDay, color, place }</code>, with stable <code>id</code>s</td></tr>
+  </table>
+  <h4>Commands</h4>
+  <p>Each command in <code>commands</code> shows up in the Ctrl + K palette and in the home page search; <code>ctx.commands.on(id, f)</code> answers it.</p>
+  <ul>
+    <li><code>"keys": "Ctrl+Alt+F"</code>: a keyboard shortcut; with <code>"global": true</code> (<code>shortcuts</code> permission), it works even with NeoDex in the background.</li>
+    <li><code>"background": true</code>: the command runs without opening your tab (handy for widget buttons).</li>
+    <li><code>"page": "product"</code> (NeoDex 3.4.2): a button in the address bar on product pages; <code>f</code> receives <code>{ url, title, meta }</code>. Never in a private tab.</li>
+  </ul>
+
+  <h3 id="ea-donnees">Data</h3>
+  <p>Each plugin has its data folder. What you write there is backed up, kept in fgestion's history and synced between the user's devices, with nothing more to do (<code>storage</code> permission).</p>
+  <table class="api">
+    <tr><td><code>ctx.folder.read(name)</code> / <code>.write(name, json)</code> / <code>.remove(name)</code> / <code>.list()</code></td><td>JSON documents (8 MB max each)</td></tr>
+    <tr><td><code>ctx.folder.readFile(name)</code> / <code>.writeFile(name, base64)</code></td><td>files: images, sounds… (15 MB max)</td></tr>
+    <tr><td><code>ctx.storage.get()</code> / <code>.set(d)</code></td><td>shortcut for the <code>storage</code> document</td></tr>
+    <tr><td><code>ctx.data.get(id)</code> / <code>.set(id, d)</code></td><td>data another plugin shares (<code>data:&lt;id&gt;:read</code> / <code>:write</code>)</td></tr>
+    <tr><td><code>ctx.backup.list()</code> / <code>.restore(name)</code></td><td>the backups of its folder</td></tr>
+  </table>
+  <p>Use lists of objects with an <code>id</code>: two devices that each add a line keep both. For counters or caches, declare <code>"sync": { "doc": { "auto": ["stats.*"], "union": ["history"] } }</code>.</p>
+
+  <h4>What sync does</h4>
+  <p>Each document goes into the user's sync, encrypted. When two devices changed the same field, NeoDex keeps both versions and the user chooses in fgestion. <code>syncMode</code> changes this for the whole plugin:</p>
+  <ul>
+    <li><code>"fusion"</code> (apps' default): additions and deletions from both sides are kept;</li>
+    <li><code>"progression"</code> (games' default): the best score or the most recent device wins;</li>
+    <li><code>"aucune"</code>: nothing leaves (a setting that belongs to one PC, for example).</li>
+  </ul>
+<pre class="code"><code>"sync": { "library": { "auto": ["session", "stats.*"], "union": ["stats.history"] } }</code></pre>
+  <p>In the <code>library</code> document: <code>session</code> and each field of <code>stats</code> take the most recent value without asking; <code>stats.history</code>, a list that only grows, keeps the union of both devices.</p>
+
+  <h3 id="ea-widget">The widget</h3>
+  <p>With <code>"widget": true</code>, <code>ctx.widget.set({ title, lines, bar, img, actions })</code> fills a card drawn by NeoDex (4 lines, 3 buttons that run your <code>commands</code>). With <code>"widget": "widget.js"</code>, your widget draws whatever it wants in its own iframe:</p>
+<pre class="code"><code>// widget.js
+export default function (ctx) {
+  ctx.widget.onData(d =&gt; { document.body.textContent = d.title; });
+  ctx.widget.onSize(s =&gt; { /* 's', 'm' or 'l', picked with "Arrange" */ });
+  document.body.onclick = () =&gt; ctx.widget.command('play');
+}
+// index.js: ctx.widget.set({ data: { title: 'Now playing' } })</code></pre>
+
+  <h4>The data widget</h4>
+  <table class="api">
+    <tr><td><code>title</code>, <code>text</code></td><td>a title and a sentence</td></tr>
+    <tr><td><code>lines: ['…', '…']</code></td><td>up to 4 lines</td></tr>
+    <tr><td><code>bar: 0.6</code></td><td>a gauge from 0 to 1</td></tr>
+    <tr><td><code>img: 'data:image/png;base64,…'</code></td><td>a small picture (200 KB max)</td></tr>
+    <tr><td><code>actions: [{ label, command }]</code></td><td>up to 3 buttons, each runs one of your <code>commands</code></td></tr>
+  </table>
+  <p>With <code>widget.js</code>, <code>ctx.widget.set({ data })</code> sends whatever you want (200 KB max); the latest data is kept, the widget has it even with the plugin closed. The user turns off, moves and resizes your widget with "Arrange": draw it for all three sizes.</p>
+
+  <h3 id="ea-room">Remote games</h3>
+  <p>With the <code>rooms</code> permission, two to eight players play together with a 6-letter code. The NeoDex server only relays messages, between players of the same game (16 KB per message). During a game, the user's friends can be invited in one click.</p>
+<pre class="code"><code>const r = await ctx.room.create('Jean');      // { code, id, host, joueurs }
+// the other player: await ctx.room.join(code, 'Claire')
+ctx.room.on(m =&gt; { if (m.t === 'msg') play(m.from, m.data); });
+ctx.room.send({ move: 'e4' });
+ctx.room.leave();</code></pre>
+
+  <h3 id="ea-perms">Permissions</h3>
+  <p>A plugin only gets what it declares <b>and</b> the user grants; the user can remove anything in Permissions. Ask for the minimum: a plugin that asks for too much is refused at review.</p>
+  <table class="api perms">
+    <tr><td><code>storage</code><br><span class="risk faible">low</span></td><td>Can keep its own data (backed up and synced by NeoDex). No cap for a signed plugin, 1 GB for an unverified one.</td></tr>
+    <tr><td><code>files</code><br><span class="risk faible">low</span></td><td>Can read the files shipped with the plugin (images, sounds…), and nothing else on your PC.</td></tr>
+    <tr><td><code>notifications</code><br><span class="risk faible">low</span></td><td>Can send you notifications in NeoDex's notification centre.</td></tr>
+    <tr><td><code>focus</code><br><span class="risk faible">low</span></td><td>Can silence notifications and block the sites you chose during a focus session (4 hours max).</td></tr>
+    <tr><td><code>network:&lt;domaine&gt;</code><br><span class="risk faible">low</span></td><td>Can reach that domain, and no other site. <code>*.example.org</code> also covers its subdomains.</td></tr>
+    <tr><td><code>network</code><br><span class="risk moyen">medium</span></td><td>Can reach any website.</td></tr>
+    <tr><td><code>clipboard</code><br><span class="risk moyen">medium</span></td><td>Can read and write what you copied.</td></tr>
+    <tr><td><code>data:&lt;plugin&gt;:read</code><br><span class="risk moyen">medium</span></td><td>Can read the data the other plugin shares.</td></tr>
+    <tr><td><code>data:&lt;plugin&gt;:write</code><br><span class="risk élevé">high</span></td><td>Can change the data the other plugin shares.</td></tr>
+    <tr><td><code>system:exec:&lt;programme&gt;</code><br><span class="risk élevé">high</span></td><td>Can launch the program chosen on your PC (from the registry's allow list). Signed plugins only, always asked.</td></tr>
+    <tr><td><code>documents</code><br><span class="risk élevé">high</span></td><td>Can open and save files on your PC: the ones you pick in a window, or the ones it already opened.</td></tr>
+    <tr><td><code>screen</code><br><span class="risk élevé">high</span></td><td>Can take a screenshot of your screen.</td></tr>
+    <tr><td><code>rooms</code><br><span class="risk faible">low</span></td><td>Can open a multiplayer game with a code, on the NeoDex server: it only exchanges game messages with the other players.</td></tr>
+    <tr><td><code>camera</code><br><span class="risk moyen">medium</span></td><td>Can open the camera to read a QR code: it only gets the text read, never the picture (phone).</td></tr>
+    <tr><td><code>music</code><br><span class="risk moyen">medium</span></td><td>Can read and add songs in your music library.</td></tr>
+    <tr><td><code>agenda</code><br><span class="risk faible">low</span></td><td>Can add its own events to NeoDex's calendar.</td></tr>
+    <tr><td><code>taskbar</code><br><span class="risk faible">low</span></td><td>Can show an animated companion on the taskbar.</td></tr>
+    <tr><td><code>widget</code><br><span class="risk faible">low</span></td><td>Can show a small live preview on your home page (you can turn it off or move it with "Arrange").</td></tr>
+    <tr><td><code>background</code><br><span class="risk moyen">medium</span></td><td>Can run without being open, from NeoDex's startup.</td></tr>
+    <tr><td><code>search</code><br><span class="risk moyen">medium</span></td><td>Sees what you type in the home page search, to offer its results.</td></tr>
+    <tr><td><code>shortcuts</code><br><span class="risk moyen">medium</span></td><td>Can react to its keyboard shortcuts even when NeoDex is not in front.</td></tr>
+    <tr><td><code>system:info</code><br><span class="risk moyen">medium</span></td><td>Can see the processor, memory and open programs on your PC.</td></tr>
+    <tr><td><code>system:processes</code><br><span class="risk élevé">high</span></td><td>Can force open programs on your PC to close. Signed plugins only.</td></tr>
+    <tr><td><code>system:startup</code><br><span class="risk élevé">high</span></td><td>Can choose the programs launched when Windows starts. Signed plugins only.</td></tr>
+    <tr><td><code>system:terminal</code><br><span class="risk élevé">high</span></td><td>Can run commands in a terminal on your PC. Signed plugins only.</td></tr>
+    <tr><td><code>system:update</code><br><span class="risk élevé">high</span></td><td>Can look for and install NeoDex and plugin updates. Signed plugins only.</td></tr>
+    <tr><td><code>system:main</code><br><span class="risk élevé">high</span></td><td>Has a part that runs on your PC, outside the sandbox (Node and Electron). Signed plugins only.</td></tr>
+    <tr><td><code>full</code><br><span class="risk élevé">high</span></td><td>Can do anything in NeoDex, like a built-in app: read your tabs, your settings and other plugins' data. Signed plugins only, asked at first opening with a warning.</td></tr>
+  </table>
+  <p>A call without the permission fails with <code>PERMISSION_DENIED</code>: catch the error and explain it to the user, or ask with <code>ctx.permission(name, reason)</code> when they need it.</p>
+  <p>An update that asks for more permissions waits for the user's approval; until then, the old version stays.</p>
+
+  <h3 id="ea-main">The system side (main.js)</h3>
+  <p>A signed plugin that needs Node puts that code in <code>main.js</code> (<code>main</code> field, <code>system:main</code> permission). The page calls it with <code>ctx.neo.pluginMain(id, channel, …)</code> and gets its events with <code>ctx.neo.onPluginMain(f)</code>.</p>
+<pre class="code"><code>module.exports = api =&gt; {
+  api.ipcMain.handle('my:hello', async (_, name) =&gt; 'Hello ' + name);
+  api.emit('my:event', { x: 1 });
+  return () =&gt; { /* unplug everything when the plugin stops */ };
+};</code></pre>
+  <p>Browser extensions also get <code>api.webSessions(f)</code> (the sites' sessions: proxy, network rules) and <code>api.blocker({off, isAd})</code> (the page filter).</p>
+
+  <h3 id="ea-style">Style</h3>
+  <p>Your plugin gets NeoDex's style and follows the theme the user picked. Use its classes and variables rather than fixed colours:</p>
+  <table class="api">
+    <tr><td>classes</td><td><code>btn</code> (button), <code>px</code> (pixel border), <code>main</code> (main button), <code>del</code> (delete button), <code>f</code> (field), <code>card</code>, <code>label</code>, <code>hint</code> (quiet text), <code>tab</code></td></tr>
+    <tr><td>colours</td><td><code>--magenta</code> (accent), <code>--lilac</code>, <code>--shell</code> (text), <code>--muted</code>, <code>--win</code> (window background), <code>--bg0</code>, <code>--line</code>, <code>--line2</code>; <code>--pkr</code> gives the accent as R, G, B: <code>rgba(var(--pkr), .3)</code></td></tr>
+    <tr><td>fonts</td><td><code>--text</code> (text), <code>--title</code> (titles)</td></tr>
+  </table>
+  <p>Your view is <code>#plug_&lt;id with _ instead of dots&gt;</code>. Think of narrow screens (the phone, a split window) and stop animations with <code>@media (prefers-reduced-motion: reduce)</code>.</p>
+
+  <h3 id="ea-trad">Translation</h3>
+  <p>NeoDex is in French and English; an official plugin must be fully translated. <code>locales/en.json</code> maps each French phrase to its English:</p>
+<pre class="code"><code>{ "Nouvelle partie": "New game", "Il reste {n} jours": "{n} days left" }</code></pre>
+  <ul>
+    <li>Text written in the page (buttons, titles, paragraphs) is translated by itself.</li>
+    <li>Text built in JavaScript or drawn in a canvas goes through <code>ctx.t('Il reste {n} jours', { n: 3 })</code>: one entry for the whole phrase, the variable is put in afterwards.</li>
+    <li>The name and description from <code>plugin.json</code> are translated in <code>en.json</code> too.</li>
+    <li><code>node tools/i18n.js missing &lt;folder&gt;</code> (in the SDK) lists what is missing.</li>
+  </ul>
+
+  <h3 id="ea-tel">The phone</h3>
+  <ul>
+    <li>Put <code>"android"</code> in <code>compatibility</code> and <code>"mobile": true</code>: your plugin also installs in the Android app. NeoDex refuses to install it on a system it does not list.</li>
+    <li>On a phone, everything is done with a finger: buttons of at least 44 px, no hover, no required keyboard shortcut. <code>matchMedia('(pointer: coarse)').matches</code> tells you if the screen is touch.</li>
+    <li>The page takes the whole screen width: test at about 400 px wide.</li>
+    <li>The data is the same as on the PC (sync): a game picks up where the user left off.</li>
+    <li>A plugin with a system side (<code>main</code>) does not work on Android.</li>
+  </ul>
+
+  <h3 id="ea-themes">Themes and scenes</h3>
+  <p>A plugin of <code>type</code> <code>theme</code> has no code: <code>"themes": [{ "id", "name", "hue", "sat", "accent", "light", "third", "style" }]</code> (12 max). It can bring a <code>css</code> file (the scene, the frames) and a <code>taskbar</code> one. These files are cleaned: nothing is loaded from the Internet, images and fonts go inside as <code>data:</code>, 400,000 characters max. In NeoStore it goes in Themes and scenes and is activated in one click.</p>
+
+  <h3 id="ea-tester">Testing your plugin</h3>
+  <ol>
+    <li>Publish a first Release (even <code>0.1.0</code>): your plugin shows up in NeoStore, "To discover" shelf, marked "unverified". That is normal until it is approved.</li>
+    <li>Install it from NeoStore. For each change, raise the version, publish a new Release and update it from its page.</li>
+    <li>Check that it opens, closes, reopens with its data, and uninstalls without errors.</li>
+    <li>Switch NeoDex to English (Settings › Appearance › Language): everything must be translated.</li>
+    <li>Shrink the window (about 420 px wide) and, if it lists <code>android</code>, try it in the Android app.</li>
+    <li>Remove a permission in MENU › PERMISSIONS: your plugin must say so cleanly, without crashing.</li>
+  </ol>
+  <p>To see errors, wrap the calls that can fail (<code>ctx.net</code>, <code>ctx.folder</code>…) in <code>try { … } catch (e) { ctx.ui.toast(e.message, true); }</code>. In the SDK, <code>node tools/sheet-check.js &lt;folder&gt;</code> checks that your page tells the truth: the keys in the README's "Controls" section are read by the code, the announced number of levels is right, and <code>syncMode</code> matches what the plugin keeps.</p>
+
+  <h3 id="ea-publier">Publish</h3>
+  <ol>
+    <li>Raise <code>version</code> in <code>plugin.json</code>.</li>
+    <li>Translate all text in <code>locales/en.json</code>; write <code>README.md</code> and <code>README.en.md</code>.</li>
+    <li>Build the <code>&lt;id&gt;-&lt;version&gt;.zip</code> archive (plugin.json and index.js at the root) and publish a GitHub Release <code>v1.0.0</code> with it.</li>
+    <li>For the official catalogue, get your plugin approved: it receives a signed attestation (ed25519). Without it, it can still be installed but is "unverified".</li>
+  </ol>
+  <p>Add a <code>preview.gif</code> at the root of the repository: NeoStore shows it at the top of your plugin's page.</p>
+  <h3 id="ea-approbation">Approval</h3>
+  <p>An <b>approved</b> plugin installs without warning, shows "✓ approved" in NeoStore and can ask for full access. To ask for it:</p>
+  <ol>
+    <li>Publish your plugin (public repository, <code>neodex-plugin</code> topic, Release with the archive).</li>
+    <li>Open a "Propose a plugin" <i>issue</i> in the <a href="https://github.com/NDesumeur/neodex-store-catalog">catalogue repository</a>, with your repository's link and the reason for each permission.</li>
+    <li>Follow the issue's labels: <code>reçue</code> (received), <code>en cours d'examen</code> (under review), then <code>approuvée</code> (approved) or <code>refusée</code> (refused, with the reason).</li>
+  </ol>
+  <table class="api">
+    <tr><td>Code</td><td>nothing hidden or obfuscated, no code loaded from the Internet, no data sent to a third party without the user knowing</td></tr>
+    <tr><td>Permissions</td><td>the minimum, each one justified; <code>full</code> only if there is no other way</td></tr>
+    <tr><td>Data</td><td>kept in <code>ctx.folder</code>, nothing written elsewhere</td></tr>
+    <tr><td>Dependencies</td><td>declared in <code>dependencies</code>, approved too</td></tr>
+    <tr><td>Content</td><td>you own the rights to the images, texts and fonts; licences included</td></tr>
+    <tr><td>Behaviour</td><td>installs, opens, closes and uninstalls without errors, without slowing NeoDex down</td></tr>
+    <tr><td>Page</td><td><code>compatibility</code> declared, full English, <code>README.md</code> and <code>README.en.md</code>, <code>sheet-check</code> passing</td></tr>
+  </table>
+  <p>The attestation is only valid for one version: each new version is reviewed again (faster if few files changed). In case of a security problem, a plugin can be removed from the catalogue: NeoDex then refuses it, even signed.</p>
+
+  <h3 id="ea-limites">Limits</h3>
+  <table class="api">
+    <tr><td>document</td><td>8 MB</td></tr>
+    <tr><td>file in the folder</td><td>15 MB</td></tr>
+    <tr><td>folder of an unverified plugin</td><td>1 GB</td></tr>
+    <tr><td>document or file name</td><td>80 characters</td></tr>
+    <tr><td>ctx.net</td><td>10 MB (60 MB with binary)</td></tr>
+    <tr><td>widget data, widget picture</td><td>200 KB</td></tr>
+    <tr><td>data widget</td><td>4 lines, 3 buttons</td></tr>
+    <tr><td>remote game</td><td>8 players, 16 KB per message</td></tr>
+    <tr><td>search results</td><td>8</td></tr>
+    <tr><td>focus mode</td><td>4 hours</td></tr>
+    <tr><td>themes per plugin</td><td>12</td></tr>
+    <tr><td>theme CSS</td><td>400,000 characters</td></tr>
+    <tr><td>syncInfo</td><td>300 characters</td></tr>
+  </table>
+
+  </div>
+  <p class="center"><a class="btn" href="https://github.com/NDesumeur/neodex-sdk" data-t="cSdk">Le SDK et sa documentation</a></p>
 </div></section>
 </div>
 
@@ -197,12 +995,12 @@
   <div class="frame prose">
   <h3 data-t="lgSite">Ce site</h3>
   <p data-t="lgS1">Ce site n'utilise ni cookie, ni pub, ni mesure d'audience. Il retient seulement ta langue et ton décor préféré, dans ton navigateur. La démo « Tester en ligne » garde ce que tu y fais dans ton navigateur : rien n'est envoyé.</p>
-  <p data-t="lgS2">Comme pour tout site, l'hébergeur (GitHub) reçoit ton adresse IP pour t'envoyer les pages. Pour afficher la dernière version de NeoDex, la page interroge aussi GitHub. La police d'écriture est servie par le site lui-même : rien ne part chez Google.</p>
+  <p data-t="lgS2">Comme pour tout site, l'hébergeur (GitHub) reçoit ton adresse IP pour t'envoyer les pages. Pour afficher les applis de NeoStore, la page lit aussi le catalogue sur GitHub. La police d'écriture est servie par le site lui-même : rien ne part chez Google.</p>
   <h3 data-t="lgApp">L'appli NeoDex</h3>
-  <p data-t="lgA1">Pas de compte, pas de serveur NeoDex, pas de statistiques ni de télémétrie. Tes données restent sur ton PC, dans <code>%APPDATA%&#92;NeoDex</code>.</p>
-  <p data-t="lgA2">La synchro ne s'allume que si tu la choisis, vers ton propre dossier cloud (OneDrive, Google Drive…). Avec un mot de passe, elle est chiffrée avant de partir.</p>
-  <p data-t="lgA3">NeoDex contacte seulement : GitHub (mises à jour, NeoStore, applis retirées), Ghostery (listes du bloqueur de pub), Open-Meteo (la météo de la ville que tu choisis), Have I Been Pwned (vérifier un mot de passe : seuls 5 caractères de son empreinte partent, jamais le mot de passe), Google Traduction (seulement quand tu traduis une page), Twitch (tes chaînes en direct), Cloudflare WARP ou Tor (seulement VPN allumé), et bien sûr les sites que tu ouvres.</p>
-  <p data-t="lgA4">En cas de plantage, rien n'est envoyé tout seul : NeoDex te propose d'ouvrir toi-même un rapport sur GitHub. Chaque appli de NeoStore déclare ses accès, et l'écran Autorisations montre les sites qu'elle joint.</p>
+  <p data-t="lgA1">Pas de compte, pas de pub, pas de pisteur. Tes données restent sur ton PC, dans <code>%APPDATA%&#92;NeoDex</code>, tant que tu n'utilises pas la synchro.</p>
+  <p data-t="lgA2">La synchro ne s'allume que si tu crées un code de synchro. Elle passe par le serveur de NeoDex (chez Cloudflare) : tout est chiffré sur ton appareil avant de partir, et le serveur ne connaît que l'empreinte de ton code, pas le code. Il voit aussi la version de NeoDex qui envoie, pour compter les versions utilisées. Les amis passent par le même serveur : ton nom d'ami et la liste de tes amis.</p>
+  <p data-t="lgA3">NeoDex contacte seulement : son serveur (seulement avec la synchro ou les amis), GitHub (mises à jour, NeoStore, applis retirées), Ghostery (listes du bloqueur de pub), Open-Meteo (la météo de la ville que tu choisis), Have I Been Pwned (vérifier un mot de passe : seuls 5 caractères de son empreinte partent, jamais le mot de passe), Google Traduction (seulement quand tu traduis une page), Twitch (tes chaînes en direct), Cloudflare WARP ou Tor (seulement VPN allumé), et bien sûr les sites que tu ouvres.</p>
+  <p data-t="lgA4">En cas de plantage, rien n'est envoyé tout seul : NeoDex te propose d'ouvrir toi-même un rapport sur GitHub. Si tu le coches (Paramètres › Données), un rapport anonyme part quand un plugin plante : le nom du plugin, sa version et l'erreur, rien sur toi. Chaque appli de NeoStore déclare ses accès, et l'écran Autorisations montre les sites qu'elle joint.</p>
   <p data-t="lgA5">Pour tout effacer, supprime le dossier <code>%APPDATA%&#92;NeoDex</code> ou désinstalle NeoDex. Une question : <a href="https://github.com/NDesumeur/neodex-releases/issues">écris sur GitHub</a>.</p>
   <h3 data-t="lgLegal">Mentions légales</h3>
   <p data-t="lgL1">Éditeur : Nolan Desumeur (NDesumeur), développeur indépendant, à titre non professionnel. Contact : <a href="https://github.com/NDesumeur/neodex-releases/issues">GitHub</a>.</p>
@@ -224,7 +1022,7 @@
   <div id="sheetBody"></div>
 </dialog>
 
-<script src="i18n.js?v=4.0.3"></script>
-<script src="site.js?v=4.0.3"></script>
+<script src="i18n.js?v=4.1.0"></script>
+<script src="site.js?v=4.1.0"></script>
 </body>
 </html>
